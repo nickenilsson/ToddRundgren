@@ -45,13 +45,15 @@
 -(void)setUrlBackdrop:(NSURL *)urlBackdrop
 {
     _urlBackdrop = urlBackdrop;
-    [self.imageViewBackdrop setImageWithURL:urlBackdrop];
+    UIImage *placeholderImage = [UIImage imageWithColor:[UIColor blackColor]];
+    [self.imageViewBackdrop setImageWithURL:urlBackdrop placeholderImage:placeholderImage];
 }
 
 -(void)setUrlPoster:(NSURL *)urlPoster
 {
     _urlPoster = urlPoster;
-    [self.imageViewPoster setImageWithURL:urlPoster];
+    UIImage *placeholderImage = [UIImage imageWithColor:[UIColor blackColor]];
+    [self.imageViewPoster setImageWithURL:urlPoster placeholderImage:placeholderImage];
 }
 
 -(void)setTitleText:(NSString *)titleText

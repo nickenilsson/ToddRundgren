@@ -11,7 +11,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "UIImage+ImageWithColor.h"
 
-#define HEIGHT_HEADER_MODULE 300
+#define HEIGHT_HEADER_MODULE 350
 
 @interface MediaProfileViewController ()
 
@@ -45,7 +45,6 @@
 }
 -(void)viewDidLayoutSubviews
 {
-    NSLog(@"header frame = %@", NSStringFromCGRect(_headerModuleViewController.view.frame));
 
 }
 -(void) setData:(id)data
@@ -83,7 +82,7 @@
 
     [self.scrollView addSubview:_headerModuleViewController.view];
     
-    [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
+    [self.scrollView setContentSize:CGSizeMake(_headerModuleViewController.view.frame.size.width, _headerModuleViewController.view.frame.size.height)];
 
 }
 

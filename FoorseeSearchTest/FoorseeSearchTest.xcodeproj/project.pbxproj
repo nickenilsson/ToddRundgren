@@ -25,6 +25,8 @@
 		5034D0F518FBD04B0023A02C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5034D0D918FBD04B0023A02C /* CoreData.framework */; };
 		5034D0FD18FBD04B0023A02C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5034D0FB18FBD04B0023A02C /* InfoPlist.strings */; };
 		5034D0FF18FBD04B0023A02C /* FoorseeSearchTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5034D0FE18FBD04B0023A02C /* FoorseeSearchTestTests.m */; };
+		5089C480190FC5D900A5BA9A /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5089C47E190FC5D900A5BA9A /* RootViewController.m */; };
+		5089C481190FC5D900A5BA9A /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5089C47F190FC5D900A5BA9A /* RootViewController.xib */; };
 		508A21C218FBDD1C006BBFEE /* ImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 508A21C118FBDD1C006BBFEE /* ImageCell.m */; };
 		508A21C418FBDD35006BBFEE /* ImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 508A21C318FBDD35006BBFEE /* ImageCell.xib */; };
 		508A21EB18FBE04D006BBFEE /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 508A21C718FBE04D006BBFEE /* AFHTTPRequestOperation.m */; };
@@ -95,6 +97,10 @@
 		5034D0FA18FBD04B0023A02C /* FoorseeSearchTestTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FoorseeSearchTestTests-Info.plist"; sourceTree = "<group>"; };
 		5034D0FC18FBD04B0023A02C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5034D0FE18FBD04B0023A02C /* FoorseeSearchTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FoorseeSearchTestTests.m; sourceTree = "<group>"; };
+		5089C47D190FC5D900A5BA9A /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		5089C47E190FC5D900A5BA9A /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		5089C47F190FC5D900A5BA9A /* RootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootViewController.xib; sourceTree = "<group>"; };
+		5089C482190FCBC500A5BA9A /* ContentViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentViewControllerDelegate.h; sourceTree = "<group>"; };
 		508A21C018FBDD1C006BBFEE /* ImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCell.h; sourceTree = "<group>"; };
 		508A21C118FBDD1C006BBFEE /* ImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCell.m; sourceTree = "<group>"; };
 		508A21C318FBDD35006BBFEE /* ImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageCell.xib; sourceTree = "<group>"; };
@@ -256,6 +262,10 @@
 				5011DC2F19092E05007CA515 /* MediaProfileViewController.h */,
 				5011DC3019092E05007CA515 /* MediaProfileViewController.m */,
 				5011DC3119092E05007CA515 /* MediaProfileViewController.xib */,
+				5089C47D190FC5D900A5BA9A /* RootViewController.h */,
+				5089C47E190FC5D900A5BA9A /* RootViewController.m */,
+				5089C47F190FC5D900A5BA9A /* RootViewController.xib */,
+				5089C482190FCBC500A5BA9A /* ContentViewControllerDelegate.h */,
 			);
 			path = FoorseeSearchTest;
 			sourceTree = "<group>";
@@ -429,6 +439,7 @@
 			files = (
 				50B1F47A190A899D00DE3FC3 /* SimilarContentModuleViewController.xib in Resources */,
 				5034D0E018FBD04B0023A02C /* InfoPlist.strings in Resources */,
+				5089C481190FC5D900A5BA9A /* RootViewController.xib in Resources */,
 				5011DC3319092E05007CA515 /* MediaProfileViewController.xib in Resources */,
 				508A21C418FBDD35006BBFEE /* ImageCell.xib in Resources */,
 				50A810C618FE77B4004FDF52 /* FilterSectionHeader.xib in Resources */,
@@ -466,6 +477,7 @@
 				5011DC291909002D007CA515 /* MediaProfileNavigationController.m in Sources */,
 				508A21F318FBE04D006BBFEE /* AFURLSessionManager.m in Sources */,
 				50A8A6FF18FD238E008D2FF8 /* FilterCell.m in Sources */,
+				5089C480190FC5D900A5BA9A /* RootViewController.m in Sources */,
 				508A21F118FBE04D006BBFEE /* AFURLRequestSerialization.m in Sources */,
 				5034D0E618FBD04B0023A02C /* AppDelegate.m in Sources */,
 				50BBCDB2190F98D20007941A /* HeaderModuleViewController.m in Sources */,

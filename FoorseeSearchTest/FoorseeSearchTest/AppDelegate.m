@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "SearchViewController.h"
+#import "RootViewController.h"
 
 
 @implementation AppDelegate
@@ -21,7 +21,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
-    self.window.rootViewController = [[SearchViewController alloc] init];
+    self.window.rootViewController = [[RootViewController alloc] init];
     [self.window makeKeyAndVisible];
 
     return YES;

@@ -17,6 +17,7 @@
 #import "UIColor+ColorFromHex.h"
 #import "FilterFlowLayout.h"
 #import "MediaProfileNavigationController.h"
+#import "ContentViewControllerDelegate.h"
 
 #define NAVIGATION_CONTROLLER_WIDTH_FRACTION 0.8f
 #define DURATION_NAVIGATION_CONTROLLER_SLIDE_IN 0.3f
@@ -46,8 +47,7 @@ static NSString * const filterSectionHeaderIdentifier = @"sectionFilterHeaderIde
     MediaProfileNavigationController *_mediaProfileNavigationController;
     NSLayoutConstraint *_MediaProfileLeadingConstraint;
     UITapGestureRecognizer *_tapToCloseContentProfile;
-    NSLayoutConstraint *_profileViewClosed;
-    NSLayoutConstraint *_profileViewOpened;
+    
 
 }
 
@@ -135,8 +135,8 @@ static NSString * const filterSectionHeaderIdentifier = @"sectionFilterHeaderIde
         [self updateSearchRequest];
     }else if ([collectionView isEqual:_resultsCollectionView]){
         NSString *foorseeId = _resultsDataSource.items[indexPath.item][@"id"];
-        [self addMediaProfileNavigationController];
-        [_mediaProfileNavigationController presentMediaProfileForItemWithFoorseeId:foorseeId];
+        
+        [self.delegate itemSelectedWithFoorseeIdNumber:foorseeId];
     }
 }
 
@@ -175,6 +175,7 @@ static NSString * const filterSectionHeaderIdentifier = @"sectionFilterHeaderIde
     } completion:nil];
     
 }
+
 -(void) tapToCloseContentProfile:(UITapGestureRecognizer *) sender
 {
     CGPoint touchLocation = [sender locationInView:self.view];

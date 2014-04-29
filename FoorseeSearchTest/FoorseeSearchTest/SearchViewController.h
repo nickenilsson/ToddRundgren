@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ContentViewControllerDelegate;
+
 @interface SearchViewController : UIViewController
+
+@property (weak, nonatomic) id<ContentViewControllerDelegate> delegate;
 
 @end
