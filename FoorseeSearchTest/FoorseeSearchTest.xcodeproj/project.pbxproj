@@ -48,6 +48,12 @@
 		508A21FB18FBE04D006BBFEE /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 508A21EA18FBE04D006BBFEE /* UIWebView+AFNetworking.m */; };
 		508A21FE18FBE0B1006BBFEE /* FoorseeHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 508A21FD18FBE0B1006BBFEE /* FoorseeHTTPClient.m */; };
 		508DFC0819067FCA00D68753 /* FilterFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 508DFC0719067FCA00D68753 /* FilterFlowLayout.m */; };
+		5099470619139503000762D3 /* DiscoverViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 5099470519139503000762D3 /* DiscoverViewHeader.m */; };
+		509947081913956F000762D3 /* DiscoverViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 509947071913956F000762D3 /* DiscoverViewHeader.xib */; };
+		5099470B1913B9A9000762D3 /* WebViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5099470A1913B9A9000762D3 /* WebViewCell.m */; };
+		5099470D1913B9C1000762D3 /* WebViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5099470C1913B9C1000762D3 /* WebViewCell.xib */; };
+		50A2F0CA1910E01E00BE6D0A /* DiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A2F0C81910E01E00BE6D0A /* DiscoverViewController.m */; };
+		50A2F0CB1910E01E00BE6D0A /* DiscoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50A2F0C91910E01E00BE6D0A /* DiscoverViewController.xib */; };
 		50A810C418FE77A3004FDF52 /* FilterSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A810C318FE77A3004FDF52 /* FilterSectionHeader.m */; };
 		50A810C618FE77B4004FDF52 /* FilterSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50A810C518FE77B4004FDF52 /* FilterSectionHeader.xib */; };
 		50A810C918FE7ECD004FDF52 /* UIColor+ColorFromHex.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A810C818FE7ECD004FDF52 /* UIColor+ColorFromHex.m */; };
@@ -144,6 +150,15 @@
 		508A21FD18FBE0B1006BBFEE /* FoorseeHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoorseeHTTPClient.m; sourceTree = "<group>"; };
 		508DFC0619067FCA00D68753 /* FilterFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterFlowLayout.h; sourceTree = "<group>"; };
 		508DFC0719067FCA00D68753 /* FilterFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterFlowLayout.m; sourceTree = "<group>"; };
+		5099470419139503000762D3 /* DiscoverViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoverViewHeader.h; sourceTree = "<group>"; };
+		5099470519139503000762D3 /* DiscoverViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscoverViewHeader.m; sourceTree = "<group>"; };
+		509947071913956F000762D3 /* DiscoverViewHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscoverViewHeader.xib; sourceTree = "<group>"; };
+		509947091913B9A9000762D3 /* WebViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewCell.h; sourceTree = "<group>"; };
+		5099470A1913B9A9000762D3 /* WebViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewCell.m; sourceTree = "<group>"; };
+		5099470C1913B9C1000762D3 /* WebViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewCell.xib; sourceTree = "<group>"; };
+		50A2F0C71910E01E00BE6D0A /* DiscoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoverViewController.h; sourceTree = "<group>"; };
+		50A2F0C81910E01E00BE6D0A /* DiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscoverViewController.m; sourceTree = "<group>"; };
+		50A2F0C91910E01E00BE6D0A /* DiscoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscoverViewController.xib; sourceTree = "<group>"; };
 		50A810C218FE77A3004FDF52 /* FilterSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterSectionHeader.h; sourceTree = "<group>"; };
 		50A810C318FE77A3004FDF52 /* FilterSectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterSectionHeader.m; sourceTree = "<group>"; };
 		50A810C518FE77B4004FDF52 /* FilterSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterSectionHeader.xib; sourceTree = "<group>"; };
@@ -266,6 +281,15 @@
 				5089C47E190FC5D900A5BA9A /* RootViewController.m */,
 				5089C47F190FC5D900A5BA9A /* RootViewController.xib */,
 				5089C482190FCBC500A5BA9A /* ContentViewControllerDelegate.h */,
+				50A2F0C71910E01E00BE6D0A /* DiscoverViewController.h */,
+				50A2F0C81910E01E00BE6D0A /* DiscoverViewController.m */,
+				50A2F0C91910E01E00BE6D0A /* DiscoverViewController.xib */,
+				5099470419139503000762D3 /* DiscoverViewHeader.h */,
+				5099470519139503000762D3 /* DiscoverViewHeader.m */,
+				509947071913956F000762D3 /* DiscoverViewHeader.xib */,
+				509947091913B9A9000762D3 /* WebViewCell.h */,
+				5099470A1913B9A9000762D3 /* WebViewCell.m */,
+				5099470C1913B9C1000762D3 /* WebViewCell.xib */,
 			);
 			path = FoorseeSearchTest;
 			sourceTree = "<group>";
@@ -443,8 +467,11 @@
 				5011DC3319092E05007CA515 /* MediaProfileViewController.xib in Resources */,
 				508A21C418FBDD35006BBFEE /* ImageCell.xib in Resources */,
 				50A810C618FE77B4004FDF52 /* FilterSectionHeader.xib in Resources */,
+				509947081913956F000762D3 /* DiscoverViewHeader.xib in Resources */,
 				5034D0EB18FBD04B0023A02C /* Images.xcassets in Resources */,
+				50A2F0CB1910E01E00BE6D0A /* DiscoverViewController.xib in Resources */,
 				50DDA00318FD5DA000D75E84 /* SearchViewController.xib in Resources */,
+				5099470D1913B9C1000762D3 /* WebViewCell.xib in Resources */,
 				50BBCDB3190F98D20007941A /* HeaderModuleViewController.xib in Resources */,
 				50A8A70118FD23A8008D2FF8 /* FilterCell.xib in Resources */,
 			);
@@ -471,11 +498,13 @@
 				508A21EB18FBE04D006BBFEE /* AFHTTPRequestOperation.m in Sources */,
 				508A21F718FBE04D006BBFEE /* UIButton+AFNetworking.m in Sources */,
 				508A21EE18FBE04D006BBFEE /* AFNetworkReachabilityManager.m in Sources */,
+				5099470619139503000762D3 /* DiscoverViewHeader.m in Sources */,
 				50A810C418FE77A3004FDF52 /* FilterSectionHeader.m in Sources */,
 				50DD9FFE18FD5BF200D75E84 /* ArrayDataSource.m in Sources */,
 				508A21F918FBE04D006BBFEE /* UIProgressView+AFNetworking.m in Sources */,
 				5011DC291909002D007CA515 /* MediaProfileNavigationController.m in Sources */,
 				508A21F318FBE04D006BBFEE /* AFURLSessionManager.m in Sources */,
+				5099470B1913B9A9000762D3 /* WebViewCell.m in Sources */,
 				50A8A6FF18FD238E008D2FF8 /* FilterCell.m in Sources */,
 				5089C480190FC5D900A5BA9A /* RootViewController.m in Sources */,
 				508A21F118FBE04D006BBFEE /* AFURLRequestSerialization.m in Sources */,
@@ -495,6 +524,7 @@
 				508A21EC18FBE04D006BBFEE /* AFHTTPRequestOperationManager.m in Sources */,
 				508A21EF18FBE04D006BBFEE /* AFSecurityPolicy.m in Sources */,
 				508A21FB18FBE04D006BBFEE /* UIWebView+AFNetworking.m in Sources */,
+				50A2F0CA1910E01E00BE6D0A /* DiscoverViewController.m in Sources */,
 				5034D0E218FBD04B0023A02C /* main.m in Sources */,
 				508A21ED18FBE04D006BBFEE /* AFHTTPSessionManager.m in Sources */,
 				508A21F518FBE04D006BBFEE /* UIActivityIndicatorView+AFNetworking.m in Sources */,

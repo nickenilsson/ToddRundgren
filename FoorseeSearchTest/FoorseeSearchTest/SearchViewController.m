@@ -21,17 +21,18 @@
 
 #define NAVIGATION_CONTROLLER_WIDTH_FRACTION 0.8f
 #define DURATION_NAVIGATION_CONTROLLER_SLIDE_IN 0.3f
+#define NUMBER_OF_RESULT_ITEMS_ACROSS_PORTRAIT 2
+#define NUMBER_OF_RESULT_ITEMS_ACROSS_LANDSCAPE 3
 
 static NSString * const imageCellIdentifier = @"imageCellIdentifier";
 static NSString * const filterCellIdentifier = @"filterCellIdentifier";
 static NSString * const filterSectionHeaderIdentifier = @"sectionFilterHeaderIdentifier";
 
-@interface SearchViewController () <UISearchBarDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ForeseeHTTPClientDelegate, UIGestureRecognizerDelegate>
+@interface SearchViewController () <UISearchBarDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *filterCollectionView;
 @property (weak, nonatomic) IBOutlet UICollectionView *resultsCollectionView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
-
 
 
 @end
@@ -47,7 +48,8 @@ static NSString * const filterSectionHeaderIdentifier = @"sectionFilterHeaderIde
     MediaProfileNavigationController *_mediaProfileNavigationController;
     NSLayoutConstraint *_MediaProfileLeadingConstraint;
     UITapGestureRecognizer *_tapToCloseContentProfile;
-    
+    UICollectionViewFlowLayout *_collectionViewLayoutResults;
+    UICollectionViewFlowLayout *_collectionViewLayoutFilters;
 
 }
 
@@ -66,9 +68,7 @@ static NSString * const filterSectionHeaderIdentifier = @"sectionFilterHeaderIde
     self.searchBar.delegate = self;
         
     _foorseeSessionManager = [FoorseeHTTPClient sharedForeseeHTTPClient];
-    _foorseeSessionManager.delegate = self;
-    
-    [_foorseeSessionManager getSearchResultsForParameters:nil];
+    [self updateSearchRequest];
     
     [self.resultsCollectionView registerNib:[ImageCell nib] forCellWithReuseIdentifier:imageCellIdentifier];
     CellConfigureBlock imageCellConfigurationBlock = ^(ImageCell *cell, NSDictionary *movie){
@@ -81,14 +81,18 @@ static NSString * const filterSectionHeaderIdentifier = @"sectionFilterHeaderIde
     _resultsDataSource = [[ArrayDataSource alloc] initWithItems:nil cellIdentifier:imageCellIdentifier configureCellBlock: imageCellConfigurationBlock];
     self.resultsCollectionView.dataSource = _resultsDataSource;
     self.resultsCollectionView.delegate = self;
+
+    _collectionViewLayoutResults = (UICollectionViewFlowLayout *)self.resultsCollectionView.collectionViewLayout;
+    _collectionViewLayoutResults.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5);
+    _collectionViewLayoutResults.minimumInteritemSpacing = 5;
+    _collectionViewLayoutResults.minimumLineSpacing = 5;
     
     
     [self.filterCollectionView registerNib:[FilterCell nib] forCellWithReuseIdentifier:filterCellIdentifier];
     [self.filterCollectionView registerNib:[FilterSectionHeader nib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:filterSectionHeaderIdentifier];
     self.filterCollectionView.dataSource = self;
     self.filterCollectionView.delegate = self;
-    
-    _tapToCloseContentProfile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToCloseContentProfile:)];
+    _collectionViewLayoutFilters = (UICollectionViewFlowLayout *) self.filterCollectionView.collectionViewLayout;
     
 }
 
@@ -102,7 +106,29 @@ static NSString * const filterSectionHeaderIdentifier = @"sectionFilterHeaderIde
     NSArray *terms =_filters[section][@"terms"];
     return terms.count;
 }
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([collectionView isEqual:self.filterCollectionView]) {
+        return _collectionViewLayoutFilters.itemSize;
+    }
+    
+    CGFloat availableWidth = self.resultsCollectionView.bounds.size.width - _collectionViewLayoutFilters.sectionInset.left - _collectionViewLayoutFilters.sectionInset.right;
+    
+    NSInteger numberOfItemsAcross;
+    UIDeviceOrientation deviceOrientation = [[UIDevice currentDevice] orientation];
+    if (UIDeviceOrientationIsLandscape(deviceOrientation)) {
+        numberOfItemsAcross = NUMBER_OF_RESULT_ITEMS_ACROSS_LANDSCAPE;
+    }else{
+        numberOfItemsAcross = NUMBER_OF_RESULT_ITEMS_ACROSS_PORTRAIT;
+    }
 
+    CGFloat availableWidthExcludingSpacing = floorf(availableWidth - ((numberOfItemsAcross - 1) * _collectionViewLayoutResults.minimumInteritemSpacing));
+    
+    CGFloat itemWidth = floorf(availableWidthExcludingSpacing / numberOfItemsAcross);
+    CGFloat itemHeight = itemWidth * 1.35f;
+    
+    return CGSizeMake(itemWidth, itemHeight);
+}
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
@@ -135,7 +161,6 @@ static NSString * const filterSectionHeaderIdentifier = @"sectionFilterHeaderIde
         [self updateSearchRequest];
     }else if ([collectionView isEqual:_resultsCollectionView]){
         NSString *foorseeId = _resultsDataSource.items[indexPath.item][@"id"];
-        
         [self.delegate itemSelectedWithFoorseeIdNumber:foorseeId];
     }
 }
@@ -148,52 +173,6 @@ static NSString * const filterSectionHeaderIdentifier = @"sectionFilterHeaderIde
     sectionHeader.label.text = filterSectionName;
     
     return sectionHeader;
-}
-
--(void) addMediaProfileNavigationController
-{
-    _mediaProfileNavigationController = [[MediaProfileNavigationController alloc]init];
-    [self addChildViewController:_mediaProfileNavigationController];
-    [self.view addSubview:_mediaProfileNavigationController.view];
-    
-    _mediaProfileNavigationController.view.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_mediaProfileNavigationController.view attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_resultsCollectionView attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
-    
-    _MediaProfileLeadingConstraint = [NSLayoutConstraint constraintWithItem:_mediaProfileNavigationController.view attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1 constant:_mediaProfileNavigationController.view.frame.size.width];
-    
-    [self.view addConstraint:_MediaProfileLeadingConstraint];
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[navigationController]|" options:0 metrics:nil views:@{@"navigationController": _mediaProfileNavigationController.view}]];
-    
-    [self.view layoutIfNeeded];
-    
-    [UIView animateWithDuration:DURATION_NAVIGATION_CONTROLLER_SLIDE_IN delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        _MediaProfileLeadingConstraint.constant = 0;
-        [self.view layoutIfNeeded];
-        [self.view addGestureRecognizer:_tapToCloseContentProfile];
-    } completion:nil];
-    
-}
-
--(void) tapToCloseContentProfile:(UITapGestureRecognizer *) sender
-{
-    CGPoint touchLocation = [sender locationInView:self.view];
-    if (!CGRectContainsPoint(_mediaProfileNavigationController.view.frame, touchLocation)) {
-       
-        [self.view removeGestureRecognizer:_tapToCloseContentProfile];
-        
-        [UIView animateWithDuration:DURATION_NAVIGATION_CONTROLLER_SLIDE_IN delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            _MediaProfileLeadingConstraint.constant = _mediaProfileNavigationController.view.frame.size.width;
-            [self.view layoutIfNeeded];
-        } completion:^(BOOL finished) {
-            [_mediaProfileNavigationController removeFromParentViewController];
-            [_mediaProfileNavigationController.view removeFromSuperview];
-            _mediaProfileNavigationController = nil;
-        }];
-        
-    }
-    
 }
 
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
@@ -239,34 +218,21 @@ static NSString * const filterSectionHeaderIdentifier = @"sectionFilterHeaderIde
         [tags setString:@""];
     }
     NSDictionary *parameters = @{@"q": query, @"tags":tags};
-    [_foorseeSessionManager getSearchResultsForParameters:parameters];
+    [_foorseeSessionManager GET:@"search/default.json" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        _resultsDataSource.items = responseObject[@"result"][@"movies"];
+        
+        _filters = responseObject[@"availableToQuery"][@"tags"];
+        
+        [self.filterCollectionView reloadData];
+        [self.resultsCollectionView reloadData];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"Failure: %@", [error localizedDescription]);
+    }];
 }
 
--(void)foorseeHTTPClient:(FoorseeHTTPClient *)client gotSearchResult:(id)responseObject
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    _resultsDataSource.items = responseObject[@"result"][@"movies"];
-    
-    _filters = responseObject[@"availableToQuery"][@"tags"];
-    
-    [self.filterCollectionView reloadData];
-    [self.resultsCollectionView reloadData];
-    
+    [_collectionViewLayoutResults invalidateLayout];
 }
-
--(void)foorseeHTTPClient:(FoorseeHTTPClient *)client failedWithError:(NSError *)error
-{
-    NSLog(@"Failed: %@", [error localizedDescription]);
-}
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-//-(BOOL)shouldAutorotate
-//{
-//    return YES;
-//}
-
-
 
 @end

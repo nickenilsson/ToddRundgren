@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="vJ3-no-ugA" customClass="WebViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="627" height="351"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="627" height="351"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hfn-LF-cr7">
+                        <rect key="frame" x="0.0" y="0.0" width="627" height="351"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </webView>
+                    <view alpha="0.39999999999999963" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Khg-p4-bgh">
+                        <rect key="frame" x="0.0" y="251" width="627" height="100"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="h3f-qc-lKl">
+                        <rect key="frame" x="0.0" y="251" width="100" height="100"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="100" id="Lf3-OD-EBC"/>
+                            <constraint firstAttribute="height" constant="100" id="Z0L-5b-FQB"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="h3f-qc-lKl" secondAttribute="bottom" id="5hw-z3-oYj"/>
+                <constraint firstAttribute="bottom" secondItem="hfn-LF-cr7" secondAttribute="bottom" id="AQZ-b2-8cz"/>
+                <constraint firstItem="hfn-LF-cr7" firstAttribute="leading" secondItem="vJ3-no-ugA" secondAttribute="leading" id="Cmr-ti-4C1"/>
+                <constraint firstItem="hfn-LF-cr7" firstAttribute="top" secondItem="vJ3-no-ugA" secondAttribute="top" id="KcN-T3-bBT"/>
+                <constraint firstItem="h3f-qc-lKl" firstAttribute="leading" secondItem="vJ3-no-ugA" secondAttribute="leading" id="LoN-ns-5h3"/>
+                <constraint firstItem="Khg-p4-bgh" firstAttribute="leading" secondItem="vJ3-no-ugA" secondAttribute="leading" id="UsW-Xw-jJ6"/>
+                <constraint firstAttribute="trailing" secondItem="hfn-LF-cr7" secondAttribute="trailing" id="oiD-kH-06h"/>
+                <constraint firstAttribute="bottom" secondItem="Khg-p4-bgh" secondAttribute="bottom" id="sC4-wX-6Uz"/>
+                <constraint firstItem="h3f-qc-lKl" firstAttribute="height" secondItem="Khg-p4-bgh" secondAttribute="height" id="vTZ-t0-OP9"/>
+                <constraint firstAttribute="trailing" secondItem="Khg-p4-bgh" secondAttribute="trailing" id="wEG-6r-V8h"/>
+            </constraints>
+            <size key="customSize" width="627" height="351"/>
+            <connections>
+                <outlet property="webView" destination="hfn-LF-cr7" id="wom-VY-HrJ"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+</document>

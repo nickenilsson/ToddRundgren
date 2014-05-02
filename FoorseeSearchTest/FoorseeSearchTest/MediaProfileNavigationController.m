@@ -10,7 +10,7 @@
 #import "FoorseeHTTPClient.h"
 #import "MediaProfileViewController.h"
 
-@interface MediaProfileNavigationController () <MediaProfileDelegate, ForeseeHTTPClientDelegate>
+@interface MediaProfileNavigationController () <MediaProfileDelegate>
 
 @end
 
@@ -31,7 +31,6 @@
 {
     [super viewDidLoad];
     _foorseeSessionManager = [FoorseeHTTPClient sharedForeseeHTTPClient];
-    _foorseeSessionManager.delegate = self;
     self.navigationBarHidden = YES;
 
 }

@@ -10,6 +10,7 @@
 #import "SearchViewController.h"
 #import "ContentViewControllerDelegate.h"
 #import "MediaProfileNavigationController.h"
+#import "DiscoverViewController.h"
 
 #define PROFILE_VIEW_WIDTH_FRACTION 0.75f
 #define DURATION_NAVIGATION_CONTROLLER_SLIDE_IN 0.3f
@@ -46,6 +47,7 @@
     // Do any additional setup after loading the view from its nib.
     _activeViewController = [[SearchViewController alloc]init];
     [self addChildViewController:_activeViewController];
+    [_activeViewController didMoveToParentViewController:self];
     [self.contentViewPlaceholder addSubview:_activeViewController.view];
     _activeViewController.view.frame = self.contentViewPlaceholder.bounds;
     _activeViewController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
@@ -63,14 +65,54 @@
 }
 
 - (IBAction)tappedButtonToGoToSearchView:(id)sender {
+    if (![_activeViewController isKindOfClass:[SearchViewController class]]) {
+        
+        if (_mediaProfileNavigationController != nil) {
+            [self closeProfileViewNavigationControllerAnimated:NO];
+        }
+        
+        [_activeViewController removeFromParentViewController];
+        [_activeViewController.view removeFromSuperview];
+        [self addContentViewController:[[SearchViewController alloc]init]];
+        SearchViewController *activeViewController = (SearchViewController *) _activeViewController;
+        activeViewController.delegate = self;
+        
+    }
+}
+
+- (IBAction)tappedButtonToGoToDiscoverView:(id)sender
+{
+    if (![_activeViewController isKindOfClass:[DiscoverViewController class]]) {
+        
+        if (_mediaProfileNavigationController != nil) {
+            [self closeProfileViewNavigationControllerAnimated:NO];
+        }
+        
+        [_activeViewController removeFromParentViewController];
+        [_activeViewController.view removeFromSuperview];
+        [self addContentViewController:[[DiscoverViewController alloc]init]];
+        
+        DiscoverViewController *activeViewController = (DiscoverViewController *)_activeViewController;
+        activeViewController.delegate = self;
+        
+        
+    }
+}
+
+- (IBAction)tappedButtonToGoToProfileView:(id)sender
+{
     
 }
 
-- (IBAction)tappedButtonToGoToDiscoverView:(id)sender {
-    
-}
 
-- (IBAction)tappedButtonToGoToProfileView:(id)sender {
+-(void) addContentViewController:(UIViewController *)viewController
+{
+    [self addChildViewController:viewController];
+    [viewController didMoveToParentViewController:self];
+    [self.contentViewPlaceholder addSubview:viewController.view];
+    viewController.view.frame = self.contentViewPlaceholder.bounds;
+    viewController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+    _activeViewController = viewController;
     
 }
 
@@ -84,7 +126,9 @@
 {
     _mediaProfileNavigationController = [[MediaProfileNavigationController alloc]init];
     [self addChildViewController:_mediaProfileNavigationController];
+    [_mediaProfileNavigationController didMoveToParentViewController:self];
     [self.view addSubview:_mediaProfileNavigationController.view];
+    [self.view bringSubviewToFront:_mediaProfileNavigationController.view];
     
     _mediaProfileNavigationController.view.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -111,7 +155,14 @@
     if (!CGRectContainsPoint(_mediaProfileNavigationController.view.frame, touchLocation)) {
         
         [self.view removeGestureRecognizer:_tapToCloseGestureRecognizer];
+        [self closeProfileViewNavigationControllerAnimated:YES];
         
+        
+    }
+}
+-(void) closeProfileViewNavigationControllerAnimated:(BOOL) shouldAnimate
+{
+    if (shouldAnimate) {
         [UIView animateWithDuration:DURATION_NAVIGATION_CONTROLLER_SLIDE_IN delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             _MediaProfileLeadingConstraint.constant = _mediaProfileNavigationController.view.frame.size.width;
             [self.view layoutIfNeeded];
@@ -120,6 +171,11 @@
             [_mediaProfileNavigationController.view removeFromSuperview];
             _mediaProfileNavigationController = nil;
         }];
-        
-    }}
+    }else{
+        [_mediaProfileNavigationController removeFromParentViewController];
+        [_mediaProfileNavigationController.view removeFromSuperview];
+        _mediaProfileNavigationController = nil;
+    }
+    
+}
 @end

@@ -38,32 +38,6 @@ static NSString *const base_url = @"http://client_abstraction_api.moc/v1/X62G2eU
     return self;
 }
 
--(void) getSearchResultsForParameters:(NSDictionary *) parameters
-{
-    [self GET:@"search/default.json" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-        if ([self.delegate respondsToSelector:@selector(foorseeHTTPClient:gotSearchResult:)]){
-            [self.delegate foorseeHTTPClient:self gotSearchResult:responseObject];
-        }
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        if ([self.delegate respondsToSelector:@selector(foorseeHTTPClient:failedWithError:)]) {
-            [self.delegate foorseeHTTPClient:self failedWithError:error];
-        }
-    }];
-}
-
--(void) getMediaProfileForIdNumber:(NSString *)idNumber
-{
-    [self GET:[NSString stringWithFormat:@"movies/id/%@.json",idNumber] parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-        if ([self.delegate respondsToSelector:@selector(foorseeHTTPClient:gotMovieProfile:)]){
-            [self.delegate foorseeHTTPClient:self gotMovieProfile:responseObject];
-        }
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        if ([self.delegate respondsToSelector:@selector(foorseeHTTPClient:failedWithError:)]) {
-            [self.delegate foorseeHTTPClient:self failedWithError:error];
-        }
-    }];
-}
-
 
 
 

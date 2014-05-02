@@ -64,6 +64,7 @@
 {
     _headerModuleViewController = [[HeaderModuleViewController alloc] init];
     [self addChildViewController:_headerModuleViewController];
+    [_headerModuleViewController didMoveToParentViewController:self];
     
     _headerModuleViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, HEIGHT_HEADER_MODULE);
     
