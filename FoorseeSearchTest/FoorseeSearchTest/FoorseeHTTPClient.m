@@ -29,6 +29,7 @@ static NSString *const base_url = @"http://client_abstraction_api.moc/v1/X62G2eU
 - (instancetype)initWithBaseURL:(NSURL *)url
 {
     self = [super initWithBaseURL:url];
+
     
     if (self) {
         self.responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions: NSJSONReadingMutableContainers];

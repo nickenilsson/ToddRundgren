@@ -12,8 +12,8 @@
 #import "MediaProfileNavigationController.h"
 #import "DiscoverViewController.h"
 
-#define PROFILE_VIEW_WIDTH_FRACTION 0.75f
-#define DURATION_NAVIGATION_CONTROLLER_SLIDE_IN 0.3f
+#define PROFILE_VIEW_WIDTH_FRACTION 0.8f
+#define DURATION_NAVIGATION_CONTROLLER_SLIDE_IN 0.25f
 
 @interface RootViewController () <ContentViewControllerDelegate>
 

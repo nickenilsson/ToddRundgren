@@ -10,18 +10,18 @@
 #import "FoorseeHTTPClient.h"
 #import "ContentViewControllerDelegate.h"
 #import "ImageCell.h"
-#import "DiscoverViewHeader.h"
 #import "WebViewCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "UIImage+ImageWithColor.h"
 #import "ContentViewControllerDelegate.h"
+
 
 #define NUMBER_OF_THUMBNAILS_IN_WIDTH_PORTRAIT 2
 #define NUMBER_OF_THUMBNAILS_IN_WIDTH_LANDSCAPE 4
 #define NUMBER_OF_BANNERS_IN_WIDTH_PORTRAIT 1
 #define NUMBER_OF_BANNERS_IN_WIDTH_LANDSCAPE 2
 #define BANNER_HEIGHT_TO_WIDTH_CONSTANT 0.6f
-#define THUMBNAIL_HEIGHT_TO_WIDTH_CONSTANT 1.35f
+#define THUMBNAIL_HEIGHT_TO_WIDTH_CONSTANT 1.4f
 
 static NSString * const imageCellIdentifier = @"imageCellIdentifier";
 static NSString * const headerViewIdentifier = @"headerViewIdentifier";
@@ -72,7 +72,7 @@ typedef enum : NSUInteger {
 
 
     [self.collectionView registerNib:[ImageCell nib] forCellWithReuseIdentifier:imageCellIdentifier];
-    [self.collectionView registerNib:[DiscoverViewHeader nib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerViewIdentifier];
+    [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerViewIdentifier];
     [self.collectionView registerNib:[WebViewCell nib] forCellWithReuseIdentifier:webViewCellIdentifier];
     
     
@@ -130,9 +130,22 @@ typedef enum : NSUInteger {
 
 -(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    DiscoverViewHeader *header = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerViewIdentifier forIndexPath:indexPath];
-    [header.imageView setImageWithURL:_urlBackgroundImage];
+    UICollectionReusableView *header = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerViewIdentifier forIndexPath:indexPath];
+    header.backgroundColor = [UIColor clearColor];
+    
     return header;
+}
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
+{
+    CGFloat headerWidth = self.collectionView.bounds.size.width - _collectionViewLayout.sectionInset.left - _collectionViewLayout.sectionInset.right;
+    CGFloat headerHeight;
+    UIDeviceOrientation deviceOrientation = [[UIDevice currentDevice] orientation];
+    if (UIDeviceOrientationIsLandscape(deviceOrientation)) {
+        headerHeight = 400;
+    }else{
+        headerHeight = 200;
+    }
+    return CGSizeMake(headerWidth, headerHeight);
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -152,17 +165,13 @@ typedef enum : NSUInteger {
         
     }
     else if ([self typeOfItemAtIndexPath:indexPath] == BANNER){
-        WebViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:webViewCellIdentifier forIndexPath:indexPath];
+        ImageCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:imageCellIdentifier forIndexPath:indexPath];
+        cell.image.image = nil;
+        cell.backgroundColor = [UIColor blueColor];
         
-        NSDictionary *bannerItem = _bannerItems[contentListIndex.integerValue];
-        
-        NSURL *urlGif = [NSURL URLWithString:bannerItem[@"backgroundImage"][@"url"]];
-        
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:urlGif cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:10];
-        [request setHTTPMethod:@"GET"];
-        [cell.webView loadRequest:request];
         return cell;
     }
+    NSLog(@"Error: unknown cell type");
     return nil;
 }
 
@@ -224,13 +233,15 @@ typedef enum : NSUInteger {
     NSDictionary *layoutItem = _layoutItems[indexPath.item];
     NSNumber *contentListIndex = layoutItem[@"contentListIndex"];
     NSDictionary *clickedItem;
-    
+    NSString *foorseeId;
     if ([self typeOfItemAtIndexPath:indexPath] == THUMBNAIL) {
         clickedItem = _thumbnailItems[contentListIndex.integerValue];
+        foorseeId = clickedItem[@"id"];
     }else{
         clickedItem = _bannerItems[contentListIndex.integerValue];
+        foorseeId = clickedItem[@"target"][@"id"];
     }
-    NSString *foorseeId = clickedItem[@"id"];
+    
     [self.delegate itemSelectedWithFoorseeIdNumber:foorseeId];
 }
 

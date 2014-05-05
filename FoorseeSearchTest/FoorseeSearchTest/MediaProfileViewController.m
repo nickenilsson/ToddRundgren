@@ -8,10 +8,12 @@
 
 #import "MediaProfileViewController.h"
 #import "HeaderModuleViewController.h"
+#import "ExternalSourcesModuleViewController.h"
 #import "UIImageView+AFNetworking.h"
 #import "UIImage+ImageWithColor.h"
 
 #define HEIGHT_HEADER_MODULE 350
+#define HEIGHT_EXTERNAL_SOURCES_MODULE 200
 
 @interface MediaProfileViewController ()
 
@@ -22,8 +24,10 @@
 @implementation MediaProfileViewController{
 
     HeaderModuleViewController *_headerModuleViewController;
+    ExternalSourcesModuleViewController *_externalSourcesViewController;
     UIView *_contentView;
     UIView *_previousViewInContentView;
+    CGFloat _scrollableContentHeight;
     
 }
 
@@ -57,7 +61,10 @@
 -(void) setUpView
 {
     [self addHeaderModuleView];
-    
+    if (_data[@"products"]) {
+        [self addExternalSourcesModule];
+    }
+    [self.scrollView setContentSize:CGSizeMake(_headerModuleViewController.view.frame.size.width, _scrollableContentHeight)];
 }
 
 -(void) addHeaderModuleView
@@ -67,12 +74,13 @@
     [_headerModuleViewController didMoveToParentViewController:self];
     
     _headerModuleViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, HEIGHT_HEADER_MODULE);
+    _scrollableContentHeight += HEIGHT_HEADER_MODULE;
     
     NSString *mediaTitle = self.data[@"title"];
-    [_headerModuleViewController setTitleText:mediaTitle];
+    _headerModuleViewController.titleText = mediaTitle;
     
     NSString *description = self.data[@"plot"];
-    [_headerModuleViewController setDescriptionText:description];
+    _headerModuleViewController.descriptionText = description;
     
     NSURL *backdropUrl = [NSURL URLWithString:self.data[@"meta"][@"backdrops"][@"originals"][0][@"url"]];
     _headerModuleViewController.urlBackdrop = backdropUrl;
@@ -83,8 +91,20 @@
 
     [self.scrollView addSubview:_headerModuleViewController.view];
     
-    [self.scrollView setContentSize:CGSizeMake(_headerModuleViewController.view.frame.size.width, _headerModuleViewController.view.frame.size.height)];
-
+    
+}
+-(void) addExternalSourcesModule
+{
+    _externalSourcesViewController = [[ExternalSourcesModuleViewController alloc]init];
+    [self addChildViewController:_externalSourcesViewController];
+    [_externalSourcesViewController didMoveToParentViewController:self];
+    
+    
+    _externalSourcesViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    
+    [self.scrollView addSubview:_externalSourcesViewController.view];
+    _externalSourcesViewController.view.frame = CGRectMake(0, _scrollableContentHeight, self.view.frame.size.width, HEIGHT_EXTERNAL_SOURCES_MODULE);
+    _externalSourcesViewController.collectionViewItems = _data[@"products"];
 }
 
 - (void)didReceiveMemoryWarning

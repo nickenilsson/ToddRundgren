@@ -112,7 +112,7 @@ static NSString * const filterSectionHeaderIdentifier = @"sectionFilterHeaderIde
         return _collectionViewLayoutFilters.itemSize;
     }
     
-    CGFloat availableWidth = self.resultsCollectionView.bounds.size.width - _collectionViewLayoutFilters.sectionInset.left - _collectionViewLayoutFilters.sectionInset.right;
+    CGFloat availableWidth = self.resultsCollectionView.bounds.size.width - _collectionViewLayoutResults.sectionInset.left - _collectionViewLayoutResults.sectionInset.right;
     
     NSInteger numberOfItemsAcross;
     UIDeviceOrientation deviceOrientation = [[UIDevice currentDevice] orientation];
@@ -122,9 +122,9 @@ static NSString * const filterSectionHeaderIdentifier = @"sectionFilterHeaderIde
         numberOfItemsAcross = NUMBER_OF_RESULT_ITEMS_ACROSS_PORTRAIT;
     }
 
-    CGFloat availableWidthExcludingSpacing = floorf(availableWidth - ((numberOfItemsAcross - 1) * _collectionViewLayoutResults.minimumInteritemSpacing));
+    CGFloat availableWidthExcludingSpacing = availableWidth - ((numberOfItemsAcross - 1) * _collectionViewLayoutResults.minimumInteritemSpacing);
     
-    CGFloat itemWidth = floorf(availableWidthExcludingSpacing / numberOfItemsAcross);
+    CGFloat itemWidth = floor(availableWidthExcludingSpacing / numberOfItemsAcross);
     CGFloat itemHeight = itemWidth * 1.35f;
     
     return CGSizeMake(itemWidth, itemHeight);

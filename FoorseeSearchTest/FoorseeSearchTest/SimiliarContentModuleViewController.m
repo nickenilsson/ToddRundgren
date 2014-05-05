@@ -1,18 +1,18 @@
 //
-//  RelatedContentModuleViewController.m
+//  SimiliarContentModuleViewController.m
 //  FoorseeSearchTest
 //
-//  Created by Niklas Nilsson on 25/04/14.
+//  Created by Niklas Nilsson on 05/05/14.
 //  Copyright (c) 2014 Niklas Nilsson. All rights reserved.
 //
 
-#import "SimilarContentModuleViewController.h"
+#import "SimiliarContentModuleViewController.h"
 
-@interface SimilarContentModuleViewController ()
+@interface SimiliarContentModuleViewController ()
 
 @end
 
-@implementation SimilarContentModuleViewController
+@implementation SimiliarContentModuleViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,6 +27,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+
 }
 
 - (void)didReceiveMemoryWarning
