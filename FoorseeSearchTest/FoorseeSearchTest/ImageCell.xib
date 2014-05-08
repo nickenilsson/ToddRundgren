@@ -16,7 +16,6 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qpm-I5-j3s">
                         <rect key="frame" x="0.0" y="0.0" width="236" height="221"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.57677576259999996" green="1" blue="0.02671864061" alpha="0.44" colorSpace="calibratedRGB"/>
                     </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -29,7 +28,7 @@
             </constraints>
             <size key="customSize" width="236" height="221"/>
             <connections>
-                <outlet property="image" destination="Qpm-I5-j3s" id="ZYN-xd-yOU"/>
+                <outlet property="imageView" destination="Qpm-I5-j3s" id="6eG-yy-Lqc"/>
             </connections>
         </collectionViewCell>
     </objects>

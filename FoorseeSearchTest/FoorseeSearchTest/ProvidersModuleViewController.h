@@ -1,5 +1,5 @@
 //
-//  ExternalSourcesModuleViewController.h
+//  ProvidersModuleViewController.h
 //  FoorseeSearchTest
 //
 //  Created by Niklas Nilsson on 05/05/14.
@@ -9,9 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "CollectionModuleViewController.h"
 
-@interface ExternalSourcesModuleViewController : CollectionModuleViewController
+@interface ProvidersModuleViewController : CollectionModuleViewController
 
-@property (strong, nonatomic) NSMutableArray *collectionViewItems;
-
+@property (strong, nonatomic) NSMutableArray *data;
 
 @end

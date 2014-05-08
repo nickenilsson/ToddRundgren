@@ -11,7 +11,6 @@
 #import "UIImage+ImageWithColor.h"
 
 @interface HeaderModuleViewController ()
-@property (weak, nonatomic) IBOutlet UIImageView *imageViewBackdrop;
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewPoster;
 @property (weak, nonatomic) IBOutlet UILabel *labelTitle;
 @property (weak, nonatomic) IBOutlet UITextView *textViewDescription;
@@ -40,13 +39,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
--(void)setUrlBackdrop:(NSURL *)urlBackdrop
-{
-    _urlBackdrop = urlBackdrop;
-    UIImage *placeholderImage = [UIImage imageWithColor:[UIColor blackColor]];
-    [self.imageViewBackdrop setImageWithURL:urlBackdrop placeholderImage:placeholderImage];
 }
 
 -(void)setUrlPoster:(NSURL *)urlPoster

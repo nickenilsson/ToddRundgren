@@ -50,7 +50,6 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="100" id="wTe-YY-n2A"/>
                     </constraints>
@@ -58,10 +57,9 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hNc-X9-mge">
                     <rect key="frame" x="100" y="0.0" width="924" height="768"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="hNc-X9-mge" firstAttribute="leading" secondItem="5iZ-Q5-fFA" secondAttribute="trailing" id="QYu-3E-FAx"/>
                 <constraint firstAttribute="bottom" secondItem="hNc-X9-mge" secondAttribute="bottom" id="RU5-zS-6EA"/>

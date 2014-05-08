@@ -32,29 +32,22 @@
     [super viewDidLoad];
     _foorseeSessionManager = [FoorseeHTTPClient sharedForeseeHTTPClient];
     self.navigationBarHidden = YES;
-
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(foorseeItemSelected:) name:@"foorseeItemSelected" object:nil];
+    self.view.backgroundColor = [UIColor blackColor];
+    
 }
-
+-(void) foorseeItemSelected:(NSNotification *)notification
+{
+    NSDictionary *notificationInfo = [notification userInfo];
+    NSString *foorseeId = notificationInfo[@"foorseeId"];
+    [self presentMediaProfileForItemWithFoorseeId:foorseeId];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
--(void) itemSelectedInProfileViewWithFoorseeId:(NSString *) foorseeId
-{
-    [self presentMediaProfileForItemWithFoorseeId:foorseeId];
 }
 
 - (void) presentMediaProfileForItemWithFoorseeId:(NSString *) foorseeId
@@ -64,7 +57,7 @@
     newMediaProfileView.view.backgroundColor = [UIColor whiteColor];
     newMediaProfileView.delegate = self;
     
-    [self pushViewController:newMediaProfileView animated:YES];
+    [self pushViewController:newMediaProfileView animated:NO];
     
     [_foorseeSessionManager GET:[NSString stringWithFormat:@"movies/id/%@.json",foorseeId] parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         [newMediaProfileView setData:responseObject];
@@ -75,7 +68,7 @@
 
 -(void) backButtonTappedInMediaProfileView
 {
-    [self popViewControllerAnimated:YES];
+    [self popViewControllerAnimated:NO];
 }
 
 

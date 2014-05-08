@@ -10,18 +10,21 @@
 #import "FoorseeHTTPClient.h"
 #import "ContentViewControllerDelegate.h"
 #import "ImageCell.h"
-#import "WebViewCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "UIImage+ImageWithColor.h"
 #import "ContentViewControllerDelegate.h"
+#import "ImageViewWithGradient.h"
 
-
-#define NUMBER_OF_THUMBNAILS_IN_WIDTH_PORTRAIT 2
+#define NUMBER_OF_THUMBNAILS_IN_WIDTH_PORTRAIT 3
 #define NUMBER_OF_THUMBNAILS_IN_WIDTH_LANDSCAPE 4
 #define NUMBER_OF_BANNERS_IN_WIDTH_PORTRAIT 1
 #define NUMBER_OF_BANNERS_IN_WIDTH_LANDSCAPE 2
 #define BANNER_HEIGHT_TO_WIDTH_CONSTANT 0.6f
 #define THUMBNAIL_HEIGHT_TO_WIDTH_CONSTANT 1.4f
+#define PARALLAX_SPEED 0.5
+#define HEIGHT_HEADER_LANDSCAPE 300
+#define HEIGHT_HEADER_PORTRAIT 200
+
 
 static NSString * const imageCellIdentifier = @"imageCellIdentifier";
 static NSString * const headerViewIdentifier = @"headerViewIdentifier";
@@ -35,6 +38,8 @@ typedef enum : NSUInteger {
 @interface DiscoverViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintBackgroundTop;
+@property (weak, nonatomic) IBOutlet ImageViewWithGradient *imageViewBackground;
 
 @end
 
@@ -61,6 +66,8 @@ typedef enum : NSUInteger {
 {
     [super viewDidLoad];
 
+    [self setFakeBackgroundImage];
+    
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
 
@@ -73,7 +80,7 @@ typedef enum : NSUInteger {
 
     [self.collectionView registerNib:[ImageCell nib] forCellWithReuseIdentifier:imageCellIdentifier];
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerViewIdentifier];
-    [self.collectionView registerNib:[WebViewCell nib] forCellWithReuseIdentifier:webViewCellIdentifier];
+    
     
     
     _foorseeSessionManager = [FoorseeHTTPClient sharedForeseeHTTPClient];
@@ -81,6 +88,8 @@ typedef enum : NSUInteger {
         [self refineAndSaveDataFromResponse:responseObject];
         [self sortLayoutItems];
         [self.collectionView reloadData];
+        
+        
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"Failure: %@", [error localizedDescription]);
     }];
@@ -117,7 +126,11 @@ typedef enum : NSUInteger {
         }
     }
 }
+-(void) setFakeBackgroundImage
+{
+    self.imageViewBackground.image = [UIImage imageNamed:@"warner.jpg"];
 
+}
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return 1;
@@ -141,9 +154,9 @@ typedef enum : NSUInteger {
     CGFloat headerHeight;
     UIDeviceOrientation deviceOrientation = [[UIDevice currentDevice] orientation];
     if (UIDeviceOrientationIsLandscape(deviceOrientation)) {
-        headerHeight = 400;
+        headerHeight = HEIGHT_HEADER_LANDSCAPE;
     }else{
-        headerHeight = 200;
+        headerHeight = HEIGHT_HEADER_PORTRAIT;
     }
     return CGSizeMake(headerWidth, headerHeight);
 }
@@ -159,14 +172,14 @@ typedef enum : NSUInteger {
        
         NSDictionary *thumbnailItem = _thumbnailItems[contentListIndex.integerValue];
         NSURL *imageUrl = [NSURL URLWithString:thumbnailItem[@"posterThumbnail"][@"url"]];
-        [cell.image setImageWithURL:imageUrl placeholderImage:placeholderImage];
+        [cell.imageView setImageWithURL:imageUrl placeholderImage:placeholderImage];
         
         return cell;
         
     }
     else if ([self typeOfItemAtIndexPath:indexPath] == BANNER){
         ImageCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:imageCellIdentifier forIndexPath:indexPath];
-        cell.image.image = nil;
+        cell.imageView.image = nil;
         cell.backgroundColor = [UIColor blueColor];
         
         return cell;
@@ -249,6 +262,18 @@ typedef enum : NSUInteger {
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat verticalScrollDistance = scrollView.bounds.origin.y;
+    self.constraintBackgroundTop.constant = -(PARALLAX_SPEED * verticalScrollDistance);
+    CGFloat newAlpha = 1 - (0.002 * verticalScrollDistance);
+    if (newAlpha < 0) {
+        newAlpha = 0;
+    }
+    self.imageViewBackground.alpha = newAlpha;
+
 }
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration

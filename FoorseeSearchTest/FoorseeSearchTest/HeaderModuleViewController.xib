@@ -6,7 +6,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HeaderModuleViewController">
             <connections>
-                <outlet property="imageViewBackdrop" destination="JIh-vZ-pq6" id="GTx-0k-kkF"/>
                 <outlet property="imageViewPoster" destination="Dfw-bb-ey0" id="4RK-qD-Yg4"/>
                 <outlet property="labelTitle" destination="XFZ-95-Pxi" id="GHU-15-33K"/>
                 <outlet property="textViewDescription" destination="Ffv-Cj-eDg" id="EvK-TP-Ley"/>
@@ -15,24 +14,19 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+            <rect key="frame" x="0.0" y="0.0" width="774" height="404"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JIh-vZ-pq6" userLabel="Image View Backdrop">
-                    <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dfw-bb-ey0" userLabel="Image View Poster">
-                    <rect key="frame" x="35" y="35" width="200" height="240"/>
+                    <rect key="frame" x="35" y="55" width="160" height="210"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="240" id="NYN-F8-VWq"/>
-                        <constraint firstAttribute="width" constant="200" id="Xlg-ot-15v"/>
+                        <constraint firstAttribute="height" constant="210" id="NYN-F8-VWq"/>
+                        <constraint firstAttribute="width" constant="160" id="Xlg-ot-15v"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XFZ-95-Pxi" userLabel="Label Title">
-                    <rect key="frame" x="243" y="35" width="525" height="21"/>
+                    <rect key="frame" x="203" y="55" width="571" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="baM-P0-eUR"/>
@@ -42,7 +36,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ffv-Cj-eDg" userLabel="Text View Description">
-                    <rect key="frame" x="243" y="64" width="505" height="940"/>
+                    <rect key="frame" x="203" y="84" width="551" height="300"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -50,23 +44,19 @@
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="Dfw-bb-ey0" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="35" id="04Y-UD-5Gt"/>
-                <constraint firstAttribute="trailing" secondItem="JIh-vZ-pq6" secondAttribute="trailing" id="8za-eA-RvQ"/>
                 <constraint firstItem="XFZ-95-Pxi" firstAttribute="leading" secondItem="Dfw-bb-ey0" secondAttribute="trailing" constant="8" id="BPh-qa-rKi"/>
-                <constraint firstItem="JIh-vZ-pq6" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="E7J-Eu-FSl"/>
-                <constraint firstItem="Dfw-bb-ey0" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="35" id="MhP-Tp-rQC"/>
+                <constraint firstItem="Dfw-bb-ey0" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="55" id="MhP-Tp-rQC"/>
                 <constraint firstAttribute="bottom" secondItem="Ffv-Cj-eDg" secondAttribute="bottom" constant="20" id="VSV-IM-ygR"/>
                 <constraint firstAttribute="trailing" secondItem="Ffv-Cj-eDg" secondAttribute="trailing" constant="20" id="eHJ-Dx-mRl"/>
-                <constraint firstItem="JIh-vZ-pq6" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="gVA-IJ-pNY"/>
                 <constraint firstItem="Ffv-Cj-eDg" firstAttribute="leading" secondItem="Dfw-bb-ey0" secondAttribute="trailing" constant="8" id="mTe-On-7gn"/>
                 <constraint firstItem="Dfw-bb-ey0" firstAttribute="top" secondItem="XFZ-95-Pxi" secondAttribute="top" id="nIZ-VO-QLv"/>
                 <constraint firstAttribute="trailing" secondItem="XFZ-95-Pxi" secondAttribute="trailing" id="rIa-St-6tq"/>
-                <constraint firstAttribute="bottom" secondItem="JIh-vZ-pq6" secondAttribute="bottom" id="yDb-x1-z2a"/>
                 <constraint firstItem="Ffv-Cj-eDg" firstAttribute="top" secondItem="XFZ-95-Pxi" secondAttribute="bottom" constant="8" id="z8a-xJ-9kn"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
 </document>

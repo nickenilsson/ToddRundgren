@@ -11,11 +11,14 @@
 #import "ContentViewControllerDelegate.h"
 #import "MediaProfileNavigationController.h"
 #import "DiscoverViewController.h"
+#import "MediaPlayerViewController.h"
 
+#define WIDTH_OF_MEDIA_PLAYER 300
+#define HEIGHT_OF_MEDIA_PLAYER 220
 #define PROFILE_VIEW_WIDTH_FRACTION 0.8f
 #define DURATION_NAVIGATION_CONTROLLER_SLIDE_IN 0.25f
 
-@interface RootViewController () <ContentViewControllerDelegate>
+@interface RootViewController () <ContentViewControllerDelegate, UIGestureRecognizerDelegate, MediaPlayerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *contentViewPlaceholder;
 
@@ -30,6 +33,8 @@
     NSLayoutConstraint *_MediaProfileLeadingConstraint;
     MediaProfileNavigationController *_mediaProfileNavigationController;
     UITapGestureRecognizer *_tapToCloseGestureRecognizer;
+    MediaPlayerViewController *_mediaPlayerViewController;
+    
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -55,9 +60,42 @@
     activeViewController.delegate = self;
     
     _tapToCloseGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHappenedToCloseNavigationController:)];
+    _tapToCloseGestureRecognizer.delegate = self;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoSelected:) name:@"videoSelected" object:nil];
     
 }
-
+-(void) videoSelected:(NSNotification *) notification
+{
+    if (_mediaPlayerViewController == nil) {
+        [self addMediaPlayerViewController];
+    }
+    
+    NSDictionary *userinfo = [notification userInfo];
+    NSString *youtubeVideoId = userinfo[@"youtubeVideoId"];
+    [_mediaPlayerViewController playVideoWithId:youtubeVideoId];
+    
+}
+-(void) addMediaPlayerViewController
+{
+    _mediaPlayerViewController = [[MediaPlayerViewController alloc] init];
+    
+    [self addChildViewController:_mediaPlayerViewController];
+    [_mediaPlayerViewController didMoveToParentViewController:self];
+    [self.view addSubview:_mediaPlayerViewController.view];
+    _mediaPlayerViewController.delegate = self;
+    
+    _mediaPlayerViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:[mediaPlayer(==%d)]|", WIDTH_OF_MEDIA_PLAYER] options:0 metrics:nil views:@{@"mediaPlayer": _mediaPlayerViewController.view}]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:[mediaPlayer(==%d)]|", HEIGHT_OF_MEDIA_PLAYER] options:0 metrics:nil views:@{@"mediaPlayer": _mediaPlayerViewController.view}]];
+    [self.view layoutIfNeeded];
+}
+-(void) closeMediaPlayer
+{
+    [_mediaPlayerViewController removeFromParentViewController];
+    [_mediaPlayerViewController.view removeFromSuperview];
+    _mediaPlayerViewController = nil;
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -70,7 +108,6 @@
         if (_mediaProfileNavigationController != nil) {
             [self closeProfileViewNavigationControllerAnimated:NO];
         }
-        
         [_activeViewController removeFromParentViewController];
         [_activeViewController.view removeFromSuperview];
         [self addContentViewController:[[SearchViewController alloc]init]];
@@ -118,8 +155,11 @@
 
 -(void) itemSelectedWithFoorseeIdNumber:(NSString *) idNumber
 {
-    [self addMediaProfileNavigationController];
-    [_mediaProfileNavigationController presentMediaProfileForItemWithFoorseeId:idNumber];
+    if (_mediaProfileNavigationController == nil) {
+        [self addMediaProfileNavigationController];
+        [_mediaProfileNavigationController presentMediaProfileForItemWithFoorseeId:idNumber];
+    }
+    
 }
 
 -(void) addMediaProfileNavigationController
@@ -129,6 +169,9 @@
     [_mediaProfileNavigationController didMoveToParentViewController:self];
     [self.view addSubview:_mediaProfileNavigationController.view];
     [self.view bringSubviewToFront:_mediaProfileNavigationController.view];
+    if (_mediaPlayerViewController != nil) {
+        [self.view insertSubview:_mediaProfileNavigationController.view belowSubview:_mediaPlayerViewController.view];
+    }
     
     _mediaProfileNavigationController.view.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -157,7 +200,6 @@
         [self.view removeGestureRecognizer:_tapToCloseGestureRecognizer];
         [self closeProfileViewNavigationControllerAnimated:YES];
         
-        
     }
 }
 -(void) closeProfileViewNavigationControllerAnimated:(BOOL) shouldAnimate
@@ -178,4 +220,16 @@
     }
     
 }
+
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    CGPoint touchLocation = [gestureRecognizer locationInView:self.view];
+    if ( [gestureRecognizer isEqual:_tapToCloseGestureRecognizer] && CGRectContainsPoint(_mediaProfileNavigationController.view.frame, touchLocation)) {
+        return NO;
+    }
+    else{
+        return YES;
+    }
+}
+
 @end

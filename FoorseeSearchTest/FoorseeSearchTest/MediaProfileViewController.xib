@@ -6,19 +6,28 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MediaProfileViewController">
             <connections>
+                <outlet property="backgroundConstraintTop" destination="mM3-VV-Wt4" id="moF-F7-Xbx"/>
+                <outlet property="imageViewBackground" destination="xIf-rq-JsJ" id="wzZ-gI-rNR"/>
                 <outlet property="scrollView" destination="ZAB-FZ-PqM" id="AiI-vn-wAY"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+        <view clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xIf-rq-JsJ" userLabel="Image view background" customClass="ImageViewWithGradient">
+                    <rect key="frame" x="0.0" y="0.0" width="1024" height="400"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="400" id="oWF-W5-JHm"/>
+                    </constraints>
+                </imageView>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZAB-FZ-PqM">
                     <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </scrollView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OOD-WR-82D">
                     <rect key="frame" x="8" y="8" width="50" height="67"/>
@@ -43,7 +52,10 @@
                 <constraint firstAttribute="bottom" secondItem="ZAB-FZ-PqM" secondAttribute="bottom" id="Nyw-sE-GcJ"/>
                 <constraint firstItem="OOD-WR-82D" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="SnI-Rr-ili"/>
                 <constraint firstItem="ZAB-FZ-PqM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="hbH-PB-qSH"/>
+                <constraint firstItem="xIf-rq-JsJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="k5p-dI-pQk"/>
+                <constraint firstItem="xIf-rq-JsJ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="mM3-VV-Wt4"/>
                 <constraint firstAttribute="trailing" secondItem="ZAB-FZ-PqM" secondAttribute="trailing" id="xbt-hH-jVa"/>
+                <constraint firstAttribute="trailing" secondItem="xIf-rq-JsJ" secondAttribute="trailing" id="zIw-9r-SKZ"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>

@@ -15,4 +15,6 @@
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
     #import "AFNetworking.h"
+    #import <QuartzCore/QuartzCore.h>
+
 #endif

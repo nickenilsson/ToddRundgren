@@ -10,7 +10,6 @@
 
 @interface HeaderModuleViewController : UIViewController
 
-@property (strong, nonatomic) NSURL *urlBackdrop;
 @property (strong, nonatomic) NSURL *urlPoster;
 @property (strong, nonatomic) NSString *titleText;
 @property (strong, nonatomic) NSString *descriptionText;

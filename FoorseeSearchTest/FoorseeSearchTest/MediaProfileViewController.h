@@ -12,7 +12,6 @@
 
 @optional
 
--(void) itemSelectedInProfileViewWithFoorseeId:(NSString *) foorseeId;
 -(void) backButtonTappedInMediaProfileView;
 
 @end

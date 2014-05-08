@@ -15,7 +15,6 @@
 #import "UIImageView+AFNetworking.h"
 #import "UIImage+ImageWithColor.h"
 #import "UIColor+ColorFromHex.h"
-#import "FilterFlowLayout.h"
 #import "MediaProfileNavigationController.h"
 #import "ContentViewControllerDelegate.h"
 
@@ -62,6 +61,11 @@ static NSString * const filterSectionHeaderIdentifier = @"sectionFilterHeaderIde
     return self;
 }
 
+-(void)viewDidLayoutSubviews
+{
+    [self setUpResultsCollectionViewLayout];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -75,25 +79,26 @@ static NSString * const filterSectionHeaderIdentifier = @"sectionFilterHeaderIde
         
         UIImage *placeHolderImage = [UIImage imageWithColor:[UIColor blackColor]];
         NSURL *imageUrl = [NSURL URLWithString:movie[@"posterThumbnail"][@"url"]];
-        [cell.image setImageWithURL:imageUrl placeholderImage:placeHolderImage];
+        [cell.imageView setImageWithURL:imageUrl placeholderImage:placeHolderImage];
     };
     
     _resultsDataSource = [[ArrayDataSource alloc] initWithItems:nil cellIdentifier:imageCellIdentifier configureCellBlock: imageCellConfigurationBlock];
     self.resultsCollectionView.dataSource = _resultsDataSource;
     self.resultsCollectionView.delegate = self;
 
-    _collectionViewLayoutResults = (UICollectionViewFlowLayout *)self.resultsCollectionView.collectionViewLayout;
-    _collectionViewLayoutResults.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5);
-    _collectionViewLayoutResults.minimumInteritemSpacing = 5;
-    _collectionViewLayoutResults.minimumLineSpacing = 5;
-    
-    
     [self.filterCollectionView registerNib:[FilterCell nib] forCellWithReuseIdentifier:filterCellIdentifier];
     [self.filterCollectionView registerNib:[FilterSectionHeader nib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:filterSectionHeaderIdentifier];
     self.filterCollectionView.dataSource = self;
     self.filterCollectionView.delegate = self;
     _collectionViewLayoutFilters = (UICollectionViewFlowLayout *) self.filterCollectionView.collectionViewLayout;
     
+}
+-(void) setUpResultsCollectionViewLayout
+{
+    _collectionViewLayoutResults = (UICollectionViewFlowLayout *)self.resultsCollectionView.collectionViewLayout;
+    _collectionViewLayoutResults.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5);
+    _collectionViewLayoutResults.minimumInteritemSpacing = 5;
+    _collectionViewLayoutResults.minimumLineSpacing = 5;
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView

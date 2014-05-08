@@ -10,10 +10,6 @@
 
 @interface CollectionModuleViewController ()
 
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (weak, nonatomic) IBOutlet UIImageView *imageViewIcon;
-@property (weak, nonatomic) IBOutlet UILabel *labelModuleTitle;
-
 @end
 
 @implementation CollectionModuleViewController
