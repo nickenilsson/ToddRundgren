@@ -10,4 +10,7 @@
 
 @interface ImageViewWithGradient : UIImageView
 
+@property (strong, nonatomic) UIColor *gradientColor;
+
+
 @end

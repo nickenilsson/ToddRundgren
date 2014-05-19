@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController">
+            <connections>
+                <outlet property="buttonFilters" destination="gAv-F9-1t7" id="mJt-d5-Xwf"/>
+                <outlet property="collectionViewFilters" destination="wRg-9m-tKi" id="nsl-bj-8MY"/>
+                <outlet property="collectionViewResults" destination="4hP-gA-bWB" id="Q78-Aq-Gej"/>
+                <outlet property="constraintBackgroundTop" destination="amU-lh-Yit" id="CIy-eW-HdD"/>
+                <outlet property="constraintFilterSectionWidth" destination="bgp-QF-58S" id="F8B-b2-Qri"/>
+                <outlet property="imageViewBackground" destination="DCO-Rf-7gr" id="8qg-gM-MGd"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warner.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="DCO-Rf-7gr" customClass="ImageViewWithGradient">
+                    <rect key="frame" x="300" y="0.0" width="724" height="650"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.57677576259999996" green="1" blue="0.02671864061" alpha="0.44" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="650" id="HyY-Y4-q4L"/>
+                    </constraints>
+                </imageView>
+                <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="4hP-gA-bWB" userLabel="Collectionview results">
+                    <rect key="frame" x="300" y="0.0" width="724" height="768"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="nBP-NF-2O0">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="50" height="200"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <cells/>
+                </collectionView>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="wRg-9m-tKi" userLabel="Collectionview filters">
+                    <rect key="frame" x="0.0" y="0.0" width="300" height="768"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="300" id="bgp-QF-58S"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="s7Z-Ye-7nW">
+                        <size key="itemSize" width="270" height="50"/>
+                        <size key="headerReferenceSize" width="50" height="50"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <cells/>
+                </collectionView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gAv-F9-1t7">
+                    <rect key="frame" x="308" y="90" width="46" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <gestureRecognizers/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="46" id="NFu-Is-zAd"/>
+                        <constraint firstAttribute="height" constant="30" id="mau-kI-sKm"/>
+                    </constraints>
+                    <state key="normal" title="Filters">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="buttonFiltersTapped:" destination="-1" eventType="touchUpInside" id="qsD-3K-qs7"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CP9-Ab-53J">
+                    <rect key="frame" x="958" y="20" width="46" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="46" id="6nk-nb-Fr2"/>
+                        <constraint firstAttribute="height" constant="30" id="cDk-nT-bOX"/>
+                    </constraints>
+                    <state key="normal" title="Start">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="startPageButtonTapped:" destination="-1" eventType="touchUpInside" id="aV2-Ji-uEy"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="wRg-9m-tKi" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="48G-w3-cjm"/>
+                <constraint firstItem="4hP-gA-bWB" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="4XI-Yw-P7l"/>
+                <constraint firstItem="4hP-gA-bWB" firstAttribute="leading" secondItem="wRg-9m-tKi" secondAttribute="trailing" id="5to-PF-t9c"/>
+                <constraint firstItem="CP9-Ab-53J" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="Fsh-AV-Zlc"/>
+                <constraint firstAttribute="trailing" secondItem="DCO-Rf-7gr" secondAttribute="trailing" id="GpO-bf-GTo"/>
+                <constraint firstItem="wRg-9m-tKi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="HD2-es-6Vf"/>
+                <constraint firstAttribute="trailing" secondItem="4hP-gA-bWB" secondAttribute="trailing" id="IeT-K0-z5Q"/>
+                <constraint firstItem="gAv-F9-1t7" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="90" id="MxR-QG-ZwD"/>
+                <constraint firstItem="DCO-Rf-7gr" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="amU-lh-Yit"/>
+                <constraint firstAttribute="bottom" secondItem="4hP-gA-bWB" secondAttribute="bottom" id="feE-59-jl6"/>
+                <constraint firstItem="gAv-F9-1t7" firstAttribute="leading" secondItem="wRg-9m-tKi" secondAttribute="trailing" constant="8" id="ktx-43-o4I"/>
+                <constraint firstItem="4hP-gA-bWB" firstAttribute="width" secondItem="DCO-Rf-7gr" secondAttribute="width" id="mjj-5y-J3V"/>
+                <constraint firstAttribute="trailing" secondItem="CP9-Ab-53J" secondAttribute="trailing" constant="20" id="oby-5u-lFX"/>
+                <constraint firstAttribute="bottom" secondItem="wRg-9m-tKi" secondAttribute="bottom" id="qH3-C1-g68"/>
+            </constraints>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="warner.jpg" width="1280" height="720"/>
+    </resources>
+</document>

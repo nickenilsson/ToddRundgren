@@ -13,6 +13,7 @@
 #import "UIImage+ImageWithColor.h"
 #import "UIImageView+AFNetworking.h"
 #import "SnappyFlowLayout.h"
+#import "JTSImageViewController.h"
 
 static NSString * const cellIdentifier = @"cellIdentifier";
 
@@ -47,6 +48,8 @@ static NSString * const cellIdentifier = @"cellIdentifier";
     
     _collectionViewLayout = [[SnappyFlowLayout alloc] init];
     self.collectionView.collectionViewLayout = _collectionViewLayout;
+    
+    
     
 }
 -(void)viewDidLayoutSubviews
@@ -91,6 +94,29 @@ static NSString * const cellIdentifier = @"cellIdentifier";
     [cell.imageView setImageWithURL:imageUrl placeholderImage:placeholderImage];
     
     return cell;
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *selectedItem = self.dataOriginals[indexPath.item];
+    NSURL *imageUrl = [NSURL URLWithString:selectedItem[@"url"]];
+    
+    JTSImageInfo *imageInfo = [[JTSImageInfo alloc] init];
+    imageInfo.imageURL = imageUrl;
+    // Setup view controller
+    JTSImageViewController *imageViewer = [[JTSImageViewController alloc]
+                                           initWithImageInfo:imageInfo
+                                           mode:JTSImageViewControllerMode_Image
+                                           backgroundStyle:JTSImageViewControllerBackgroundStyle_ScaledDimmed];
+
+    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+    imageInfo.referenceRect = cell.frame;
+    imageInfo.referenceView = self.collectionView;
+    
+
+    // Present the view controller.
+    [imageViewer showFromViewController:self transition:JTSImageViewControllerTransition_FromOriginalPosition];
+
 }
 
 - (void)didReceiveMemoryWarning

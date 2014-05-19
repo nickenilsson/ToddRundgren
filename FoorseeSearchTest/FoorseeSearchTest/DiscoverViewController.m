@@ -10,10 +10,13 @@
 #import "FoorseeHTTPClient.h"
 #import "ContentViewControllerDelegate.h"
 #import "ImageCell.h"
+#import "SearchBarSectionHeader.h"
 #import "UIImageView+AFNetworking.h"
 #import "UIImage+ImageWithColor.h"
 #import "ContentViewControllerDelegate.h"
 #import "ImageViewWithGradient.h"
+
+#import "CSStickyHeaderFlowLayout.h"
 
 #define NUMBER_OF_THUMBNAILS_IN_WIDTH_PORTRAIT 3
 #define NUMBER_OF_THUMBNAILS_IN_WIDTH_LANDSCAPE 4
@@ -22,8 +25,8 @@
 #define BANNER_HEIGHT_TO_WIDTH_CONSTANT 0.6f
 #define THUMBNAIL_HEIGHT_TO_WIDTH_CONSTANT 1.4f
 #define PARALLAX_SPEED 0.5
-#define HEIGHT_HEADER_LANDSCAPE 300
-#define HEIGHT_HEADER_PORTRAIT 200
+#define HEIGHT_HEADER_LANDSCAPE 90
+#define HEIGHT_HEADER_PORTRAIT 90
 
 
 static NSString * const imageCellIdentifier = @"imageCellIdentifier";
@@ -35,7 +38,7 @@ typedef enum : NSUInteger {
     BANNER
 } discoverItemType;
 
-@interface DiscoverViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+@interface DiscoverViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UISearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintBackgroundTop;
@@ -50,7 +53,7 @@ typedef enum : NSUInteger {
     NSMutableArray *_thumbnailItems;
     NSMutableArray *_bannerItems;
     NSURL *_urlBackgroundImage;
-    UICollectionViewFlowLayout *_collectionViewLayout;
+    CSStickyHeaderFlowLayout *_collectionViewLayout;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -71,18 +74,19 @@ typedef enum : NSUInteger {
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
 
-    _collectionViewLayout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
-    
-    _collectionViewLayout.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5);
+    _collectionViewLayout = [[CSStickyHeaderFlowLayout alloc]init];
+
+    _collectionViewLayout.sectionInset = UIEdgeInsetsMake(30, 5, 5, 5);
     _collectionViewLayout.minimumInteritemSpacing = 5;
     _collectionViewLayout.minimumLineSpacing = 5;
-
+    _collectionViewLayout.parallaxHeaderReferenceSize = CGSizeMake(0, 300);
+    _collectionViewLayout.parallaxHeaderAlwaysOnTop = NO;
+    self.collectionView.collectionViewLayout = _collectionViewLayout;
 
     [self.collectionView registerNib:[ImageCell nib] forCellWithReuseIdentifier:imageCellIdentifier];
-    [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerViewIdentifier];
+    [self.collectionView registerNib:[SearchBarSectionHeader nib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerViewIdentifier];
     
-    
-    
+
     _foorseeSessionManager = [FoorseeHTTPClient sharedForeseeHTTPClient];
     [_foorseeSessionManager GET:@"discover.json" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         [self refineAndSaveDataFromResponse:responseObject];
@@ -143,14 +147,16 @@ typedef enum : NSUInteger {
 
 -(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionReusableView *header = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerViewIdentifier forIndexPath:indexPath];
+    SearchBarSectionHeader *header = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerViewIdentifier forIndexPath:indexPath];
+    
     header.backgroundColor = [UIColor clearColor];
+    header.searchBar.delegate = self;
     
     return header;
 }
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
-    CGFloat headerWidth = self.collectionView.bounds.size.width - _collectionViewLayout.sectionInset.left - _collectionViewLayout.sectionInset.right;
+    CGFloat headerWidth = self.collectionView.bounds.size.width;
     CGFloat headerHeight;
     UIDeviceOrientation deviceOrientation = [[UIDevice currentDevice] orientation];
     if (UIDeviceOrientationIsLandscape(deviceOrientation)) {
@@ -273,7 +279,11 @@ typedef enum : NSUInteger {
         newAlpha = 0;
     }
     self.imageViewBackground.alpha = newAlpha;
+}
 
+-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [self.delegate searchWasMadeInDiscoverViewWithQuery:searchBar.text];
 }
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration

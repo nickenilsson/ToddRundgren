@@ -12,6 +12,8 @@
 
 @interface SearchViewController : UIViewController
 
+-(void) updateSearchRequestWithQuery:(NSString *) query;
+
 @property (weak, nonatomic) id<ContentViewControllerDelegate> delegate;
 
 @end

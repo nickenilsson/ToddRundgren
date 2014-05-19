@@ -12,11 +12,13 @@
 #import "MediaProfileNavigationController.h"
 #import "DiscoverViewController.h"
 #import "MediaPlayerViewController.h"
+#import "MainViewController.h"
+
 
 #define WIDTH_OF_MEDIA_PLAYER 300
 #define HEIGHT_OF_MEDIA_PLAYER 220
-#define PROFILE_VIEW_WIDTH_FRACTION 0.8f
-#define DURATION_NAVIGATION_CONTROLLER_SLIDE_IN 0.25f
+#define PROFILE_VIEW_WIDTH_FRACTION 0.9f
+#define BLUR_VIEW_ALPHA 1.0f
 
 @interface RootViewController () <ContentViewControllerDelegate, UIGestureRecognizerDelegate, MediaPlayerDelegate>
 
@@ -34,6 +36,7 @@
     MediaProfileNavigationController *_mediaProfileNavigationController;
     UITapGestureRecognizer *_tapToCloseGestureRecognizer;
     MediaPlayerViewController *_mediaPlayerViewController;
+    FXBlurView *_blurView;
     
 }
 
@@ -41,7 +44,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+
     }
     return self;
 }
@@ -49,15 +52,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    _activeViewController = [[SearchViewController alloc]init];
-    [self addChildViewController:_activeViewController];
-    [_activeViewController didMoveToParentViewController:self];
-    [self.contentViewPlaceholder addSubview:_activeViewController.view];
-    _activeViewController.view.frame = self.contentViewPlaceholder.bounds;
-    _activeViewController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-    SearchViewController *activeViewController = (SearchViewController *) _activeViewController;
-    activeViewController.delegate = self;
+
+    MainViewController *searchViewController = [[MainViewController alloc]init];
+    [self addContentViewController:searchViewController];
+    searchViewController.delegate = self;
     
     _tapToCloseGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHappenedToCloseNavigationController:)];
     _tapToCloseGestureRecognizer.delegate = self;
@@ -103,18 +101,21 @@
 }
 
 - (IBAction)tappedButtonToGoToSearchView:(id)sender {
-    if (![_activeViewController isKindOfClass:[SearchViewController class]]) {
-        
-        if (_mediaProfileNavigationController != nil) {
-            [self closeProfileViewNavigationControllerAnimated:NO];
-        }
-        [_activeViewController removeFromParentViewController];
-        [_activeViewController.view removeFromSuperview];
-        [self addContentViewController:[[SearchViewController alloc]init]];
-        SearchViewController *activeViewController = (SearchViewController *) _activeViewController;
-        activeViewController.delegate = self;
-        
-    }
+//    if (![_activeViewController isKindOfClass:[SearchViewController class]]) {
+//        
+//        if (_mediaProfileNavigationController != nil) {
+//            [self closeProfileViewNavigationControllerAnimated:NO];
+//        }
+//        [_activeViewController removeFromParentViewController];
+//        [_activeViewController.view removeFromSuperview];
+//        SearchViewController *searchViewController = [[SearchViewController alloc]init];
+//        [self addContentViewController:searchViewController];
+//        searchViewController.delegate = self;
+//        [searchViewController updateSearchRequestWithQuery:@""];
+//        _activeViewController = searchViewController;
+//        
+//    
+//    }
 }
 
 - (IBAction)tappedButtonToGoToDiscoverView:(id)sender
@@ -132,8 +133,19 @@
         DiscoverViewController *activeViewController = (DiscoverViewController *)_activeViewController;
         activeViewController.delegate = self;
         
-        
     }
+}
+
+-(void) searchWasMadeInDiscoverViewWithQuery:(NSString *) query
+{
+    [_activeViewController removeFromParentViewController];
+    [_activeViewController.view removeFromSuperview];
+    SearchViewController *searchViewController = [[SearchViewController alloc]init];
+    [self addContentViewController:searchViewController];
+    searchViewController.delegate = self;
+    [searchViewController updateSearchRequestWithQuery:query];
+    _activeViewController = searchViewController;
+    
 }
 
 - (IBAction)tappedButtonToGoToProfileView:(id)sender
@@ -141,13 +153,12 @@
     
 }
 
-
 -(void) addContentViewController:(UIViewController *)viewController
 {
     [self addChildViewController:viewController];
     [viewController didMoveToParentViewController:self];
-    [self.contentViewPlaceholder addSubview:viewController.view];
-    viewController.view.frame = self.contentViewPlaceholder.bounds;
+    [self.view addSubview:viewController.view];
+    viewController.view.frame = self.view.bounds;
     viewController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     _activeViewController = viewController;
     
@@ -164,6 +175,8 @@
 
 -(void) addMediaProfileNavigationController
 {
+    [self addBlurOverlay];
+    
     _mediaProfileNavigationController = [[MediaProfileNavigationController alloc]init];
     [self addChildViewController:_mediaProfileNavigationController];
     [_mediaProfileNavigationController didMoveToParentViewController:self];
@@ -185,27 +198,30 @@
     
     [self.view layoutIfNeeded];
     
-    [UIView animateWithDuration:DURATION_NAVIGATION_CONTROLLER_SLIDE_IN delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView animateWithDuration:DURATION_PROFILE_PAGE_OPEN_CLOSE delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         _MediaProfileLeadingConstraint.constant = 0;
         [self.view layoutIfNeeded];
         [self.view addGestureRecognizer:_tapToCloseGestureRecognizer];
     } completion:nil];
     
 }
+
 -(void) tapHappenedToCloseNavigationController:(UITapGestureRecognizer *) sender
 {
     CGPoint touchLocation = [sender locationInView:self.view];
     if (!CGRectContainsPoint(_mediaProfileNavigationController.view.frame, touchLocation)) {
-        
         [self.view removeGestureRecognizer:_tapToCloseGestureRecognizer];
         [self closeProfileViewNavigationControllerAnimated:YES];
         
     }
 }
+
 -(void) closeProfileViewNavigationControllerAnimated:(BOOL) shouldAnimate
 {
+    
     if (shouldAnimate) {
-        [UIView animateWithDuration:DURATION_NAVIGATION_CONTROLLER_SLIDE_IN delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [self removeBlurOverlay];
+        [UIView animateWithDuration:DURATION_PROFILE_PAGE_OPEN_CLOSE delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             _MediaProfileLeadingConstraint.constant = _mediaProfileNavigationController.view.frame.size.width;
             [self.view layoutIfNeeded];
         } completion:^(BOOL finished) {
@@ -218,7 +234,31 @@
         [_mediaProfileNavigationController.view removeFromSuperview];
         _mediaProfileNavigationController = nil;
     }
-    
+}
+
+-(void) addBlurOverlay
+{
+    _blurView = [[FXBlurView alloc] initWithFrame:self.view.bounds];
+    _blurView.autoresizingMask = self.view.autoresizingMask;
+    [_blurView setDynamic:NO];
+    _blurView.tintColor = [UIColor blackColor];
+    _blurView.alpha = 0;
+    [self.view addSubview:_blurView];
+    [UIView animateWithDuration:DURATION_PROFILE_PAGE_OPEN_CLOSE animations:^{
+        _blurView.alpha = BLUR_VIEW_ALPHA;
+    }];
+
+}
+-(void) removeBlurOverlay
+{
+    [UIView animateWithDuration:DURATION_PROFILE_PAGE_OPEN_CLOSE animations:^{
+        _blurView.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        if (finished) {
+            [_blurView removeFromSuperview];
+            _blurView = nil;
+        }
+    }];
 }
 
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer

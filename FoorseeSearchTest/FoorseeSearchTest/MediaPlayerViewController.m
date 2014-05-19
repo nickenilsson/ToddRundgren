@@ -34,6 +34,7 @@ static NSString *youTubeVideoHTML = @"<!DOCTYPE html><html><head><style>body{mar
     [super viewDidLoad];
     self.webView.delegate = self;
     self.webView.mediaPlaybackRequiresUserAction = NO;
+    self.webView.scrollView.scrollEnabled = NO;
     
 }
 
@@ -58,5 +59,9 @@ static NSString *youTubeVideoHTML = @"<!DOCTYPE html><html><head><style>body{mar
     if ([self.delegate respondsToSelector:@selector(closeMediaPlayer)]) {
         [self.delegate closeMediaPlayer];
     }
+}
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [self.parentViewController didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 @end

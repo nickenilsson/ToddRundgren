@@ -9,6 +9,7 @@
 #import "MediaProfileNavigationController.h"
 #import "FoorseeHTTPClient.h"
 #import "MediaProfileViewController.h"
+#import "UIColor+ColorFromHex.h"
 
 @interface MediaProfileNavigationController () <MediaProfileDelegate>
 
@@ -35,9 +36,8 @@
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(foorseeItemSelected:) name:@"foorseeItemSelected" object:nil];
-    self.view.backgroundColor = [UIColor blackColor];
-    
 }
+
 -(void) foorseeItemSelected:(NSNotification *)notification
 {
     NSDictionary *notificationInfo = [notification userInfo];
@@ -64,6 +64,11 @@
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"%@", [error localizedDescription]);
     }];
+}
+
+-(void) presentPersonProfileForItemWithFoorseeId:(NSString *) foorseeId
+{
+
 }
 
 -(void) backButtonTappedInMediaProfileView

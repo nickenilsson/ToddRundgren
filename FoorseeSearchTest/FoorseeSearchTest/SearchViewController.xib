@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchViewController">
             <connections>
+                <outlet property="activityIndicator" destination="lUG-wl-ppI" id="Jxa-fQ-EcS"/>
                 <outlet property="filterCollectionView" destination="xdW-nl-Ft8" id="UuR-y4-wdV"/>
                 <outlet property="resultsCollectionView" destination="bog-IY-alz" id="Igf-UF-KW8"/>
                 <outlet property="searchBar" destination="Xit-EC-e96" id="JGq-Ga-NRR"/>
@@ -20,7 +21,6 @@
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="xdW-nl-Ft8">
                     <rect key="frame" x="0.0" y="0.0" width="250" height="768"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="250" id="cg7-cU-U5s"/>
                     </constraints>
@@ -48,14 +48,19 @@
                     </collectionViewFlowLayout>
                     <cells/>
                 </collectionView>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="lUG-wl-ppI">
+                    <rect key="frame" x="494" y="366" width="37" height="37"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </activityIndicatorView>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="xdW-nl-Ft8" secondAttribute="bottom" id="2dR-36-tNW"/>
                 <constraint firstAttribute="bottom" secondItem="bog-IY-alz" secondAttribute="bottom" id="7z7-Tf-hpk"/>
                 <constraint firstItem="xdW-nl-Ft8" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="CzY-6Z-Hwx"/>
+                <constraint firstAttribute="centerY" secondItem="lUG-wl-ppI" secondAttribute="centerY" id="DqG-vj-UCu"/>
                 <constraint firstItem="bog-IY-alz" firstAttribute="leading" secondItem="xdW-nl-Ft8" secondAttribute="trailing" id="K5W-Bt-mnZ"/>
                 <constraint firstItem="Xit-EC-e96" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Lvd-v5-AV1"/>
+                <constraint firstAttribute="centerX" secondItem="lUG-wl-ppI" secondAttribute="centerX" id="N8h-1p-6Zg"/>
                 <constraint firstAttribute="trailing" secondItem="Xit-EC-e96" secondAttribute="trailing" id="OpJ-XH-aiF"/>
                 <constraint firstItem="xdW-nl-Ft8" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="UBL-Q8-SL0"/>
                 <constraint firstItem="Xit-EC-e96" firstAttribute="leading" secondItem="xdW-nl-Ft8" secondAttribute="trailing" id="XSG-5H-XSz"/>

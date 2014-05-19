@@ -8,8 +8,6 @@
 
 #import "FoorseeHTTPClient.h"
 
-static NSString *const base_url = @"http://client_abstraction_api.moc/v1/X62G2eUCuid3cF3Dxod32idudYxg";
-
 @implementation FoorseeHTTPClient{
     NSMutableDictionary *_currentSearchParameters;
 }
@@ -18,9 +16,11 @@ static NSString *const base_url = @"http://client_abstraction_api.moc/v1/X62G2eU
 {
     static FoorseeHTTPClient *_sharedForeseeHTTPClient = nil;
     
+    NSString *baseUrl = [NSString stringWithFormat:@"%@%@", FOORSEE_API_URL, API_KEY];
+    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _sharedForeseeHTTPClient = [[self alloc] initWithBaseURL:[NSURL URLWithString:base_url]]; 
+        _sharedForeseeHTTPClient = [[self alloc] initWithBaseURL:[NSURL URLWithString:baseUrl]];
     });
     
     return _sharedForeseeHTTPClient;
@@ -30,7 +30,6 @@ static NSString *const base_url = @"http://client_abstraction_api.moc/v1/X62G2eU
 {
     self = [super initWithBaseURL:url];
 
-    
     if (self) {
         self.responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions: NSJSONReadingMutableContainers];
         self.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -38,8 +37,6 @@ static NSString *const base_url = @"http://client_abstraction_api.moc/v1/X62G2eU
     
     return self;
 }
-
-
 
 
 

@@ -81,7 +81,8 @@ static NSString * const cellIdentifier = @"cellIdentifier";
 {
     VideoThumbnailCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     NSDictionary *cellData = self.data[indexPath.item];
-    NSURL *imageUrl = [NSURL URLWithString:cellData[@"images"][@"thumbnails"][0][@"url"]];
+    
+    NSURL *imageUrl = [NSURL URLWithString:cellData[@"images"][@"originals"][0][@"url"]];
     UIImage *placeholderImage = [UIImage imageWithColor:[UIColor blackColor]];
     [cell.ImageView setImageWithURL:imageUrl placeholderImage:placeholderImage];
     cell.labelTitle.text = cellData[@"title"];

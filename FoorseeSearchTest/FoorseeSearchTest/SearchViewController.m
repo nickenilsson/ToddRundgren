@@ -33,6 +33,7 @@ static NSString * const filterSectionHeaderIdentifier = @"sectionFilterHeaderIde
 @property (weak, nonatomic) IBOutlet UICollectionView *resultsCollectionView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -61,6 +62,7 @@ static NSString * const filterSectionHeaderIdentifier = @"sectionFilterHeaderIde
     return self;
 }
 
+
 -(void)viewDidLayoutSubviews
 {
     [self setUpResultsCollectionViewLayout];
@@ -72,7 +74,7 @@ static NSString * const filterSectionHeaderIdentifier = @"sectionFilterHeaderIde
     self.searchBar.delegate = self;
         
     _foorseeSessionManager = [FoorseeHTTPClient sharedForeseeHTTPClient];
-    [self updateSearchRequest];
+    //[self updateSearchRequestWithQuery:nil];
     
     [self.resultsCollectionView registerNib:[ImageCell nib] forCellWithReuseIdentifier:imageCellIdentifier];
     CellConfigureBlock imageCellConfigurationBlock = ^(ImageCell *cell, NSDictionary *movie){
@@ -163,7 +165,7 @@ static NSString * const filterSectionHeaderIdentifier = @"sectionFilterHeaderIde
             [filter setObject:[NSNumber numberWithBool:NO] forKey:@"isActive"];
         }
         [self.filterCollectionView reloadData];
-        [self updateSearchRequest];
+        [self updateSearchRequestWithQuery:nil];
     }else if ([collectionView isEqual:_resultsCollectionView]){
         NSString *foorseeId = _resultsDataSource.items[indexPath.item][@"id"];
         [self.delegate itemSelectedWithFoorseeIdNumber:foorseeId];
@@ -187,12 +189,15 @@ static NSString * const filterSectionHeaderIdentifier = @"sectionFilterHeaderIde
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    [self updateSearchRequest];
+    [self updateSearchRequestWithQuery:searchBar.text];
 }
 
--(void) updateSearchRequest
+-(void) updateSearchRequestWithQuery:(NSString *) query
 {
-    NSString *query = self.searchBar.text;
+    [self.activityIndicator startAnimating];
+    if (!query) {
+        query = @"";
+    }
     NSMutableString *tags = [NSMutableString stringWithString:@""];
     
     BOOL activeFiltersExists = NO;
@@ -224,6 +229,7 @@ static NSString * const filterSectionHeaderIdentifier = @"sectionFilterHeaderIde
     }
     NSDictionary *parameters = @{@"q": query, @"tags":tags};
     [_foorseeSessionManager GET:@"search/default.json" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        [self.activityIndicator stopAnimating];
         _resultsDataSource.items = responseObject[@"result"][@"movies"];
         
         _filters = responseObject[@"availableToQuery"][@"tags"];
@@ -232,6 +238,7 @@ static NSString * const filterSectionHeaderIdentifier = @"sectionFilterHeaderIde
         [self.resultsCollectionView reloadData];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"Failure: %@", [error localizedDescription]);
+        [self.activityIndicator stopAnimating];
     }];
 }
 

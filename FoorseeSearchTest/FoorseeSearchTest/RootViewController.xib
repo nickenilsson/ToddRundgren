@@ -19,7 +19,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="100" height="768"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rGV-Z1-5v3">
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rGV-Z1-5v3">
                             <rect key="frame" x="26" y="20" width="48" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Search">
@@ -59,7 +59,6 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="hNc-X9-mge" firstAttribute="leading" secondItem="5iZ-Q5-fFA" secondAttribute="trailing" id="QYu-3E-FAx"/>
                 <constraint firstAttribute="bottom" secondItem="hNc-X9-mge" secondAttribute="bottom" id="RU5-zS-6EA"/>

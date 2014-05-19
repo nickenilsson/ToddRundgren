@@ -48,6 +48,7 @@ static NSString * const cellIdentifier = @"cellIdentifier";
 {
     [self setUpCollectionViewLayout];
 }
+
 -(void) setUpCollectionViewLayout
 {
     _collectionViewLayout.minimumInteritemSpacing = 0;
@@ -58,7 +59,6 @@ static NSString * const cellIdentifier = @"cellIdentifier";
     CGFloat itemWidth = ITEM_WIDTH_TO_HEIGHT_RELATIONSHIP * itemHeight;
     _collectionViewLayout.itemSize = CGSizeMake(itemWidth, itemHeight);
     [_collectionViewLayout invalidateLayout];
-    
 }
 
 
@@ -85,8 +85,13 @@ static NSString * const cellIdentifier = @"cellIdentifier";
     NSDictionary *cellData = self.data[indexPath.item];
     
     NSURL *imageUrl = [NSURL URLWithString:cellData[@"images"][@"thumbnails"][0][@"url"]];
-    UIImage *placeholderImage = [UIImage imageWithColor:[UIColor blackColor]];
-    [cell.imageView setImageWithURL:imageUrl placeholderImage:placeholderImage];
+    if (imageUrl) {
+        UIImage *placeholderImage = [UIImage imageWithColor:[UIColor blackColor]];
+        [cell.imageView setImageWithURL:imageUrl placeholderImage:placeholderImage];
+    }
+    else{
+        cell.backgroundColor = [UIColor grayColor];
+    }
     
     return cell;
 }

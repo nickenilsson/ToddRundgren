@@ -7,6 +7,7 @@
 //
 
 #import "ImageViewWithGradient.h"
+#import "UIColor+ColorFromHex.h"
 
 @implementation ImageViewWithGradient{
 
@@ -29,19 +30,23 @@
     }
     return self;
 }
-
+-(void)setGradientColor:(UIColor *)gradientColor
+{
+    _gradientColor = gradientColor;
+    [self setUpGradient];
+}
 -(void) setUpGradient
 {
+    if (!_gradientColor) {
+        _gradientColor = [UIColor whiteColor];
+    }
     _gradientLayer = [CAGradientLayer layer];
-    _gradientLayer.frame = self.bounds;
-    _gradientLayer.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor], (id)[[UIColor blackColor] CGColor], nil];
+    _gradientLayer.frame = CGRectMake(0, 0, 1024, self.frame.size.height);
+    _gradientLayer.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor], (id)[_gradientColor CGColor], nil];
     [self.layer addSublayer:_gradientLayer];
+    self.layer.shouldRasterize = YES;
 }
 
--(void)layoutSubviews
-{
-    _gradientLayer.frame = self.bounds;
-}
 
 /*
 // Only override drawRect: if you perform custom drawing.

@@ -10,6 +10,9 @@
 
 @protocol ContentViewControllerDelegate <NSObject>
 
+
+@optional
+-(void) searchWasMadeInDiscoverViewWithQuery:(NSString *) query;
 -(void) itemSelectedWithFoorseeIdNumber:(NSString *) idNumber;
 
 @end
