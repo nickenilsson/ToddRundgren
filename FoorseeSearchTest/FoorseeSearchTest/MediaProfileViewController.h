@@ -7,25 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@protocol MediaProfileDelegate <NSObject>
-
-@optional
-
--(void) backButtonTappedInMediaProfileView;
-
-@end
+#import "ImageViewWithGradient.h"
+#import "ProfilePageViewController.h"
 
 
-@interface MediaProfileViewController : UIViewController
+@interface MediaProfileViewController : ProfilePageViewController
 
-
--(void) setData:(id)data;
-
-- (IBAction)buttonBackTapped:(id)sender;
-
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) id <MediaProfileDelegate> delegate;
 
 @end
 

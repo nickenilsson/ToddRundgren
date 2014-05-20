@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="5056"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RootViewController">
@@ -15,58 +15,16 @@
             <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5iZ-Q5-fFA">
-                    <rect key="frame" x="0.0" y="0.0" width="100" height="768"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <subviews>
-                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rGV-Z1-5v3">
-                            <rect key="frame" x="26" y="20" width="48" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Search">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="tappedButtonToGoToSearchView:" destination="-1" eventType="touchUpInside" id="ME9-5O-W6s"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mB4-GD-AzN">
-                            <rect key="frame" x="20" y="108" width="60" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Discover">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="tappedButtonToGoToDiscoverView:" destination="-1" eventType="touchUpInside" id="b9g-BK-hQo"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ko-xp-hCp">
-                            <rect key="frame" x="27" y="199" width="44" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Profile">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="tappedButtonToGoToProfileView:" destination="-1" eventType="touchUpInside" id="IuP-Sw-ZOb"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="100" id="wTe-YY-n2A"/>
-                    </constraints>
-                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hNc-X9-mge">
-                    <rect key="frame" x="100" y="0.0" width="924" height="768"/>
+                    <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </view>
             </subviews>
             <constraints>
-                <constraint firstItem="hNc-X9-mge" firstAttribute="leading" secondItem="5iZ-Q5-fFA" secondAttribute="trailing" id="QYu-3E-FAx"/>
+                <constraint firstItem="hNc-X9-mge" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="R1k-NE-2TH"/>
                 <constraint firstAttribute="bottom" secondItem="hNc-X9-mge" secondAttribute="bottom" id="RU5-zS-6EA"/>
                 <constraint firstAttribute="trailing" secondItem="hNc-X9-mge" secondAttribute="trailing" id="bU5-q0-Ci5"/>
-                <constraint firstItem="5iZ-Q5-fFA" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="rPH-j3-ImH"/>
-                <constraint firstItem="5iZ-Q5-fFA" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="tAt-3w-7Fm"/>
                 <constraint firstItem="hNc-X9-mge" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="tDR-QD-VaD"/>
-                <constraint firstAttribute="bottom" secondItem="5iZ-Q5-fFA" secondAttribute="bottom" id="ugT-W4-bjp"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>

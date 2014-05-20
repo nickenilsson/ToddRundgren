@@ -50,12 +50,14 @@
 
 -(void)setTitleText:(NSString *)titleText
 {
+    self.labelTitle.hidden = NO;
     _titleText = titleText;
     [self.labelTitle setText:titleText];
 }
 
 -(void)setDescriptionText:(NSString *)descriptionText
 {
+    self.textViewDescription.hidden = NO;
     _descriptionText = descriptionText;
     [self.textViewDescription setText:descriptionText];
     

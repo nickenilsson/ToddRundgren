@@ -21,7 +21,7 @@ CGFloat const JTSImageViewController_MinimumBackgroundScaling = 1.02f;
 CGFloat const JTSImageViewController_TargetZoomForDoubleTap = 3.0f;
 CGFloat const JTSImageViewController_MaxScalingForExpandingOffscreenStyleTransition = 1.0f;
 CGFloat const JTSImageViewController_TransitionAnimationDuration = 0.15f;
-CGFloat const JTSImageViewController_MinimumFlickDismissalVelocity = 800.0f;
+CGFloat const JTSImageViewController_MinimumFlickDismissalVelocity = 1000.0f;
 
 @interface JTSImageViewController ()
 <

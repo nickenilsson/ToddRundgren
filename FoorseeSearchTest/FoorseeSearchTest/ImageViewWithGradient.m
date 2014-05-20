@@ -18,7 +18,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setUpGradient];
+        //[self setUpGradient];
     }
     return self;
 }
@@ -26,7 +26,7 @@
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        [self setUpGradient];
+        //[self setUpGradient];
     }
     return self;
 }

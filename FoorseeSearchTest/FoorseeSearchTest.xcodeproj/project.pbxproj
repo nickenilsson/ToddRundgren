@@ -10,7 +10,7 @@
 		50118BBD192658E700614C3C /* ImageViewWithBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 50118BBC192658E700614C3C /* ImageViewWithBorder.m */; };
 		5011DC291909002D007CA515 /* MediaProfileNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5011DC281909002D007CA515 /* MediaProfileNavigationController.m */; };
 		5011DC3219092E05007CA515 /* MediaProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5011DC3019092E05007CA515 /* MediaProfileViewController.m */; };
-		5011DC3319092E05007CA515 /* MediaProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5011DC3119092E05007CA515 /* MediaProfileViewController.xib */; };
+		5011DC3319092E05007CA515 /* ProfilePageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5011DC3119092E05007CA515 /* ProfilePageViewController.xib */; };
 		501249A4191BCF4C00FC7CB8 /* ActorsModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 501249A3191BCF4C00FC7CB8 /* ActorsModuleViewController.m */; };
 		501338401917DD8D00695E29 /* CollectionModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5013383E1917DD8D00695E29 /* CollectionModuleViewController.m */; };
 		501338411917DD8D00695E29 /* CollectionModuleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5013383F1917DD8D00695E29 /* CollectionModuleViewController.xib */; };
@@ -39,12 +39,10 @@
 		508C0B4E1920E46700829B79 /* SearchBarSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 508C0B4D1920E46700829B79 /* SearchBarSectionHeader.m */; };
 		508C0B501920E48B00829B79 /* SearchBarSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 508C0B4F1920E48B00829B79 /* SearchBarSectionHeader.xib */; };
 		509D0A2C1918CD8F00173552 /* SnappyFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D0A2B1918CD8F00173552 /* SnappyFlowLayout.m */; };
-		509D0A321918FECE00173552 /* SimilarContentModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D0A311918FECE00173552 /* SimilarContentModuleViewController.m */; };
+		509D0A321918FECE00173552 /* MoviesModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D0A311918FECE00173552 /* MoviesModuleViewController.m */; };
 		509D0A35191925E600173552 /* ImagesModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D0A34191925E600173552 /* ImagesModuleViewController.m */; };
 		50A1FDE8191B6BD200C2232A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50A1FDE7191B6BD200C2232A /* QuartzCore.framework */; };
 		50A1FDEE191B8A7200C2232A /* ImageViewWithGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A1FDED191B8A7200C2232A /* ImageViewWithGradient.m */; };
-		50A2F0CA1910E01E00BE6D0A /* DiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A2F0C81910E01E00BE6D0A /* DiscoverViewController.m */; };
-		50A2F0CB1910E01E00BE6D0A /* DiscoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50A2F0C91910E01E00BE6D0A /* DiscoverViewController.xib */; };
 		50A810C418FE77A3004FDF52 /* FilterSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A810C318FE77A3004FDF52 /* FilterSectionHeader.m */; };
 		50A810C618FE77B4004FDF52 /* FilterSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50A810C518FE77B4004FDF52 /* FilterSectionHeader.xib */; };
 		50A810C918FE7ECD004FDF52 /* UIColor+ColorFromHex.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A810C818FE7ECD004FDF52 /* UIColor+ColorFromHex.m */; };
@@ -61,9 +59,9 @@
 		50CF5782191A2FB5006DF116 /* VideoThumbnailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50CF5781191A2FB5006DF116 /* VideoThumbnailCell.xib */; };
 		50CF5786191A4722006DF116 /* MediaPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CF5784191A4722006DF116 /* MediaPlayerViewController.m */; };
 		50CF5787191A4722006DF116 /* MediaPlayerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50CF5785191A4722006DF116 /* MediaPlayerViewController.xib */; };
+		50DA271A192B44C6003D681E /* PersonProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50DA2719192B44C6003D681E /* PersonProfileViewController.m */; };
+		50DA271D192B52F1003D681E /* ProfilePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50DA271C192B52F1003D681E /* ProfilePageViewController.m */; };
 		50DD9FFE18FD5BF200D75E84 /* ArrayDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 50DD9FFD18FD5BF200D75E84 /* ArrayDataSource.m */; };
-		50DDA00218FD5DA000D75E84 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50DDA00018FD5DA000D75E84 /* SearchViewController.m */; };
-		50DDA00318FD5DA000D75E84 /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50DDA00118FD5DA000D75E84 /* SearchViewController.xib */; };
 		50EBB2F8192201B100BC013A /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EBB2F6192201B100BC013A /* MainViewController.m */; };
 		50EBB2F9192201B100BC013A /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50EBB2F7192201B100BC013A /* MainViewController.xib */; };
 		94A387EC9503401CBA2A2D12 /* libPods-FoorseeSearchTest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8ADC56466A4BE5B7995EB9 /* libPods-FoorseeSearchTest.a */; };
@@ -87,7 +85,7 @@
 		5011DC281909002D007CA515 /* MediaProfileNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaProfileNavigationController.m; sourceTree = "<group>"; };
 		5011DC2F19092E05007CA515 /* MediaProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaProfileViewController.h; sourceTree = "<group>"; };
 		5011DC3019092E05007CA515 /* MediaProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaProfileViewController.m; sourceTree = "<group>"; };
-		5011DC3119092E05007CA515 /* MediaProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MediaProfileViewController.xib; sourceTree = "<group>"; };
+		5011DC3119092E05007CA515 /* ProfilePageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfilePageViewController.xib; sourceTree = "<group>"; };
 		501249A2191BCF4C00FC7CB8 /* ActorsModuleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActorsModuleViewController.h; sourceTree = "<group>"; };
 		501249A3191BCF4C00FC7CB8 /* ActorsModuleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActorsModuleViewController.m; sourceTree = "<group>"; };
 		5013383D1917DD8D00695E29 /* CollectionModuleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionModuleViewController.h; sourceTree = "<group>"; };
@@ -129,16 +127,13 @@
 		508C0B4F1920E48B00829B79 /* SearchBarSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchBarSectionHeader.xib; sourceTree = "<group>"; };
 		509D0A2A1918CD8F00173552 /* SnappyFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnappyFlowLayout.h; sourceTree = "<group>"; };
 		509D0A2B1918CD8F00173552 /* SnappyFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnappyFlowLayout.m; sourceTree = "<group>"; };
-		509D0A301918FECE00173552 /* SimilarContentModuleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimilarContentModuleViewController.h; sourceTree = "<group>"; };
-		509D0A311918FECE00173552 /* SimilarContentModuleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimilarContentModuleViewController.m; sourceTree = "<group>"; };
+		509D0A301918FECE00173552 /* MoviesModuleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviesModuleViewController.h; sourceTree = "<group>"; };
+		509D0A311918FECE00173552 /* MoviesModuleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoviesModuleViewController.m; sourceTree = "<group>"; };
 		509D0A33191925E600173552 /* ImagesModuleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagesModuleViewController.h; sourceTree = "<group>"; };
 		509D0A34191925E600173552 /* ImagesModuleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagesModuleViewController.m; sourceTree = "<group>"; };
 		50A1FDE7191B6BD200C2232A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		50A1FDEC191B8A7200C2232A /* ImageViewWithGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewWithGradient.h; sourceTree = "<group>"; };
 		50A1FDED191B8A7200C2232A /* ImageViewWithGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewWithGradient.m; sourceTree = "<group>"; };
-		50A2F0C71910E01E00BE6D0A /* DiscoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoverViewController.h; sourceTree = "<group>"; };
-		50A2F0C81910E01E00BE6D0A /* DiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscoverViewController.m; sourceTree = "<group>"; };
-		50A2F0C91910E01E00BE6D0A /* DiscoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscoverViewController.xib; sourceTree = "<group>"; };
 		50A810C218FE77A3004FDF52 /* FilterSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterSectionHeader.h; sourceTree = "<group>"; };
 		50A810C318FE77A3004FDF52 /* FilterSectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterSectionHeader.m; sourceTree = "<group>"; };
 		50A810C518FE77B4004FDF52 /* FilterSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterSectionHeader.xib; sourceTree = "<group>"; };
@@ -165,11 +160,12 @@
 		50CF5783191A4722006DF116 /* MediaPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaPlayerViewController.h; sourceTree = "<group>"; };
 		50CF5784191A4722006DF116 /* MediaPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaPlayerViewController.m; sourceTree = "<group>"; };
 		50CF5785191A4722006DF116 /* MediaPlayerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MediaPlayerViewController.xib; sourceTree = "<group>"; };
+		50DA2718192B44C6003D681E /* PersonProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonProfileViewController.h; sourceTree = "<group>"; };
+		50DA2719192B44C6003D681E /* PersonProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonProfileViewController.m; sourceTree = "<group>"; };
+		50DA271B192B52F1003D681E /* ProfilePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfilePageViewController.h; sourceTree = "<group>"; };
+		50DA271C192B52F1003D681E /* ProfilePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfilePageViewController.m; sourceTree = "<group>"; };
 		50DD9FFC18FD5BF200D75E84 /* ArrayDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrayDataSource.h; sourceTree = "<group>"; };
 		50DD9FFD18FD5BF200D75E84 /* ArrayDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArrayDataSource.m; sourceTree = "<group>"; };
-		50DD9FFF18FD5DA000D75E84 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
-		50DDA00018FD5DA000D75E84 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
-		50DDA00118FD5DA000D75E84 /* SearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
 		50EBB2F5192201B100BC013A /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		50EBB2F6192201B100BC013A /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		50EBB2F7192201B100BC013A /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
@@ -246,6 +242,7 @@
 				50CF5788191A47BB006DF116 /* Mediaplayer */,
 				50CF577D191A2F56006DF116 /* Collection view cells */,
 				50B1F47C190A915200DE3FC3 /* Content profile module views */,
+				50DA271E192B52FD003D681E /* Profile Pages */,
 				5034D0EA18FBD04B0023A02C /* Images.xcassets */,
 				5034D0E418FBD04B0023A02C /* AppDelegate.h */,
 				5034D0E518FBD04B0023A02C /* AppDelegate.m */,
@@ -257,23 +254,12 @@
 				50A8A6F618FD16EF008D2FF8 /* UIImage+ImageWithColor.m */,
 				50DD9FFC18FD5BF200D75E84 /* ArrayDataSource.h */,
 				50DD9FFD18FD5BF200D75E84 /* ArrayDataSource.m */,
-				50DD9FFF18FD5DA000D75E84 /* SearchViewController.h */,
-				50DDA00018FD5DA000D75E84 /* SearchViewController.m */,
-				50DDA00118FD5DA000D75E84 /* SearchViewController.xib */,
 				50A810C718FE7ECD004FDF52 /* UIColor+ColorFromHex.h */,
-				5011DC271909002D007CA515 /* MediaProfileNavigationController.h */,
-				5011DC281909002D007CA515 /* MediaProfileNavigationController.m */,
-				5011DC2F19092E05007CA515 /* MediaProfileViewController.h */,
-				5011DC3019092E05007CA515 /* MediaProfileViewController.m */,
-				5011DC3119092E05007CA515 /* MediaProfileViewController.xib */,
 				5089C47D190FC5D900A5BA9A /* RootViewController.h */,
 				5089C47E190FC5D900A5BA9A /* RootViewController.m */,
 				5089C47F190FC5D900A5BA9A /* RootViewController.xib */,
 				50A810C818FE7ECD004FDF52 /* UIColor+ColorFromHex.m */,
 				5089C482190FCBC500A5BA9A /* ContentViewControllerDelegate.h */,
-				50A2F0C71910E01E00BE6D0A /* DiscoverViewController.h */,
-				50A2F0C81910E01E00BE6D0A /* DiscoverViewController.m */,
-				50A2F0C91910E01E00BE6D0A /* DiscoverViewController.xib */,
 				509D0A2A1918CD8F00173552 /* SnappyFlowLayout.h */,
 				509D0A2B1918CD8F00173552 /* SnappyFlowLayout.m */,
 				50A1FDEC191B8A7200C2232A /* ImageViewWithGradient.h */,
@@ -345,8 +331,8 @@
 				5013383F1917DD8D00695E29 /* CollectionModuleViewController.xib */,
 				501338421917DE2E00695E29 /* ProvidersModuleViewController.h */,
 				501338431917DE2E00695E29 /* ProvidersModuleViewController.m */,
-				509D0A301918FECE00173552 /* SimilarContentModuleViewController.h */,
-				509D0A311918FECE00173552 /* SimilarContentModuleViewController.m */,
+				509D0A301918FECE00173552 /* MoviesModuleViewController.h */,
+				509D0A311918FECE00173552 /* MoviesModuleViewController.m */,
 				509D0A33191925E600173552 /* ImagesModuleViewController.h */,
 				509D0A34191925E600173552 /* ImagesModuleViewController.m */,
 				50CF577A191A1BD0006DF116 /* VideoModuleViewController.h */,
@@ -390,6 +376,22 @@
 				50CF5785191A4722006DF116 /* MediaPlayerViewController.xib */,
 			);
 			name = Mediaplayer;
+			sourceTree = "<group>";
+		};
+		50DA271E192B52FD003D681E /* Profile Pages */ = {
+			isa = PBXGroup;
+			children = (
+				5011DC271909002D007CA515 /* MediaProfileNavigationController.h */,
+				5011DC281909002D007CA515 /* MediaProfileNavigationController.m */,
+				5011DC2F19092E05007CA515 /* MediaProfileViewController.h */,
+				5011DC3019092E05007CA515 /* MediaProfileViewController.m */,
+				50DA2718192B44C6003D681E /* PersonProfileViewController.h */,
+				50DA2719192B44C6003D681E /* PersonProfileViewController.m */,
+				5011DC3119092E05007CA515 /* ProfilePageViewController.xib */,
+				50DA271B192B52F1003D681E /* ProfilePageViewController.h */,
+				50DA271C192B52F1003D681E /* ProfilePageViewController.m */,
+			);
+			name = "Profile Pages";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -475,14 +477,12 @@
 				5034D0E018FBD04B0023A02C /* InfoPlist.strings in Resources */,
 				50539FF71924A6E400B5AE4C /* warner.jpg in Resources */,
 				5089C481190FC5D900A5BA9A /* RootViewController.xib in Resources */,
-				5011DC3319092E05007CA515 /* MediaProfileViewController.xib in Resources */,
+				5011DC3319092E05007CA515 /* ProfilePageViewController.xib in Resources */,
 				508A21C418FBDD35006BBFEE /* ImageCell.xib in Resources */,
 				50CF5787191A4722006DF116 /* MediaPlayerViewController.xib in Resources */,
 				508C0B501920E48B00829B79 /* SearchBarSectionHeader.xib in Resources */,
 				50A810C618FE77B4004FDF52 /* FilterSectionHeader.xib in Resources */,
 				5034D0EB18FBD04B0023A02C /* Images.xcassets in Resources */,
-				50A2F0CB1910E01E00BE6D0A /* DiscoverViewController.xib in Resources */,
-				50DDA00318FD5DA000D75E84 /* SearchViewController.xib in Resources */,
 				50BBCDB3190F98D20007941A /* HeaderModuleViewController.xib in Resources */,
 				50B63CA61923B0CC0092304D /* SupplementaryViewWithImage.xib in Resources */,
 				50A8A70118FD23A8008D2FF8 /* FilterCell.xib in Resources */,
@@ -538,7 +538,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50CF577C191A1BD0006DF116 /* VideoModuleViewController.m in Sources */,
-				509D0A321918FECE00173552 /* SimilarContentModuleViewController.m in Sources */,
+				509D0A321918FECE00173552 /* MoviesModuleViewController.m in Sources */,
 				50B63CA41923B0B80092304D /* SupplementaryViewWithImage.m in Sources */,
 				50A810C918FE7ECD004FDF52 /* UIColor+ColorFromHex.m in Sources */,
 				50A810C418FE77A3004FDF52 /* FilterSectionHeader.m in Sources */,
@@ -550,12 +550,13 @@
 				501338441917DE2E00695E29 /* ProvidersModuleViewController.m in Sources */,
 				5034D0E618FBD04B0023A02C /* AppDelegate.m in Sources */,
 				50CF5786191A4722006DF116 /* MediaPlayerViewController.m in Sources */,
+				50DA271A192B44C6003D681E /* PersonProfileViewController.m in Sources */,
 				50BBCDB2190F98D20007941A /* HeaderModuleViewController.m in Sources */,
 				508A21C218FBDD1C006BBFEE /* ImageCell.m in Sources */,
 				50EBB2F8192201B100BC013A /* MainViewController.m in Sources */,
 				501338401917DD8D00695E29 /* CollectionModuleViewController.m in Sources */,
-				50DDA00218FD5DA000D75E84 /* SearchViewController.m in Sources */,
 				508C0B4E1920E46700829B79 /* SearchBarSectionHeader.m in Sources */,
+				50DA271D192B52F1003D681E /* ProfilePageViewController.m in Sources */,
 				5034D0E918FBD04B0023A02C /* FoorseeSearchTest.xcdatamodeld in Sources */,
 				50A8A6F718FD16EF008D2FF8 /* UIImage+ImageWithColor.m in Sources */,
 				50CF5780191A2F9D006DF116 /* VideoThumbnailCell.m in Sources */,
@@ -566,7 +567,6 @@
 				50A1FDEE191B8A7200C2232A /* ImageViewWithGradient.m in Sources */,
 				50B63C98192368240092304D /* CustomFlowLayout.m in Sources */,
 				508A21FE18FBE0B1006BBFEE /* FoorseeHTTPClient.m in Sources */,
-				50A2F0CA1910E01E00BE6D0A /* DiscoverViewController.m in Sources */,
 				5034D0E218FBD04B0023A02C /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

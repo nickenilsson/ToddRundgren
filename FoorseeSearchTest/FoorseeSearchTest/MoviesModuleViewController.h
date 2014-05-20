@@ -10,7 +10,7 @@
 
 @protocol ContentViewControllerDelegate;
 
-@interface SimilarContentModuleViewController : CollectionModuleViewController
+@interface MoviesModuleViewController : CollectionModuleViewController
 
 @property (strong, nonatomic) NSMutableArray *data;
 

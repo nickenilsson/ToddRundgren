@@ -12,7 +12,6 @@
 #import "UIImage+ImageWithColor.h"
 #import "SnappyFlowLayout.h"
 
-#define ITEM_WIDTH_TO_HEIGHT_RELATIONSHIP 0.75f
 
 static NSString * const cellIdentifier = @"cellIdentifier";
 
@@ -56,7 +55,7 @@ static NSString * const cellIdentifier = @"cellIdentifier";
     _collectionViewLayout.sectionInset = UIEdgeInsetsMake(0, 5, 0, 5);
     CGFloat availableHeight = self.collectionView.frame.size.height - _collectionViewLayout.sectionInset.bottom - _collectionViewLayout.sectionInset.top;
     CGFloat itemHeight = availableHeight;
-    CGFloat itemWidth = ITEM_WIDTH_TO_HEIGHT_RELATIONSHIP * itemHeight;
+    CGFloat itemWidth = RELATION_WIDTH_TO_HEIGHT_POSTERS * itemHeight;
     _collectionViewLayout.itemSize = CGSizeMake(itemWidth, itemHeight);
     [_collectionViewLayout invalidateLayout];
 }
@@ -94,6 +93,17 @@ static NSString * const cellIdentifier = @"cellIdentifier";
     }
     
     return cell;
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *selectedItem = self.data[indexPath.item];
+    NSString *foorseeId = selectedItem[@"id"];
+    NSDictionary *userInfo = @{@"foorseeId": foorseeId};
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter postNotificationName:@"foorseePersonSelected"
+                                      object:nil
+                                    userInfo:userInfo];
 }
 
 - (void)didReceiveMemoryWarning

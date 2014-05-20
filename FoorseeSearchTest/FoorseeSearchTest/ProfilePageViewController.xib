@@ -4,13 +4,14 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MediaProfileViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfilePageViewController">
             <connections>
+                <outlet property="activityIndicator" destination="7Y0-0I-P6K" id="4nA-iV-UvO"/>
                 <outlet property="backgroundConstraintTop" destination="mM3-VV-Wt4" id="moF-F7-Xbx"/>
                 <outlet property="buttonNavigateBack" destination="OOD-WR-82D" id="VVQ-lk-KBy"/>
                 <outlet property="imageViewBackground" destination="xIf-rq-JsJ" id="wzZ-gI-rNR"/>
                 <outlet property="scrollView" destination="ZAB-FZ-PqM" id="AiI-vn-wAY"/>
-                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="XFL-h4-aY1"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -44,6 +45,10 @@
                         <action selector="buttonBackTapped:" destination="-1" eventType="touchUpInside" id="wMI-XD-Epu"/>
                     </connections>
                 </button>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="7Y0-0I-P6K">
+                    <rect key="frame" x="493" y="366" width="37" height="37"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </activityIndicatorView>
             </subviews>
             <constraints>
                 <constraint firstItem="ZAB-FZ-PqM" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="5o2-mX-0jV"/>
@@ -53,6 +58,8 @@
                 <constraint firstItem="ZAB-FZ-PqM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="hbH-PB-qSH"/>
                 <constraint firstItem="xIf-rq-JsJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="k5p-dI-pQk"/>
                 <constraint firstItem="xIf-rq-JsJ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="mM3-VV-Wt4"/>
+                <constraint firstAttribute="centerY" secondItem="7Y0-0I-P6K" secondAttribute="centerY" id="mqj-8o-67k"/>
+                <constraint firstAttribute="centerX" secondItem="7Y0-0I-P6K" secondAttribute="centerX" id="sQV-Bc-AtY"/>
                 <constraint firstAttribute="trailing" secondItem="ZAB-FZ-PqM" secondAttribute="trailing" id="xbt-hH-jVa"/>
                 <constraint firstAttribute="trailing" secondItem="xIf-rq-JsJ" secondAttribute="trailing" id="zIw-9r-SKZ"/>
             </constraints>

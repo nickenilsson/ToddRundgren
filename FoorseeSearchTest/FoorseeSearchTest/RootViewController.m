@@ -7,12 +7,11 @@
 //
 
 #import "RootViewController.h"
-#import "SearchViewController.h"
 #import "ContentViewControllerDelegate.h"
 #import "MediaProfileNavigationController.h"
-#import "DiscoverViewController.h"
 #import "MediaPlayerViewController.h"
 #import "MainViewController.h"
+#import "UIColor+ColorFromHex.h"
 
 
 #define WIDTH_OF_MEDIA_PLAYER 300
@@ -24,10 +23,6 @@
 
 @property (weak, nonatomic) IBOutlet UIView *contentViewPlaceholder;
 
-- (IBAction)tappedButtonToGoToSearchView:(id)sender;
-- (IBAction)tappedButtonToGoToDiscoverView:(id)sender;
-- (IBAction)tappedButtonToGoToProfileView:(id)sender;
-
 @end
 
 @implementation RootViewController{
@@ -37,6 +32,7 @@
     UITapGestureRecognizer *_tapToCloseGestureRecognizer;
     MediaPlayerViewController *_mediaPlayerViewController;
     FXBlurView *_blurView;
+    CGAffineTransform _transformBackground;
     
 }
 
@@ -53,6 +49,8 @@
 {
     [super viewDidLoad];
 
+    self.view.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE];
+    
     MainViewController *searchViewController = [[MainViewController alloc]init];
     [self addContentViewController:searchViewController];
     searchViewController.delegate = self;
@@ -61,6 +59,10 @@
     _tapToCloseGestureRecognizer.delegate = self;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoSelected:) name:@"videoSelected" object:nil];
+    
+    CGAffineTransform transformScale = CGAffineTransformMakeScale(0.90, 0.90);
+    CGAffineTransform transformTranslation = CGAffineTransformMakeTranslation(-60, 0);
+    _transformBackground =  CGAffineTransformConcat(transformScale, transformTranslation);
     
 }
 -(void) videoSelected:(NSNotification *) notification
@@ -100,64 +102,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)tappedButtonToGoToSearchView:(id)sender {
-//    if (![_activeViewController isKindOfClass:[SearchViewController class]]) {
-//        
-//        if (_mediaProfileNavigationController != nil) {
-//            [self closeProfileViewNavigationControllerAnimated:NO];
-//        }
-//        [_activeViewController removeFromParentViewController];
-//        [_activeViewController.view removeFromSuperview];
-//        SearchViewController *searchViewController = [[SearchViewController alloc]init];
-//        [self addContentViewController:searchViewController];
-//        searchViewController.delegate = self;
-//        [searchViewController updateSearchRequestWithQuery:@""];
-//        _activeViewController = searchViewController;
-//        
-//    
-//    }
-}
-
-- (IBAction)tappedButtonToGoToDiscoverView:(id)sender
-{
-    if (![_activeViewController isKindOfClass:[DiscoverViewController class]]) {
-        
-        if (_mediaProfileNavigationController != nil) {
-            [self closeProfileViewNavigationControllerAnimated:NO];
-        }
-        
-        [_activeViewController removeFromParentViewController];
-        [_activeViewController.view removeFromSuperview];
-        [self addContentViewController:[[DiscoverViewController alloc]init]];
-        
-        DiscoverViewController *activeViewController = (DiscoverViewController *)_activeViewController;
-        activeViewController.delegate = self;
-        
-    }
-}
-
--(void) searchWasMadeInDiscoverViewWithQuery:(NSString *) query
-{
-    [_activeViewController removeFromParentViewController];
-    [_activeViewController.view removeFromSuperview];
-    SearchViewController *searchViewController = [[SearchViewController alloc]init];
-    [self addContentViewController:searchViewController];
-    searchViewController.delegate = self;
-    [searchViewController updateSearchRequestWithQuery:query];
-    _activeViewController = searchViewController;
-    
-}
-
-- (IBAction)tappedButtonToGoToProfileView:(id)sender
-{
-    
-}
-
 -(void) addContentViewController:(UIViewController *)viewController
 {
     [self addChildViewController:viewController];
     [viewController didMoveToParentViewController:self];
-    [self.view addSubview:viewController.view];
+    [self.contentViewPlaceholder addSubview:viewController.view];
     viewController.view.frame = self.view.bounds;
     viewController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     _activeViewController = viewController;
@@ -167,13 +116,12 @@
 -(void) itemSelectedWithFoorseeIdNumber:(NSString *) idNumber
 {
     if (_mediaProfileNavigationController == nil) {
-        [self addMediaProfileNavigationController];
-        [_mediaProfileNavigationController presentMediaProfileForItemWithFoorseeId:idNumber];
+        [self addMediaProfileNavigationControllerWithItemWithIdNumber:idNumber];
     }
     
 }
 
--(void) addMediaProfileNavigationController
+-(void) addMediaProfileNavigationControllerWithItemWithIdNumber:(NSString *) idNumber
 {
     [self addBlurOverlay];
     
@@ -182,6 +130,7 @@
     [_mediaProfileNavigationController didMoveToParentViewController:self];
     [self.view addSubview:_mediaProfileNavigationController.view];
     [self.view bringSubviewToFront:_mediaProfileNavigationController.view];
+    
     if (_mediaPlayerViewController != nil) {
         [self.view insertSubview:_mediaProfileNavigationController.view belowSubview:_mediaPlayerViewController.view];
     }
@@ -202,7 +151,11 @@
         _MediaProfileLeadingConstraint.constant = 0;
         [self.view layoutIfNeeded];
         [self.view addGestureRecognizer:_tapToCloseGestureRecognizer];
-    } completion:nil];
+    } completion:^(BOOL finished) {
+        if (finished) {
+            [_mediaProfileNavigationController presentMediaProfileForItemWithFoorseeId:idNumber];
+        }
+    }];
     
 }
 
@@ -239,26 +192,32 @@
 -(void) addBlurOverlay
 {
     _blurView = [[FXBlurView alloc] initWithFrame:self.view.bounds];
-    _blurView.autoresizingMask = self.view.autoresizingMask;
+    _blurView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     [_blurView setDynamic:NO];
     _blurView.tintColor = [UIColor blackColor];
     _blurView.alpha = 0;
     [self.view addSubview:_blurView];
     [UIView animateWithDuration:DURATION_PROFILE_PAGE_OPEN_CLOSE animations:^{
         _blurView.alpha = BLUR_VIEW_ALPHA;
+        
+        _activeViewController.view.transform = _transformBackground;
     }];
 
 }
 -(void) removeBlurOverlay
 {
-    [UIView animateWithDuration:DURATION_PROFILE_PAGE_OPEN_CLOSE animations:^{
-        _blurView.alpha = 0.0;
-    } completion:^(BOOL finished) {
-        if (finished) {
-            [_blurView removeFromSuperview];
-            _blurView = nil;
-        }
-    }];
+    if (_blurView != nil) {
+        [UIView animateWithDuration:DURATION_PROFILE_PAGE_OPEN_CLOSE animations:^{
+            _blurView.alpha = 0.0;
+            _activeViewController.view.transform = CGAffineTransformIdentity;
+            
+        } completion:^(BOOL finished) {
+            if (finished) {
+                [_blurView removeFromSuperview];
+                _blurView = nil;
+            }
+        }];
+    }
 }
 
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
@@ -269,6 +228,20 @@
     }
     else{
         return YES;
+    }
+}
+
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    _activeViewController.view.transform = CGAffineTransformIdentity;
+}
+
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    
+    if (_blurView) {
+        
+        _activeViewController.view.transform = _transformBackground;
     }
 }
 

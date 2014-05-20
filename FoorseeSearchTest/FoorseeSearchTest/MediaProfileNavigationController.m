@@ -9,6 +9,7 @@
 #import "MediaProfileNavigationController.h"
 #import "FoorseeHTTPClient.h"
 #import "MediaProfileViewController.h"
+#import "PersonProfileViewController.h"
 #import "UIColor+ColorFromHex.h"
 
 @interface MediaProfileNavigationController () <MediaProfileDelegate>
@@ -33,9 +34,11 @@
     [super viewDidLoad];
     _foorseeSessionManager = [FoorseeHTTPClient sharedForeseeHTTPClient];
     self.navigationBarHidden = YES;
-    
+    self.view.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(foorseeItemSelected:) name:@"foorseeItemSelected" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(foorseePersonSelected:) name:@"foorseePersonSelected" object:nil];
+    
 }
 
 -(void) foorseeItemSelected:(NSNotification *)notification
@@ -43,6 +46,12 @@
     NSDictionary *notificationInfo = [notification userInfo];
     NSString *foorseeId = notificationInfo[@"foorseeId"];
     [self presentMediaProfileForItemWithFoorseeId:foorseeId];
+}
+-(void) foorseePersonSelected: (NSNotification *) notification
+{
+    NSDictionary *notificationInfo = [notification userInfo];
+    NSString *foorseeId = notificationInfo[@"foorseeId"];
+    [self presentPersonProfileForItemWithFoorseeId:foorseeId];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -54,13 +63,12 @@
 {
     MediaProfileViewController *newMediaProfileView = [[MediaProfileViewController alloc]init];
     newMediaProfileView.view.frame = self.view.frame;
-    newMediaProfileView.view.backgroundColor = [UIColor whiteColor];
     newMediaProfileView.delegate = self;
     
     [self pushViewController:newMediaProfileView animated:NO];
     
     [_foorseeSessionManager GET:[NSString stringWithFormat:@"movies/id/%@.json",foorseeId] parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-        [newMediaProfileView setData:responseObject];
+        newMediaProfileView.data = responseObject;
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"%@", [error localizedDescription]);
     }];
@@ -68,7 +76,17 @@
 
 -(void) presentPersonProfileForItemWithFoorseeId:(NSString *) foorseeId
 {
-
+    PersonProfileViewController *newPersonProfileViewController = [[PersonProfileViewController alloc]init];
+    newPersonProfileViewController.view.frame = self.view.frame;
+    newPersonProfileViewController.delegate = self;
+    
+    [self pushViewController:newPersonProfileViewController animated:NO];
+    
+    [_foorseeSessionManager GET:[NSString stringWithFormat:@"cast/id/%@.json",foorseeId] parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        newPersonProfileViewController.data = responseObject;
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"%@", [error localizedDescription]);
+    }];
 }
 
 -(void) backButtonTappedInMediaProfileView

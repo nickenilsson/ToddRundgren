@@ -6,9 +6,8 @@
 //  Copyright (c) 2014 Niklas Nilsson. All rights reserved.
 //
 
-#define ITEM_WIDTH_TO_HEIGHT_RELATIONSHIP 0.75f
 
-#import "SimilarContentModuleViewController.h"
+#import "MoviesModuleViewController.h"
 #import "ImageCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "UIImage+ImageWithColor.h"
@@ -16,11 +15,11 @@
 
 static NSString * const cellIdentifier = @"cellIdentifier";
 
-@interface SimilarContentModuleViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface MoviesModuleViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @end
 
-@implementation SimilarContentModuleViewController{
+@implementation MoviesModuleViewController{
 
     SnappyFlowLayout *_collectionViewLayout;
 }
@@ -58,7 +57,7 @@ static NSString * const cellIdentifier = @"cellIdentifier";
     _collectionViewLayout.sectionInset = UIEdgeInsetsMake(0, 5, 0, 5);
     CGFloat availableHeight = self.collectionView.frame.size.height - _collectionViewLayout.sectionInset.bottom - _collectionViewLayout.sectionInset.top;
     CGFloat itemHeight = availableHeight;
-    CGFloat itemWidth = ITEM_WIDTH_TO_HEIGHT_RELATIONSHIP * itemHeight;
+    CGFloat itemWidth = RELATION_WIDTH_TO_HEIGHT_POSTERS * itemHeight;
     _collectionViewLayout.itemSize = CGSizeMake(itemWidth, itemHeight);
     [_collectionViewLayout invalidateLayout];
     

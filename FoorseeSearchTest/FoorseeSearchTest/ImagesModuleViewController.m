@@ -13,7 +13,7 @@
 #import "UIImage+ImageWithColor.h"
 #import "UIImageView+AFNetworking.h"
 #import "SnappyFlowLayout.h"
-#import "JTSImageViewController.h"
+#import <JTSImageViewController.h>
 
 static NSString * const cellIdentifier = @"cellIdentifier";
 
@@ -93,6 +93,7 @@ static NSString * const cellIdentifier = @"cellIdentifier";
     UIImage *placeholderImage = [UIImage imageWithColor:[UIColor blackColor]];
     [cell.imageView setImageWithURL:imageUrl placeholderImage:placeholderImage];
     
+    
     return cell;
 }
 
@@ -124,16 +125,5 @@ static NSString * const cellIdentifier = @"cellIdentifier";
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

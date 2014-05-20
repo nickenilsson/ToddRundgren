@@ -6,38 +6,20 @@
 //  Copyright (c) 2014 Niklas Nilsson. All rights reserved.
 //
 
-
-
 #import "MediaProfileViewController.h"
 #import "HeaderModuleViewController.h"
 #import "ProvidersModuleViewController.h"
 #import "ActorsModuleViewController.h"
-#import "SimilarContentModuleViewController.h"
+#import "MoviesModuleViewController.h"
 #import "ImagesModuleViewController.h"
 #import "VideoModuleViewController.h"
 #import "UIImageView+AFNetworking.h"
 #import "UIImage+ImageWithColor.h"
 #import "MediaProfileNavigationController.h"
 #import "UIColor+ColorFromHex.h"
-#import "ImageViewWithGradient.h"
 
-#define HEIGHT_HEADER_MODULE 350
-#define HEIGHT_PROVIDERS_MODULE 150
-#define HEIGHT_ACTORS_MODULE 300
-#define HEIGHT_SIMILAR_CONTENT_MODULE 300
-#define HEIGHT_IMAGES_MODULE 300
-#define HEIGHT_VIDEOS_MODULE 300
-#define SCROLLVIEW_MARGIN_BOTTOM 150
-#define SCROLLVIEW_MARGIN_TOP 30
-#define PARALLAX_SPEED 0.2
-#define PARALLAX_MARGIN 30
 
 @interface MediaProfileViewController () <UIScrollViewDelegate>
-
-@property (strong, nonatomic) id data;
-@property (weak, nonatomic) IBOutlet ImageViewWithGradient *imageViewBackground;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *backgroundConstraintTop;
-@property (weak, nonatomic) IBOutlet UIButton *buttonNavigateBack;
 
 @end
 
@@ -46,11 +28,10 @@
     HeaderModuleViewController *_headerModuleViewController;
     ProvidersModuleViewController *_providersModuleViewController;
     ActorsModuleViewController *_actorsModuleViewController;
-    SimilarContentModuleViewController *_similarContentModuleViewController;
+    MoviesModuleViewController *_similarContentModuleViewController;
     ImagesModuleViewController *_imagesModuleViewController;
     VideoModuleViewController *_videosModuleViewController;
     
-    CAGradientLayer *_backgroundGradient;
     UIView *_contentView;
     UIView *_previousViewInContentView;
     CGFloat _scrollableContentHeight;
@@ -59,7 +40,7 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:@"ProfilePageViewController" bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
     }
@@ -78,6 +59,7 @@
     [super viewDidLoad];
     
     self.scrollView.delegate = self;
+    self.view.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE];
     _scrollableContentHeight = SCROLLVIEW_MARGIN_TOP;
     self.view.layer.borderWidth = 1;
     self.view.layer.borderColor = [[UIColor blackColor]CGColor];
@@ -100,16 +82,13 @@
         self.buttonNavigateBack.hidden = YES;
     }
 }
--(void) setData:(id)data
-{
-    _data = data;
-    [self setUpView];
-}
+
 
 -(void) setUpView
 {
+
     NSURL *backdropUrl = [NSURL URLWithString:self.data[@"meta"][@"backdrops"][@"originals"][0][@"url"]];
-    UIImage *placeholderImage = [UIImage imageWithColor:[UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE]];
+    UIImage *placeholderImage = [UIImage imageWithColor:[UIColor clearColor]];
     [self.imageViewBackground setImageWithURL:backdropUrl placeholderImage:placeholderImage];
     self.imageViewBackground.gradientColor = [UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE];
     
@@ -136,7 +115,7 @@
         _actorsModuleViewController.data = self.data[@"meta"][@"credits"][@"cast"];
     }
     if (self.data[@"related"][@"movies"][@"isAvailable"] == [NSNumber numberWithBool:YES]) {
-        _similarContentModuleViewController = [[SimilarContentModuleViewController alloc]init];
+        _similarContentModuleViewController = [[MoviesModuleViewController alloc]init];
         [self addModuleViewController:_similarContentModuleViewController ToScrollViewWithHeight:HEIGHT_SIMILAR_CONTENT_MODULE];
         _similarContentModuleViewController.data = self.data[@"related"][@"movies"][@"items"];
     }
@@ -156,23 +135,23 @@
     
 }
 
--(void) addModuleViewController:(UIViewController *)viewController ToScrollViewWithHeight:(CGFloat) moduleHeight
-{
-    [self addChildViewController:viewController];
-    [viewController didMoveToParentViewController:self];
-    
-    [self.scrollView addSubview:viewController.view];
-    viewController.view.frame = CGRectMake(0, _scrollableContentHeight, self.view.frame.size.width, moduleHeight);
-    _scrollableContentHeight += moduleHeight;
-    viewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-
-    [self updateScrollViewContentSize];
-}
-
--(void) updateScrollViewContentSize
-{
-    [self.scrollView setContentSize:CGSizeMake(_headerModuleViewController.view.frame.size.width, _scrollableContentHeight + SCROLLVIEW_MARGIN_BOTTOM)];
-}
+//-(void) addModuleViewController:(UIViewController *)viewController ToScrollViewWithHeight:(CGFloat) moduleHeight
+//{
+//    [self addChildViewController:viewController];
+//    [viewController didMoveToParentViewController:self];
+//    
+//    [self.scrollView addSubview:viewController.view];
+//    viewController.view.frame = CGRectMake(0, _scrollableContentHeight, self.view.frame.size.width, moduleHeight);
+//    _scrollableContentHeight += moduleHeight;
+//    viewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+//
+//    [self updateScrollViewContentSize];
+//}
+//
+//-(void) updateScrollViewContentSize
+//{
+//    [self.scrollView setContentSize:CGSizeMake(_headerModuleViewController.view.frame.size.width, _scrollableContentHeight + SCROLLVIEW_MARGIN_BOTTOM)];
+//}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -184,17 +163,7 @@
     [self.delegate backButtonTappedInMediaProfileView];
 }
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    CGFloat verticalScrollDistance = scrollView.bounds.origin.y;
-    self.backgroundConstraintTop.constant = -PARALLAX_MARGIN -(PARALLAX_SPEED * verticalScrollDistance);
-    CGFloat newAlpha = 1 - (0.002 * verticalScrollDistance);
-    if (newAlpha < 0) {
-        newAlpha = 0;
-    }
-    self.imageViewBackground.alpha = newAlpha;
 
-}
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
