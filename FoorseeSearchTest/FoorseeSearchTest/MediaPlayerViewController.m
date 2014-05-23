@@ -35,19 +35,30 @@ static NSString *youTubeVideoHTML = @"<!DOCTYPE html><html><head><style>body{mar
     self.webView.delegate = self;
     self.webView.mediaPlaybackRequiresUserAction = NO;
     self.webView.scrollView.scrollEnabled = NO;
+    self.view.backgroundColor = [UIColor blackColor];
+    self.webView.hidden = YES;
+    self.webView.backgroundColor = [UIColor blackColor];
     
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    
+}
 - (void)playVideoWithId:(NSString *)videoId {
     NSString *html = [NSString stringWithFormat:youTubeVideoHTML,self.view.frame.size.width, self.view.frame.size.height, videoId];
     
     [self.webView loadHTMLString:html baseURL:[[NSBundle mainBundle] resourceURL]];
+}
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    self.webView.hidden = NO;
 }
 
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     NSLog(@"Webview failed: %@", [error localizedDescription]);
 }
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -60,8 +71,5 @@ static NSString *youTubeVideoHTML = @"<!DOCTYPE html><html><head><style>body{mar
         [self.delegate closeMediaPlayer];
     }
 }
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-    [self.parentViewController didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-}
+
 @end

@@ -38,16 +38,14 @@
 }
 -(void)didMoveToParentViewController:(UIViewController *)parent
 {
-    self.view.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE];
-    self.imageViewBackground.backgroundColor = [UIColor clearColor];
-    
+        
 }
 
 -(void)setUpView
 {
     if (self.data[@"name"]) {
         _headerModuleViewController = [[HeaderModuleViewController alloc] init];
-        [self addModuleViewController:_headerModuleViewController ToScrollViewWithHeight:HEIGHT_HEADER_MODULE];
+        [self addModuleViewController:_headerModuleViewController ToScrollViewWithHeight:HEIGHT_HEADER_MODULE_PROFILE_PAGE];
         _headerModuleViewController.titleText = self.data[@"name"];
         
         NSURL *posterUrl = [NSURL URLWithString:self.data[@"images"][@"thumbnails"][0][@"url"]];

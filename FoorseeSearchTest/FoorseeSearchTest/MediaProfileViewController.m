@@ -60,18 +60,7 @@
     
     self.scrollView.delegate = self;
     self.view.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE];
-    _scrollableContentHeight = SCROLLVIEW_MARGIN_TOP;
-    self.view.layer.borderWidth = 1;
-    self.view.layer.borderColor = [[UIColor blackColor]CGColor];
     
-    self.view.layer.shadowColor = [[UIColor blackColor]CGColor];
-    self.view.layer.shadowOffset = CGSizeMake(-2, 0);
-    self.view.layer.shadowRadius = 10;
-    self.view.layer.shadowOpacity = 1.0f;
-    self.view.layer.masksToBounds = NO;
-
-    [[UIColor blackColor] setFill];
-    self.backgroundConstraintTop.constant = - PARALLAX_MARGIN;
     
     
 }
@@ -94,7 +83,7 @@
     
     if (self.data[@"title"]) {
         _headerModuleViewController = [[HeaderModuleViewController alloc] init];
-        [self addModuleViewController:_headerModuleViewController ToScrollViewWithHeight:HEIGHT_HEADER_MODULE];
+        [self addModuleViewController:_headerModuleViewController ToScrollViewWithHeight:HEIGHT_HEADER_MODULE_PROFILE_PAGE];
         _headerModuleViewController.titleText = self.data[@"title"];
         _headerModuleViewController.descriptionText = self.data[@"plot"];
         
@@ -104,30 +93,30 @@
     }
     if (self.data[@"products"]) {
         _providersModuleViewController = [[ProvidersModuleViewController alloc] init];
-        [self addModuleViewController:_providersModuleViewController ToScrollViewWithHeight:HEIGHT_PROVIDERS_MODULE];
+        [self addModuleViewController:_providersModuleViewController ToScrollViewWithHeight:HEIGHT_PROVIDERS_MODULE_PROFILE_PAGE];
         _providersModuleViewController.data = self.data[@"products"];
     }
     
     //TODO: make sure it doesn't crash when cast is empty
     if (self.data[@"meta"][@"credits"][@"cast"]) {
         _actorsModuleViewController = [[ActorsModuleViewController alloc] init];
-        [self addModuleViewController:_actorsModuleViewController ToScrollViewWithHeight:HEIGHT_ACTORS_MODULE];
+        [self addModuleViewController:_actorsModuleViewController ToScrollViewWithHeight:HEIGHT_ACTORS_MODULE_PROFILE_PAGE];
         _actorsModuleViewController.data = self.data[@"meta"][@"credits"][@"cast"];
     }
     if (self.data[@"related"][@"movies"][@"isAvailable"] == [NSNumber numberWithBool:YES]) {
         _similarContentModuleViewController = [[MoviesModuleViewController alloc]init];
-        [self addModuleViewController:_similarContentModuleViewController ToScrollViewWithHeight:HEIGHT_SIMILAR_CONTENT_MODULE];
+        [self addModuleViewController:_similarContentModuleViewController ToScrollViewWithHeight:HEIGHT_SIMILAR_CONTENT_MODULE_PROFILE_PAGE];
         _similarContentModuleViewController.data = self.data[@"related"][@"movies"][@"items"];
     }
     if (self.data[@"related"][@"webVideos"][@"youtube"][@"isAvailable"] == [NSNumber numberWithBool:YES]) {
         _videosModuleViewController = [[VideoModuleViewController alloc]init];
-        [self addModuleViewController:_videosModuleViewController ToScrollViewWithHeight:HEIGHT_VIDEOS_MODULE];
+        [self addModuleViewController:_videosModuleViewController ToScrollViewWithHeight:HEIGHT_VIDEOS_MODULE_PROFILE_PAGE];
         _videosModuleViewController.data = self.data[@"related"][@"webVideos"][@"youtube"][@"items"];
         
     }
     if (self.data[@"meta"][@"backdrops"][@"thumbnails"]) {
         _imagesModuleViewController = [[ImagesModuleViewController alloc]init];
-        [self addModuleViewController:_imagesModuleViewController ToScrollViewWithHeight:HEIGHT_IMAGES_MODULE];
+        [self addModuleViewController:_imagesModuleViewController ToScrollViewWithHeight:HEIGHT_IMAGES_MODULE_PROFILE_PAGE];
         _imagesModuleViewController.dataThumbnails = self.data[@"meta"][@"backdrops"][@"thumbnails"];
         _imagesModuleViewController.dataOriginals = self.data[@"meta"][@"backdrops"][@"originals"];
 

@@ -20,7 +20,6 @@
 #import "ImageViewWithGradient.h"
 
 #import "CSStickyHeaderFlowLayout.h"
-#import "CustomFlowLayout.h"
 
 
 #define DURATION_ANIMATION_FILTERS_OPEN_CLOSE 0.2f
@@ -82,6 +81,9 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
     CGFloat _widthOfOpenedFilterSection;
     UIPanGestureRecognizer *_gestureRecognizerPanButton;
 
+    
+    BOOL _isRotating;
+
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -96,11 +98,6 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-//    _gestureRecognizerPanButton = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanOnFilterButton:)];
-//    [self.buttonFilters addGestureRecognizer:_gestureRecognizerPanButton];
-    
-    
     
     _filterSectionIsOpen = NO;
     self.constraintBackgroundTop.constant = - PARALLAX_MARGIN;
@@ -155,8 +152,6 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
     [self.collectionViewFilters registerNib:[FilterCell nib] forCellWithReuseIdentifier:cellIdentifierFilterCell];
     [self.collectionViewFilters registerNib:[FilterSectionHeader nib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:cellIdentifierFilterHeader];
     
-//    _layoutForFiltersCollectionView = [[CustomFlowLayout alloc] init];
-//    self.collectionViewFilters.collectionViewLayout = _layoutForFiltersCollectionView;
     _layoutForFiltersCollectionView = (UICollectionViewFlowLayout *)self.collectionViewFilters.collectionViewLayout;
     _layoutForFiltersCollectionView.sectionInset = UIEdgeInsetsMake(5, 10, 5, 10);
     _layoutForFiltersCollectionView.minimumInteritemSpacing = 5;
@@ -577,27 +572,7 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
     
 }
 
-//-(void) handlePanOnFilterButton: (UIPanGestureRecognizer *)sender
-//{
-//    CGPoint translation = [sender translationInView:self.view];
-//    self.constraintFilterSectionWidth.constant += translation.x;
-//    
-//    if (self.constraintFilterSectionWidth < 0) {
-//        self.constraintFilterSectionWidth.constant = 0;
-//    }else if (self.constraintFilterSectionWidth.constant > self.widthOfFilterSection){
-//        self.constraintFilterSectionWidth.constant = self.widthOfFilterSection;
-//    }
-//    if (self.constraintFilterSectionWidth > 0) {
-//        _filterSectionIsOpen = YES;
-//    }else{
-//        _filterSectionIsOpen = NO;
-//    }
-//    [_layoutForResultsCollectionView invalidateLayout];
-//    //[_layoutForFiltersCollectionView invalidateLayout];
-//    
-//    [sender setTranslation:CGPointZero inView:self.view];
-//
-//}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

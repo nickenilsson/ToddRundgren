@@ -38,6 +38,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(foorseeItemSelected:) name:@"foorseeItemSelected" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(foorseePersonSelected:) name:@"foorseePersonSelected" object:nil];
+
     
 }
 
@@ -64,9 +65,10 @@
     MediaProfileViewController *newMediaProfileView = [[MediaProfileViewController alloc]init];
     newMediaProfileView.view.frame = self.view.frame;
     newMediaProfileView.delegate = self;
-    
-    [self pushViewController:newMediaProfileView animated:NO];
-    
+    newMediaProfileView.view.autoresizingMask = self.view.autoresizingMask;
+    newMediaProfileView.view.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE];
+    [self pushViewController:newMediaProfileView animated:YES];
+
     [_foorseeSessionManager GET:[NSString stringWithFormat:@"movies/id/%@.json",foorseeId] parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         newMediaProfileView.data = responseObject;
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -79,8 +81,9 @@
     PersonProfileViewController *newPersonProfileViewController = [[PersonProfileViewController alloc]init];
     newPersonProfileViewController.view.frame = self.view.frame;
     newPersonProfileViewController.delegate = self;
-    
-    [self pushViewController:newPersonProfileViewController animated:NO];
+    newPersonProfileViewController.view.autoresizingMask = self.view.autoresizingMask;
+    newPersonProfileViewController.view.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE];
+    [self pushViewController:newPersonProfileViewController animated:YES];
     
     [_foorseeSessionManager GET:[NSString stringWithFormat:@"cast/id/%@.json",foorseeId] parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         newPersonProfileViewController.data = responseObject;
@@ -91,7 +94,7 @@
 
 -(void) backButtonTappedInMediaProfileView
 {
-    [self popViewControllerAnimated:NO];
+    [self popViewControllerAnimated:YES];
 }
 
 

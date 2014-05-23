@@ -7,9 +7,13 @@
 //
 
 #import "ImageCell.h"
+#import "UIColor+ColorFromHex.h"
+#import "UIImage+ImageWithColor.h"
 
 
-@implementation ImageCell
+@implementation ImageCell{
+    UIImageView *_selectedOverlay;
+}
 
 +(UINib *) nib
 {
@@ -20,10 +24,31 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
+        
     }
     return self;
 }
+-(id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        
+    }
+    return self;
+}
+
+-(void)setHighlighted:(BOOL)highlighted
+{
+    if (highlighted) {
+        _selectedOverlay = [[UIImageView alloc] initWithImage:[UIImage imageWithColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.2]]];
+        _selectedOverlay.frame = self.contentView.frame;
+        [self.contentView addSubview:_selectedOverlay];
+    }else{
+        [_selectedOverlay removeFromSuperview];
+        _selectedOverlay = nil;
+    }
+}
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

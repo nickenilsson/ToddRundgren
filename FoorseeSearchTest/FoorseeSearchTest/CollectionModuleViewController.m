@@ -27,6 +27,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.labelModuleTitle.font = [UIFont fontWithName:FONT_MAIN size:FONT_SIZE_MODULE_TITLE];
 }
 
 - (void)didReceiveMemoryWarning

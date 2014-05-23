@@ -43,13 +43,13 @@
 		509D0A35191925E600173552 /* ImagesModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D0A34191925E600173552 /* ImagesModuleViewController.m */; };
 		50A1FDE8191B6BD200C2232A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50A1FDE7191B6BD200C2232A /* QuartzCore.framework */; };
 		50A1FDEE191B8A7200C2232A /* ImageViewWithGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A1FDED191B8A7200C2232A /* ImageViewWithGradient.m */; };
+		50A4F330192F3747002D23C2 /* bariol_regular-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 50A4F32F192F3747002D23C2 /* bariol_regular-webfont.ttf */; };
 		50A810C418FE77A3004FDF52 /* FilterSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A810C318FE77A3004FDF52 /* FilterSectionHeader.m */; };
 		50A810C618FE77B4004FDF52 /* FilterSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50A810C518FE77B4004FDF52 /* FilterSectionHeader.xib */; };
 		50A810C918FE7ECD004FDF52 /* UIColor+ColorFromHex.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A810C818FE7ECD004FDF52 /* UIColor+ColorFromHex.m */; };
 		50A8A6F718FD16EF008D2FF8 /* UIImage+ImageWithColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A8A6F618FD16EF008D2FF8 /* UIImage+ImageWithColor.m */; };
 		50A8A6FF18FD238E008D2FF8 /* FilterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A8A6FE18FD238E008D2FF8 /* FilterCell.m */; };
 		50A8A70118FD23A8008D2FF8 /* FilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50A8A70018FD23A8008D2FF8 /* FilterCell.xib */; };
-		50B63C98192368240092304D /* CustomFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B63C97192368240092304D /* CustomFlowLayout.m */; };
 		50B63CA41923B0B80092304D /* SupplementaryViewWithImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B63CA31923B0B80092304D /* SupplementaryViewWithImage.m */; };
 		50B63CA61923B0CC0092304D /* SupplementaryViewWithImage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50B63CA51923B0CC0092304D /* SupplementaryViewWithImage.xib */; };
 		50BBCDB2190F98D20007941A /* HeaderModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BBCDB0190F98D20007941A /* HeaderModuleViewController.m */; };
@@ -134,6 +134,7 @@
 		50A1FDE7191B6BD200C2232A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		50A1FDEC191B8A7200C2232A /* ImageViewWithGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewWithGradient.h; sourceTree = "<group>"; };
 		50A1FDED191B8A7200C2232A /* ImageViewWithGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewWithGradient.m; sourceTree = "<group>"; };
+		50A4F32F192F3747002D23C2 /* bariol_regular-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "bariol_regular-webfont.ttf"; sourceTree = "<group>"; };
 		50A810C218FE77A3004FDF52 /* FilterSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterSectionHeader.h; sourceTree = "<group>"; };
 		50A810C318FE77A3004FDF52 /* FilterSectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterSectionHeader.m; sourceTree = "<group>"; };
 		50A810C518FE77B4004FDF52 /* FilterSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterSectionHeader.xib; sourceTree = "<group>"; };
@@ -144,8 +145,6 @@
 		50A8A6FD18FD238E008D2FF8 /* FilterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterCell.h; sourceTree = "<group>"; };
 		50A8A6FE18FD238E008D2FF8 /* FilterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterCell.m; sourceTree = "<group>"; };
 		50A8A70018FD23A8008D2FF8 /* FilterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterCell.xib; sourceTree = "<group>"; };
-		50B63C96192368240092304D /* CustomFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomFlowLayout.h; sourceTree = "<group>"; };
-		50B63C97192368240092304D /* CustomFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomFlowLayout.m; sourceTree = "<group>"; };
 		50B63CA21923B0B80092304D /* SupplementaryViewWithImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupplementaryViewWithImage.h; sourceTree = "<group>"; };
 		50B63CA31923B0B80092304D /* SupplementaryViewWithImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SupplementaryViewWithImage.m; sourceTree = "<group>"; };
 		50B63CA51923B0CC0092304D /* SupplementaryViewWithImage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SupplementaryViewWithImage.xib; sourceTree = "<group>"; };
@@ -237,11 +236,11 @@
 		5034D0DB18FBD04B0023A02C /* FoorseeSearchTest */ = {
 			isa = PBXGroup;
 			children = (
+				50A4F32C192F343C002D23C2 /* Resource */,
 				504FE47E1925082200CCE7DD /* Config files */,
 				50A1FDEF191BB06500C2232A /* Images */,
 				50CF5788191A47BB006DF116 /* Mediaplayer */,
 				50CF577D191A2F56006DF116 /* Collection view cells */,
-				50B1F47C190A915200DE3FC3 /* Content profile module views */,
 				50DA271E192B52FD003D681E /* Profile Pages */,
 				5034D0EA18FBD04B0023A02C /* Images.xcassets */,
 				5034D0E418FBD04B0023A02C /* AppDelegate.h */,
@@ -267,8 +266,6 @@
 				50EBB2F5192201B100BC013A /* MainViewController.h */,
 				50EBB2F6192201B100BC013A /* MainViewController.m */,
 				50EBB2F7192201B100BC013A /* MainViewController.xib */,
-				50B63C96192368240092304D /* CustomFlowLayout.h */,
-				50B63C97192368240092304D /* CustomFlowLayout.m */,
 				50118BBB192658E700614C3C /* ImageViewWithBorder.h */,
 				50118BBC192658E700614C3C /* ImageViewWithBorder.m */,
 			);
@@ -318,6 +315,14 @@
 				50539FF61924A6E400B5AE4C /* warner.jpg */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		50A4F32C192F343C002D23C2 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				50A4F32F192F3747002D23C2 /* bariol_regular-webfont.ttf */,
+			);
+			name = Resource;
 			sourceTree = "<group>";
 		};
 		50B1F47C190A915200DE3FC3 /* Content profile module views */ = {
@@ -381,6 +386,7 @@
 		50DA271E192B52FD003D681E /* Profile Pages */ = {
 			isa = PBXGroup;
 			children = (
+				50B1F47C190A915200DE3FC3 /* Content profile module views */,
 				5011DC271909002D007CA515 /* MediaProfileNavigationController.h */,
 				5011DC281909002D007CA515 /* MediaProfileNavigationController.m */,
 				5011DC2F19092E05007CA515 /* MediaProfileViewController.h */,
@@ -473,6 +479,7 @@
 			files = (
 				50CF5782191A2FB5006DF116 /* VideoThumbnailCell.xib in Resources */,
 				50EBB2F9192201B100BC013A /* MainViewController.xib in Resources */,
+				50A4F330192F3747002D23C2 /* bariol_regular-webfont.ttf in Resources */,
 				501338411917DD8D00695E29 /* CollectionModuleViewController.xib in Resources */,
 				5034D0E018FBD04B0023A02C /* InfoPlist.strings in Resources */,
 				50539FF71924A6E400B5AE4C /* warner.jpg in Resources */,
@@ -565,7 +572,6 @@
 				501249A4191BCF4C00FC7CB8 /* ActorsModuleViewController.m in Sources */,
 				5011DC3219092E05007CA515 /* MediaProfileViewController.m in Sources */,
 				50A1FDEE191B8A7200C2232A /* ImageViewWithGradient.m in Sources */,
-				50B63C98192368240092304D /* CustomFlowLayout.m in Sources */,
 				508A21FE18FBE0B1006BBFEE /* FoorseeHTTPClient.m in Sources */,
 				5034D0E218FBD04B0023A02C /* main.m in Sources */,
 			);
