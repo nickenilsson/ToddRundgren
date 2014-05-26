@@ -14,9 +14,22 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
+        [self setUpView];
     }
     return self;
+}
+-(id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self setUpView];
+    }
+    return self;
+}
+
+-(void) setUpView
+{
+    self.label.font = [UIFont fontWithName:FONT_MAIN size:FONT_SIZE_FILTER_SECTION_HEADERS];
 }
 
 /*

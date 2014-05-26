@@ -310,8 +310,6 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
             
             header.searchBar.delegate = self;
             self.searchBar = header.searchBar;
-            NSLog(@"self.searchbar = %@", self.searchBar);
-            NSLog(@"header.searchbar = %@", header.searchBar);
 
             return header;
         }else{

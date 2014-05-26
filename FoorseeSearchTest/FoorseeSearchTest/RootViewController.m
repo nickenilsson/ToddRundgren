@@ -198,22 +198,23 @@
 
 -(void) addBlurOverlay
 {
-    _blurView = [[FXBlurView alloc] init];
-    [_activeViewController.view addSubview:_blurView];
-    
-    _blurView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[blurView]|" options:0 metrics:nil views:@{@"blurView": _blurView}]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[blurView]|" options:0 metrics:nil views:@{@"blurView": _blurView}]];
-    
-    [_blurView setDynamic:NO];
-    _blurView.tintColor = [UIColor blackColor];
-    _blurView.alpha = 0;
-    
-    [UIView animateWithDuration:DURATION_PROFILE_PAGE_OPEN_CLOSE animations:^{
-        _blurView.alpha = BLUR_VIEW_ALPHA;
-        _activeViewController.view.transform = CGAffineTransformMakeTranslation(-TRANSLATION_BACKGROUND, 0);
-    }];
-
+    if (!_blurView) {
+        _blurView = [[FXBlurView alloc] init];
+        [_activeViewController.view addSubview:_blurView];
+        
+        _blurView.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[blurView]|" options:0 metrics:nil views:@{@"blurView": _blurView}]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[blurView]|" options:0 metrics:nil views:@{@"blurView": _blurView}]];
+        
+        [_blurView setDynamic:NO];
+        _blurView.tintColor = [UIColor blackColor];
+        _blurView.alpha = 0;
+        
+        [UIView animateWithDuration:DURATION_PROFILE_PAGE_OPEN_CLOSE animations:^{
+            _blurView.alpha = BLUR_VIEW_ALPHA;
+            _activeViewController.view.transform = CGAffineTransformMakeTranslation(-TRANSLATION_BACKGROUND, 0);
+        }];
+    }
 }
 
 -(void) removeBlurOverlay
@@ -246,12 +247,13 @@
 -(void) handlePan:(UIPanGestureRecognizer *) panGestureRecognizer
 {
     CGPoint touchLocation = [panGestureRecognizer locationInView:self.view];
-    if (!CGRectContainsPoint(_mediaProfileNavigationController.view.frame, touchLocation) && _isMovingMediaProfile == NO) {
+     if (!CGRectContainsPoint(_mediaProfileNavigationController.view.frame, touchLocation) && _isMovingMediaProfile == NO) {
         [panGestureRecognizer setTranslation:CGPointZero inView:self.view];
         return;
     }else if (_isMovingMediaProfile == NO){
         _isMovingMediaProfile = YES;
     }
+    
     
     CGFloat horizontalTranslation = [panGestureRecognizer translationInView:self.view].x;
     _constraintMediaProfileTrailing.constant += horizontalTranslation;

@@ -15,6 +15,7 @@
 {
     self = [super init];
     if (self) {
+        [self setUpCell];
     }
     return self;
 }
@@ -22,7 +23,8 @@
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
-         self.layer.cornerRadius = 5;
+        
+        [self setUpCell];
     }
     return self;
 }
@@ -31,11 +33,16 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-       
+        [self setUpCell];
     }
     return self;
 }
-
+-(void) setUpCell
+{
+    self.layer.cornerRadius = RADIUS_BORDER_FILTER_CELL;
+    self.label.font = [UIFont fontWithName:FONT_MAIN size:FONT_SIZE_FILTER_CELLS];
+    
+}
 + (UINib *) nib
 {
     return [UINib nibWithNibName:@"FilterCell" bundle:nil];
