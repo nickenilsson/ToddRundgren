@@ -64,14 +64,6 @@
     
     
 }
--(void)viewDidAppear:(BOOL)animated
-{
-    UINavigationController *parentNavigationController = (UINavigationController *)self.navigationController;
-    if (parentNavigationController.viewControllers.count == 1) {
-        self.buttonNavigateBack.hidden = YES;
-    }
-}
-
 
 -(void) setUpView
 {
@@ -87,7 +79,7 @@
         _headerModuleViewController.titleText = self.data[@"title"];
         _headerModuleViewController.descriptionText = self.data[@"plot"];
         
-        NSURL *posterUrl = [NSURL URLWithString:self.data[@"meta"][@"posters"][@"thumbnails"][0][@"url"]];
+        NSURL *posterUrl = [NSURL URLWithString:self.data[@"posterThumbnail"][@"url"]];
         _headerModuleViewController.urlPoster = posterUrl;
         
     }

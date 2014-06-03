@@ -11,7 +11,7 @@
 
 //ANIMATION SETTINGS
 #define DURATION_FILTER_OPEN_CLOSE 0.2f
-#define DURATION_PROFILE_PAGE_OPEN_CLOSE 0.25f
+#define DURATION_PROFILE_PAGE_OPEN_CLOSE 0.30f
 
 
 //COLORS
@@ -20,8 +20,8 @@
 #define COLOR_HEX_PROFILE_PAGE @"1E2124"
 
 //API
-//#define FOORSEE_API_URL @"http://54.76.0.223/v1/"
-#define FOORSEE_API_URL @"http://client_abstraction_api.moc/v1/"
+#define FOORSEE_API_URL @"http://54.76.0.223/v1/"
+//#define FOORSEE_API_URL @"http://client_abstraction_api.moc/v1/"
 #define API_KEY @"X62G2eUCuid3cF3Dxod32idudYxg"
 
 #define RADIUS_BORDER_FILTER_CELL 5
@@ -34,6 +34,7 @@
 
 
 // Profile page
+#define NUMBER_OF_PROFILE_PAGES_MAXIMUM 5
 #define HEIGHT_HEADER_MODULE_PROFILE_PAGE 350
 #define HEIGHT_PROVIDERS_MODULE_PROFILE_PAGE 150
 #define HEIGHT_ACTORS_MODULE_PROFILE_PAGE 320

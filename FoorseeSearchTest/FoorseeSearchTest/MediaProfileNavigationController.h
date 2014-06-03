@@ -10,6 +10,6 @@
 
 @interface MediaProfileNavigationController : UINavigationController
 
-- (void) presentMediaProfileForItemWithFoorseeId:(NSString *) foorseeId;
+- (void) presentMediaProfileForItemWithFoorseeId:(NSString *) foorseeId animated:(BOOL) shouldAnimate;
 
 @end

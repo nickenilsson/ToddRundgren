@@ -12,6 +12,7 @@
 #import "MediaPlayerViewController.h"
 #import "MainViewController.h"
 #import "UIColor+ColorFromHex.h"
+#import "UIView+Screenshot.h"
 
 
 
@@ -29,14 +30,16 @@
 
 @implementation RootViewController{
     UIViewController *_activeViewController;
-    NSLayoutConstraint *_constraintMediaProfileTrailing;
+    NSLayoutConstraint *_constraintMediaProfileLeading;
     MediaProfileNavigationController *_mediaProfileNavigationController;
     UITapGestureRecognizer *_tapGestureRecognizer;
     MediaPlayerViewController *_mediaPlayerViewController;
-    FXBlurView *_blurView;
-    UIImageView *_viewSnapshot;
     UIPanGestureRecognizer *_panGestureRecognizer;
+    UIScreenEdgePanGestureRecognizer *_screenEdgePanRecognizer;
     BOOL _isMovingMediaProfile;
+    CGFloat _lastTranslation;
+    BOOL _blurNeedsUpdateBeforeAnimation;
+    FXBlurView *_blurView;
     
 }
 
@@ -65,8 +68,21 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoSelected:) name:@"videoSelected" object:nil];
     
     _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+    _panGestureRecognizer.delegate = self;
+    [self.view addGestureRecognizer:_panGestureRecognizer];
     
+    _screenEdgePanRecognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(handleScreenEdgePan:)];
+    _screenEdgePanRecognizer.edges = UIRectEdgeRight;
+    _screenEdgePanRecognizer.delegate = self;
+    [self.view addGestureRecognizer:_screenEdgePanRecognizer];
+    
+    [self addBlurOverlay];
+    _blurView.hidden = YES;
+    _blurNeedsUpdateBeforeAnimation = YES;
+    _isMovingMediaProfile = NO;
+
 }
+
 -(void) videoSelected:(NSNotification *) notification
 {
     if (_mediaPlayerViewController == nil) {
@@ -117,119 +133,105 @@
 
 -(void) itemSelectedWithFoorseeIdNumber:(NSString *) idNumber
 {
-    if (_mediaProfileNavigationController == nil) {
-        [self addMediaProfileNavigationControllerWithItemWithIdNumber:idNumber];
-    }
-    
+    [self openMediaProfileNavigationControllerWithItemWithIdNumber:idNumber animationOptions:UIViewAnimationOptionCurveEaseInOut];
 }
 
--(void) addMediaProfileNavigationControllerWithItemWithIdNumber:(NSString *) idNumber
+-(void) openMediaProfileNavigationControllerWithItemWithIdNumber:(NSString *) idNumber animationOptions:(UIViewAnimationOptions) animationOptions
 {
+    if (_mediaProfileNavigationController == nil) {
+        
+        _mediaProfileNavigationController = [[MediaProfileNavigationController alloc]init];
+        [self addChildViewController:_mediaProfileNavigationController];
+        [_mediaProfileNavigationController didMoveToParentViewController:self];
+        [self.view addSubview:_mediaProfileNavigationController.view];
+        [self setConstraintsForMediaProfileNavigationController];
+        [self.view layoutIfNeeded];
+    }
     
-    [self addBlurOverlay];
+    _isMovingMediaProfile = YES;
     
-    _mediaProfileNavigationController = [[MediaProfileNavigationController alloc]init];
-    [self addChildViewController:_mediaProfileNavigationController];
-    [_mediaProfileNavigationController didMoveToParentViewController:self];
-    [self.view addSubview:_mediaProfileNavigationController.view];
-    [self.view bringSubviewToFront:_mediaProfileNavigationController.view];
+    if (_blurNeedsUpdateBeforeAnimation) {
+        [_blurView updateAsynchronously:YES completion:nil];
+        _blurNeedsUpdateBeforeAnimation = NO;
+    }
+    _blurView.hidden = NO;
+
     
+    _mediaProfileNavigationController.view.hidden = NO;
     if (_mediaPlayerViewController != nil) {
         [self.view insertSubview:_mediaProfileNavigationController.view belowSubview:_mediaPlayerViewController.view];
     }
+
+    [self.view layoutIfNeeded];
     
+    
+    [UIView animateWithDuration:DURATION_PROFILE_PAGE_OPEN_CLOSE delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        _constraintMediaProfileLeading.constant = -_mediaProfileNavigationController.view.frame.size.width;
+        _blurView.alpha = BLUR_VIEW_ALPHA;
+        _activeViewController.view.transform = CGAffineTransformMakeTranslation(-TRANSLATION_BACKGROUND, 0);
+        [self.view layoutIfNeeded];
+        [self.view addGestureRecognizer:_tapGestureRecognizer];
+        
+        _panGestureRecognizer.delegate = self;
+    } completion:^(BOOL finished) {
+        if (finished) {
+            if (idNumber != nil) {
+                [_mediaProfileNavigationController presentMediaProfileForItemWithFoorseeId:idNumber animated:NO];
+            }
+        }
+    }];
+
+}
+-(void) setConstraintsForMediaProfileNavigationController
+{
     _mediaProfileNavigationController.view.translatesAutoresizingMaskIntoConstraints = NO;
     
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_mediaProfileNavigationController.view attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:PROFILE_VIEW_WIDTH_FRACTION constant:0]];
     [self.view layoutIfNeeded];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[navigationController]|" options:0 metrics:nil views:@{@"navigationController": _mediaProfileNavigationController.view}]];
     
-    _constraintMediaProfileTrailing = [NSLayoutConstraint constraintWithItem:_mediaProfileNavigationController.view attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1 constant:_mediaProfileNavigationController.view.frame.size.width];
+    _constraintMediaProfileLeading = [NSLayoutConstraint constraintWithItem:_mediaProfileNavigationController.view attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1 constant:0];
     
-    [self.view addConstraint:_constraintMediaProfileTrailing];
-    [self.view layoutIfNeeded];
-    [UIView animateWithDuration:DURATION_PROFILE_PAGE_OPEN_CLOSE delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        _constraintMediaProfileTrailing.constant = 0;
-        [self.view layoutIfNeeded];
-        [self.view addGestureRecognizer:_tapGestureRecognizer];
-    } completion:^(BOOL finished) {
-        if (finished) {
-            [_mediaProfileNavigationController presentMediaProfileForItemWithFoorseeId:idNumber];
-            [self.view addGestureRecognizer:_panGestureRecognizer];
-        }
-    }];
-    
+    [self.view addConstraint:_constraintMediaProfileLeading];
 }
 
 -(void) tapHappened:(UITapGestureRecognizer *) sender
 {
     CGPoint touchLocation = [sender locationInView:self.view];
     if (!CGRectContainsPoint(_mediaProfileNavigationController.view.frame, touchLocation)) {
-        [self.view removeGestureRecognizer:_tapGestureRecognizer];
-        [self closeProfileViewNavigationControllerAnimated:YES];
+        [self closeAndHideMediaProfileNavigationController];
         
     }
 }
 
--(void) closeProfileViewNavigationControllerAnimated:(BOOL) shouldAnimate
+-(void) closeAndHideMediaProfileNavigationController
 {
+    [UIView animateWithDuration:DURATION_PROFILE_PAGE_OPEN_CLOSE delay:0 options:UIViewAnimationOptionOverrideInheritedCurve animations:^{
+        _constraintMediaProfileLeading.constant = 0;
+        _blurView.alpha = 0.0;
+        _activeViewController.view.transform = CGAffineTransformIdentity;
+        [self.view layoutIfNeeded];
+        [self.view removeGestureRecognizer:_tapGestureRecognizer];
+    } completion:^(BOOL finished) {
+        _mediaProfileNavigationController.view.hidden = YES;
+        _blurView.hidden = YES;
+        _blurNeedsUpdateBeforeAnimation = YES;
+    }];
     
-    if (shouldAnimate) {
-        [self removeBlurOverlay];
-        
-        [UIView animateWithDuration:DURATION_PROFILE_PAGE_OPEN_CLOSE delay:0 options:UIViewAnimationOptionOverrideInheritedCurve animations:^{
-            _constraintMediaProfileTrailing.constant = _mediaProfileNavigationController.view.frame.size.width;
-            [self.view layoutIfNeeded];
-        } completion:^(BOOL finished) {
-            [_mediaProfileNavigationController removeFromParentViewController];
-            [_mediaProfileNavigationController.view removeFromSuperview];
-            _mediaProfileNavigationController = nil;
-        }];
-    
-    }else{
-        [_mediaProfileNavigationController removeFromParentViewController];
-        [_mediaProfileNavigationController.view removeFromSuperview];
-        _mediaProfileNavigationController = nil;
-    }
-    
-    [self.view removeGestureRecognizer:_tapGestureRecognizer];
-    [_mediaProfileNavigationController.view removeGestureRecognizer:_panGestureRecognizer];
 }
 
 -(void) addBlurOverlay
 {
     if (!_blurView) {
         _blurView = [[FXBlurView alloc] init];
-        [_activeViewController.view addSubview:_blurView];
-        
-        _blurView.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[blurView]|" options:0 metrics:nil views:@{@"blurView": _blurView}]];
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[blurView]|" options:0 metrics:nil views:@{@"blurView": _blurView}]];
-        
         [_blurView setDynamic:NO];
-        _blurView.tintColor = [UIColor blackColor];
-        _blurView.alpha = 0;
         
-        [UIView animateWithDuration:DURATION_PROFILE_PAGE_OPEN_CLOSE animations:^{
-            _blurView.alpha = BLUR_VIEW_ALPHA;
-            _activeViewController.view.transform = CGAffineTransformMakeTranslation(-TRANSLATION_BACKGROUND, 0);
-        }];
-    }
-}
+        _blurView.tintColor = [UIColor colorFromHexString:COLOR_HEX_RESULT_SECTION];
+        _blurView.alpha = 0;
+        _blurView.frame = _activeViewController.view.frame;
+        _blurView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        [_activeViewController.view addSubview:_blurView];
 
--(void) removeBlurOverlay
-{
-    if (_blurView) {
-        [UIView animateWithDuration:DURATION_PROFILE_PAGE_OPEN_CLOSE animations:^{
-            _blurView.alpha = 0.0;
-            _activeViewController.view.transform = CGAffineTransformIdentity;
-            
-        } completion:^(BOOL finished) {
-            if (finished) {
-                [_blurView removeFromSuperview];
-                _blurView = nil;
-            }
-        }];
     }
 }
 
@@ -246,70 +248,112 @@
 
 -(void) handlePan:(UIPanGestureRecognizer *) panGestureRecognizer
 {
+    if (_mediaProfileNavigationController.view.hidden) {
+        return;
+    }
+    
     CGPoint touchLocation = [panGestureRecognizer locationInView:self.view];
-     if (!CGRectContainsPoint(_mediaProfileNavigationController.view.frame, touchLocation) && _isMovingMediaProfile == NO) {
+
+    if (!CGRectContainsPoint(_mediaProfileNavigationController.view.frame, touchLocation) && _isMovingMediaProfile == NO) {
         [panGestureRecognizer setTranslation:CGPointZero inView:self.view];
         return;
     }else if (_isMovingMediaProfile == NO){
         _isMovingMediaProfile = YES;
     }
-    
-    
+
     CGFloat horizontalTranslation = [panGestureRecognizer translationInView:self.view].x;
-    _constraintMediaProfileTrailing.constant += horizontalTranslation;
+    _constraintMediaProfileLeading.constant += horizontalTranslation;
     CGFloat translationConstant = TRANSLATION_BACKGROUND/_mediaProfileNavigationController.view.frame.size.width;
     CGFloat translation = translationConstant * horizontalTranslation;
     CGFloat alphaConstant = BLUR_VIEW_ALPHA / _mediaProfileNavigationController.view.frame.size.width;
     
-    CGFloat alpha = 1 -(_constraintMediaProfileTrailing.constant * alphaConstant);
+    CGFloat alpha = ABS(_constraintMediaProfileLeading.constant * alphaConstant);
     
-    if (_constraintMediaProfileTrailing.constant > _mediaProfileNavigationController.view.frame.size.width)
+    if (_constraintMediaProfileLeading.constant > 0)
     {
-        _constraintMediaProfileTrailing.constant = _mediaProfileNavigationController.view.frame.size.width;
+        _constraintMediaProfileLeading.constant = 0;
         translation = 0;
         alpha = 0;
-    }else if (_constraintMediaProfileTrailing.constant < 0){
-        _constraintMediaProfileTrailing.constant = 0;
+    }else if (_constraintMediaProfileLeading.constant < -_mediaProfileNavigationController.view.frame.size.width){
+        _constraintMediaProfileLeading.constant = -_mediaProfileNavigationController.view.frame.size.width;
         translation = 0;
         alpha = BLUR_VIEW_ALPHA;
         _isMovingMediaProfile = NO;
-
     }
+    
     _blurView.alpha = alpha;
     _activeViewController.view.transform = CGAffineTransformTranslate(_activeViewController.view.transform, translation, 0);
     
     if ([panGestureRecognizer state] == UIGestureRecognizerStateEnded) {
-        if (_constraintMediaProfileTrailing.constant > _mediaProfileNavigationController.view.frame.size.width/5) {
-            [self closeProfileViewNavigationControllerAnimated:YES];
-            [_mediaProfileNavigationController.view removeGestureRecognizer:_panGestureRecognizer];
+        if (_lastTranslation > 0) {
+            [self closeAndHideMediaProfileNavigationController];
         }else{
-            [UIView animateWithDuration:DURATION_PROFILE_PAGE_OPEN_CLOSE animations:^{
-                _constraintMediaProfileTrailing.constant = 0;
-                _blurView.alpha = BLUR_VIEW_ALPHA;
-                _activeViewController.view.transform = CGAffineTransformMakeTranslation(-TRANSLATION_BACKGROUND, 0);
-                [self.view layoutIfNeeded];
-            }];
+            [self openMediaProfileNavigationControllerWithItemWithIdNumber:nil animationOptions:UIViewAnimationOptionCurveLinear];
         }
         _isMovingMediaProfile = NO;
         
     }
+    _lastTranslation = horizontalTranslation;
     [panGestureRecognizer setTranslation:CGPointZero inView:self.view];
+}
+
+-(void) handleScreenEdgePan:(UIScreenEdgePanGestureRecognizer *) sender
+{
+    if (_mediaProfileNavigationController != nil && !_isMovingMediaProfile) {
+        
+        _mediaProfileNavigationController.view.hidden = NO;
+
+        if (_blurView.hidden) {
+            _blurView.hidden = NO;
+        }
+        _isMovingMediaProfile = YES;
+        
+        if (_blurNeedsUpdateBeforeAnimation) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [_blurView updateAsynchronously:YES completion:^{
+                    _blurNeedsUpdateBeforeAnimation = NO;
+                }];
+            });
+            
+        }
+    
+    }
+
+
+}
+
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    if (([gestureRecognizer isEqual:_screenEdgePanRecognizer] && [otherGestureRecognizer isEqual:_panGestureRecognizer]) || ([gestureRecognizer isEqual:_panGestureRecognizer] && [otherGestureRecognizer isEqual:_screenEdgePanRecognizer])) {
+        return YES;
+    }
+    return NO;
+}
+
+-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter postNotificationName:@"viewWillRotate"
+                                      object:nil
+                                    userInfo:nil];
+    
+    if (_mediaProfileNavigationController != nil && _mediaProfileNavigationController.view.hidden == NO) {
+        _constraintMediaProfileLeading.constant = -_mediaProfileNavigationController.view.frame.size.width;
+        
+    }
+    if (_blurView) {
+        [_blurView updateAsynchronously:YES completion:nil];
+    }
 }
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    
-}
--(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-    
 }
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    if (_blurView) {
-        
-    }
+
 }
+
 
 @end

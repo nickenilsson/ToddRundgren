@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "01F95FD29DA442848E425907"
+               BlueprintIdentifier = "126FB9F879FF46B0BEEFF6FA"
                BuildableName = "libPods-FoorseeSearchTest.a"
                BlueprintName = "Pods-FoorseeSearchTest"
                ReferencedContainer = "container:Pods.xcodeproj">

@@ -13,15 +13,15 @@
 #import "UIApplication+JTSImageViewController.h"
 
 // Public Constants
-CGFloat const JTSImageViewController_DefaultAlphaForBackgroundDimmingOverlay = 1.0f;
-CGFloat const JTSImageViewController_DefaultBackgroundBlurRadius = 1.0f;
+CGFloat const JTSImageViewController_DefaultAlphaForBackgroundDimmingOverlay = 0.66f;
+CGFloat const JTSImageViewController_DefaultBackgroundBlurRadius = 2.0f;
 
 // Private Constants
-CGFloat const JTSImageViewController_MinimumBackgroundScaling = 1.02f;
+CGFloat const JTSImageViewController_MinimumBackgroundScaling = 0.94f;
 CGFloat const JTSImageViewController_TargetZoomForDoubleTap = 3.0f;
-CGFloat const JTSImageViewController_MaxScalingForExpandingOffscreenStyleTransition = 1.0f;
-CGFloat const JTSImageViewController_TransitionAnimationDuration = 0.15f;
-CGFloat const JTSImageViewController_MinimumFlickDismissalVelocity = 2000.0f;
+CGFloat const JTSImageViewController_MaxScalingForExpandingOffscreenStyleTransition = 1.25f;
+CGFloat const JTSImageViewController_TransitionAnimationDuration = 0.28f;
+CGFloat const JTSImageViewController_MinimumFlickDismissalVelocity = 800.0f;
 
 @interface JTSImageViewController ()
 <
@@ -251,7 +251,7 @@ CGFloat const JTSImageViewController_MinimumFlickDismissalVelocity = 2000.0f;
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [self cancelCurrentImageDrag:NO];
     [self updateLayoutsForCurrentOrientation];
-    [self updateDimmingViewForCurrentZoomScale:NO];
+    [self updateDimmingViewForCurrentZoomScale:YES];
     __weak JTSImageViewController *weakSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, duration * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         [weakSelf setIsRotating:NO];

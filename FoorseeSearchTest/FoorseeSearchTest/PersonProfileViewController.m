@@ -34,7 +34,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
 }
 -(void)didMoveToParentViewController:(UIViewController *)parent
 {
@@ -57,15 +57,12 @@
         [self addModuleViewController:_moviesModuleViewController ToScrollViewWithHeight:HEIGHT_POSTER_THUMBNAILS];
         _moviesModuleViewController.data = self.data[@"related"][@"movies"];
     }
-
-
-
-
 }
 - (IBAction)buttonBackTapped:(id)sender
 {
     [self.delegate backButtonTappedInMediaProfileView];
 }
+
 
 - (void)didReceiveMemoryWarning
 {

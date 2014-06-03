@@ -18,6 +18,7 @@
 
 @implementation MediaProfileNavigationController{
     FoorseeHTTPClient *_foorseeSessionManager;
+    NSString *_foorseeIdOfCurrentlyActiveProfile;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -38,20 +39,19 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(foorseeItemSelected:) name:@"foorseeItemSelected" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(foorseePersonSelected:) name:@"foorseePersonSelected" object:nil];
-
-    
 }
 
 -(void) foorseeItemSelected:(NSNotification *)notification
 {
     NSDictionary *notificationInfo = [notification userInfo];
     NSString *foorseeId = notificationInfo[@"foorseeId"];
-    [self presentMediaProfileForItemWithFoorseeId:foorseeId];
+    [self presentMediaProfileForItemWithFoorseeId:foorseeId animated:YES];
 }
 -(void) foorseePersonSelected: (NSNotification *) notification
 {
     NSDictionary *notificationInfo = [notification userInfo];
     NSString *foorseeId = notificationInfo[@"foorseeId"];
+    
     [self presentPersonProfileForItemWithFoorseeId:foorseeId];
 }
 - (void)didReceiveMemoryWarning
@@ -60,17 +60,22 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) presentMediaProfileForItemWithFoorseeId:(NSString *) foorseeId
+- (void) presentMediaProfileForItemWithFoorseeId:(NSString *) foorseeId animated:(BOOL) shouldAnimate
 {
+    if ([_foorseeIdOfCurrentlyActiveProfile isEqualToString:foorseeId]) {
+        return;
+    }
     MediaProfileViewController *newMediaProfileView = [[MediaProfileViewController alloc]init];
     newMediaProfileView.view.frame = self.view.frame;
     newMediaProfileView.delegate = self;
     newMediaProfileView.view.autoresizingMask = self.view.autoresizingMask;
     newMediaProfileView.view.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE];
-    [self pushViewController:newMediaProfileView animated:YES];
-
+    
+    [self addViewController:newMediaProfileView toControlledStackAnimation:shouldAnimate];
     [_foorseeSessionManager GET:[NSString stringWithFormat:@"movies/id/%@.json",foorseeId] parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         newMediaProfileView.data = responseObject;
+        _foorseeIdOfCurrentlyActiveProfile = foorseeId;
+        
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"%@", [error localizedDescription]);
     }];
@@ -78,18 +83,32 @@
 
 -(void) presentPersonProfileForItemWithFoorseeId:(NSString *) foorseeId
 {
+    if ([_foorseeIdOfCurrentlyActiveProfile isEqualToString:foorseeId]) {
+        return;
+    }
     PersonProfileViewController *newPersonProfileViewController = [[PersonProfileViewController alloc]init];
     newPersonProfileViewController.view.frame = self.view.frame;
     newPersonProfileViewController.delegate = self;
     newPersonProfileViewController.view.autoresizingMask = self.view.autoresizingMask;
     newPersonProfileViewController.view.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE];
-    [self pushViewController:newPersonProfileViewController animated:YES];
+    [self addViewController:newPersonProfileViewController toControlledStackAnimation:YES];
     
     [_foorseeSessionManager GET:[NSString stringWithFormat:@"cast/id/%@.json",foorseeId] parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         newPersonProfileViewController.data = responseObject;
+        _foorseeIdOfCurrentlyActiveProfile = foorseeId;
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"%@", [error localizedDescription]);
     }];
+}
+
+-(void) addViewController:(UIViewController *)vc toControlledStackAnimation:(BOOL) animate
+{
+    NSMutableArray *viewControllersInStack = [NSMutableArray arrayWithArray:self.viewControllers];
+    if (viewControllersInStack.count > NUMBER_OF_PROFILE_PAGES_MAXIMUM) {
+        [viewControllersInStack removeObjectAtIndex:0];
+        [self setViewControllers:viewControllersInStack];
+    }
+    [self pushViewController:vc animated:animate];
 }
 
 -(void) backButtonTappedInMediaProfileView
@@ -97,6 +116,10 @@
     [self popViewControllerAnimated:YES];
 }
 
+-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    
+}
 
 
 

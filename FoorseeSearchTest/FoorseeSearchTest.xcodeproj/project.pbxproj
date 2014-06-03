@@ -38,6 +38,7 @@
 		508A21FE18FBE0B1006BBFEE /* FoorseeHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 508A21FD18FBE0B1006BBFEE /* FoorseeHTTPClient.m */; };
 		508C0B4E1920E46700829B79 /* SearchBarSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 508C0B4D1920E46700829B79 /* SearchBarSectionHeader.m */; };
 		508C0B501920E48B00829B79 /* SearchBarSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 508C0B4F1920E48B00829B79 /* SearchBarSectionHeader.xib */; };
+		508DADA01938796D0083B04B /* UIView+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 508DAD9F1938796D0083B04B /* UIView+Screenshot.m */; };
 		509D0A2C1918CD8F00173552 /* SnappyFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D0A2B1918CD8F00173552 /* SnappyFlowLayout.m */; };
 		509D0A321918FECE00173552 /* MoviesModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D0A311918FECE00173552 /* MoviesModuleViewController.m */; };
 		509D0A35191925E600173552 /* ImagesModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D0A34191925E600173552 /* ImagesModuleViewController.m */; };
@@ -125,6 +126,8 @@
 		508C0B4C1920E46700829B79 /* SearchBarSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchBarSectionHeader.h; sourceTree = "<group>"; };
 		508C0B4D1920E46700829B79 /* SearchBarSectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchBarSectionHeader.m; sourceTree = "<group>"; };
 		508C0B4F1920E48B00829B79 /* SearchBarSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchBarSectionHeader.xib; sourceTree = "<group>"; };
+		508DAD9E1938796D0083B04B /* UIView+Screenshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Screenshot.h"; sourceTree = "<group>"; };
+		508DAD9F1938796D0083B04B /* UIView+Screenshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Screenshot.m"; sourceTree = "<group>"; };
 		509D0A2A1918CD8F00173552 /* SnappyFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnappyFlowLayout.h; sourceTree = "<group>"; };
 		509D0A2B1918CD8F00173552 /* SnappyFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnappyFlowLayout.m; sourceTree = "<group>"; };
 		509D0A301918FECE00173552 /* MoviesModuleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviesModuleViewController.h; sourceTree = "<group>"; };
@@ -268,6 +271,8 @@
 				50EBB2F7192201B100BC013A /* MainViewController.xib */,
 				50118BBB192658E700614C3C /* ImageViewWithBorder.h */,
 				50118BBC192658E700614C3C /* ImageViewWithBorder.m */,
+				508DAD9E1938796D0083B04B /* UIView+Screenshot.h */,
+				508DAD9F1938796D0083B04B /* UIView+Screenshot.m */,
 			);
 			path = FoorseeSearchTest;
 			sourceTree = "<group>";
@@ -569,6 +574,7 @@
 				50CF5780191A2F9D006DF116 /* VideoThumbnailCell.m in Sources */,
 				509D0A35191925E600173552 /* ImagesModuleViewController.m in Sources */,
 				509D0A2C1918CD8F00173552 /* SnappyFlowLayout.m in Sources */,
+				508DADA01938796D0083B04B /* UIView+Screenshot.m in Sources */,
 				501249A4191BCF4C00FC7CB8 /* ActorsModuleViewController.m in Sources */,
 				5011DC3219092E05007CA515 /* MediaProfileViewController.m in Sources */,
 				50A1FDEE191B8A7200C2232A /* ImageViewWithGradient.m in Sources */,

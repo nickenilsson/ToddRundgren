@@ -42,15 +42,30 @@
     [self.scrollView addSubview:_referenceViewForWidth];
     self.view.layer.borderWidth = 1;
     self.view.layer.borderColor = [[UIColor blackColor]CGColor];
+    
     UIImageView *border = [[UIImageView alloc] initWithImage:[UIImage imageWithColor:[UIColor blackColor]]];
     border.frame = CGRectMake(0, 0, 1, self.view.frame.size.height);
     border.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:border];
     
     self.backgroundConstraintTop.constant = - PARALLAX_MARGIN_PROFILE_PAGE;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewWillRotate) name:@"viewWillRotate" object:nil];
 
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    UINavigationController *parentNavigationController = (UINavigationController *)self.navigationController;
+    if (parentNavigationController.viewControllers.count == 1) {
+        self.buttonNavigateBack.hidden = YES;
+    }
+    [self updateScrollViewContentSize];
+}
+-(void) viewWillRotate
+{
+    [self updateScrollViewContentSize];
+}
 -(void) setData:(id)data
 {
     _data = data;
