@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ImageViewWithGradient.h"
 
 
 @protocol MediaProfileDelegate <NSObject>
@@ -30,7 +29,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) id <MediaProfileDelegate> delegate;
 
-@property (weak, nonatomic) IBOutlet ImageViewWithGradient *imageViewBackground;
+@property (weak, nonatomic) IBOutlet UIImageView *imageViewBackground;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *backgroundConstraintTop;
 @property (weak, nonatomic) IBOutlet UIButton *buttonNavigateBack;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;

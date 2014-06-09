@@ -20,7 +20,7 @@
             <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warner.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="DCO-Rf-7gr" customClass="ImageViewWithGradient">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warner.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="DCO-Rf-7gr">
                     <rect key="frame" x="300" y="0.0" width="724" height="650"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.57677576259999996" green="1" blue="0.02671864061" alpha="0.44" colorSpace="calibratedRGB"/>

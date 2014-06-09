@@ -17,6 +17,7 @@
 #import "UIImage+ImageWithColor.h"
 #import "MediaProfileNavigationController.h"
 #import "UIColor+ColorFromHex.h"
+#import "UIImageView+BackgroundGradient.h"
 
 
 @interface MediaProfileViewController () <UIScrollViewDelegate>
@@ -61,8 +62,6 @@
     self.scrollView.delegate = self;
     self.view.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE];
     
-    
-    
 }
 
 -(void) setUpView
@@ -71,7 +70,7 @@
     NSURL *backdropUrl = [NSURL URLWithString:self.data[@"meta"][@"backdrops"][@"originals"][0][@"url"]];
     UIImage *placeholderImage = [UIImage imageWithColor:[UIColor clearColor]];
     [self.imageViewBackground setImageWithURL:backdropUrl placeholderImage:placeholderImage];
-    self.imageViewBackground.gradientColor = [UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE];
+    [self.imageViewBackground addGradientWithColor:[UIColor colorFromHexString:COLOR_HEX_RESULT_SECTION]];
     
     if (self.data[@"title"]) {
         _headerModuleViewController = [[HeaderModuleViewController alloc] init];
@@ -116,23 +115,6 @@
     
 }
 
-//-(void) addModuleViewController:(UIViewController *)viewController ToScrollViewWithHeight:(CGFloat) moduleHeight
-//{
-//    [self addChildViewController:viewController];
-//    [viewController didMoveToParentViewController:self];
-//    
-//    [self.scrollView addSubview:viewController.view];
-//    viewController.view.frame = CGRectMake(0, _scrollableContentHeight, self.view.frame.size.width, moduleHeight);
-//    _scrollableContentHeight += moduleHeight;
-//    viewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-//
-//    [self updateScrollViewContentSize];
-//}
-//
-//-(void) updateScrollViewContentSize
-//{
-//    [self.scrollView setContentSize:CGSizeMake(_headerModuleViewController.view.frame.size.width, _scrollableContentHeight + SCROLLVIEW_MARGIN_BOTTOM)];
-//}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

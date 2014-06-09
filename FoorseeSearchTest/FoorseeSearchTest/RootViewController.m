@@ -12,7 +12,6 @@
 #import "MediaPlayerViewController.h"
 #import "MainViewController.h"
 #import "UIColor+ColorFromHex.h"
-#import "UIView+Screenshot.h"
 
 
 
@@ -216,6 +215,7 @@
         _mediaProfileNavigationController.view.hidden = YES;
         _blurView.hidden = YES;
         _blurNeedsUpdateBeforeAnimation = YES;
+        _isMovingMediaProfile = NO;
     }];
     
 }

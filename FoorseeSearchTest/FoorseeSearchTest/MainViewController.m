@@ -17,7 +17,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "UIImage+ImageWithColor.h"
 #import "UIColor+ColorFromHex.h"
-#import "ImageViewWithGradient.h"
+#import "UIImageView+BackgroundGradient.h"
 
 #import "CSStickyHeaderFlowLayout.h"
 
@@ -55,7 +55,7 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
 - (IBAction)buttonFiltersTapped:(id)sender;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintBackgroundTop;
 
-@property (weak, nonatomic) IBOutlet ImageViewWithGradient *imageViewBackground;
+@property (weak, nonatomic) IBOutlet UIImageView *imageViewBackground;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionViewFilters;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionViewResults;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintFilterSectionWidth;
@@ -103,7 +103,8 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
     self.constraintBackgroundTop.constant = - PARALLAX_MARGIN;
     
     self.imageViewBackground.image = [UIImage imageNamed:@"warner.jpg"];
-    self.imageViewBackground.gradientColor = [UIColor colorFromHexString:COLOR_HEX_RESULT_SECTION];
+    [self.imageViewBackground addGradientWithColor:[UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE]];
+    
     [self initialSetUpResultsCollectionView];
     [self initialSetUpFiltersCollectionView];
     self.constraintFilterSectionWidth.constant = 0;
@@ -157,7 +158,6 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
     _layoutForFiltersCollectionView.minimumInteritemSpacing = 5;
     _layoutForFiltersCollectionView.minimumLineSpacing = 5;
 
-    
 }
 
 -(void) setUpViewToDisplayDiscoverItems:(id) responseObject

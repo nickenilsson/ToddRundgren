@@ -31,6 +31,7 @@
 		5034D0FD18FBD04B0023A02C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5034D0FB18FBD04B0023A02C /* InfoPlist.strings */; };
 		5034D0FF18FBD04B0023A02C /* FoorseeSearchTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5034D0FE18FBD04B0023A02C /* FoorseeSearchTestTests.m */; };
 		50539FF71924A6E400B5AE4C /* warner.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 50539FF61924A6E400B5AE4C /* warner.jpg */; };
+		5058763C19409797008CF20E /* UIImageView+BackgroundGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5058763B19409797008CF20E /* UIImageView+BackgroundGradient.m */; };
 		5089C480190FC5D900A5BA9A /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5089C47E190FC5D900A5BA9A /* RootViewController.m */; };
 		5089C481190FC5D900A5BA9A /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5089C47F190FC5D900A5BA9A /* RootViewController.xib */; };
 		508A21C218FBDD1C006BBFEE /* ImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 508A21C118FBDD1C006BBFEE /* ImageCell.m */; };
@@ -38,12 +39,10 @@
 		508A21FE18FBE0B1006BBFEE /* FoorseeHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 508A21FD18FBE0B1006BBFEE /* FoorseeHTTPClient.m */; };
 		508C0B4E1920E46700829B79 /* SearchBarSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 508C0B4D1920E46700829B79 /* SearchBarSectionHeader.m */; };
 		508C0B501920E48B00829B79 /* SearchBarSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 508C0B4F1920E48B00829B79 /* SearchBarSectionHeader.xib */; };
-		508DADA01938796D0083B04B /* UIView+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 508DAD9F1938796D0083B04B /* UIView+Screenshot.m */; };
 		509D0A2C1918CD8F00173552 /* SnappyFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D0A2B1918CD8F00173552 /* SnappyFlowLayout.m */; };
 		509D0A321918FECE00173552 /* MoviesModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D0A311918FECE00173552 /* MoviesModuleViewController.m */; };
 		509D0A35191925E600173552 /* ImagesModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D0A34191925E600173552 /* ImagesModuleViewController.m */; };
 		50A1FDE8191B6BD200C2232A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50A1FDE7191B6BD200C2232A /* QuartzCore.framework */; };
-		50A1FDEE191B8A7200C2232A /* ImageViewWithGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A1FDED191B8A7200C2232A /* ImageViewWithGradient.m */; };
 		50A4F330192F3747002D23C2 /* bariol_regular-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 50A4F32F192F3747002D23C2 /* bariol_regular-webfont.ttf */; };
 		50A810C418FE77A3004FDF52 /* FilterSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A810C318FE77A3004FDF52 /* FilterSectionHeader.m */; };
 		50A810C618FE77B4004FDF52 /* FilterSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50A810C518FE77B4004FDF52 /* FilterSectionHeader.xib */; };
@@ -114,6 +113,8 @@
 		5034D0FE18FBD04B0023A02C /* FoorseeSearchTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FoorseeSearchTestTests.m; sourceTree = "<group>"; };
 		504FE47D1925081900CCE7DD /* ConfigurationFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationFile.h; sourceTree = "<group>"; };
 		50539FF61924A6E400B5AE4C /* warner.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = warner.jpg; sourceTree = "<group>"; };
+		5058763A19409797008CF20E /* UIImageView+BackgroundGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+BackgroundGradient.h"; sourceTree = "<group>"; };
+		5058763B19409797008CF20E /* UIImageView+BackgroundGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+BackgroundGradient.m"; sourceTree = "<group>"; };
 		5089C47D190FC5D900A5BA9A /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		5089C47E190FC5D900A5BA9A /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		5089C47F190FC5D900A5BA9A /* RootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootViewController.xib; sourceTree = "<group>"; };
@@ -126,8 +127,6 @@
 		508C0B4C1920E46700829B79 /* SearchBarSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchBarSectionHeader.h; sourceTree = "<group>"; };
 		508C0B4D1920E46700829B79 /* SearchBarSectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchBarSectionHeader.m; sourceTree = "<group>"; };
 		508C0B4F1920E48B00829B79 /* SearchBarSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchBarSectionHeader.xib; sourceTree = "<group>"; };
-		508DAD9E1938796D0083B04B /* UIView+Screenshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Screenshot.h"; sourceTree = "<group>"; };
-		508DAD9F1938796D0083B04B /* UIView+Screenshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Screenshot.m"; sourceTree = "<group>"; };
 		509D0A2A1918CD8F00173552 /* SnappyFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnappyFlowLayout.h; sourceTree = "<group>"; };
 		509D0A2B1918CD8F00173552 /* SnappyFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnappyFlowLayout.m; sourceTree = "<group>"; };
 		509D0A301918FECE00173552 /* MoviesModuleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviesModuleViewController.h; sourceTree = "<group>"; };
@@ -135,8 +134,6 @@
 		509D0A33191925E600173552 /* ImagesModuleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagesModuleViewController.h; sourceTree = "<group>"; };
 		509D0A34191925E600173552 /* ImagesModuleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagesModuleViewController.m; sourceTree = "<group>"; };
 		50A1FDE7191B6BD200C2232A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		50A1FDEC191B8A7200C2232A /* ImageViewWithGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewWithGradient.h; sourceTree = "<group>"; };
-		50A1FDED191B8A7200C2232A /* ImageViewWithGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewWithGradient.m; sourceTree = "<group>"; };
 		50A4F32F192F3747002D23C2 /* bariol_regular-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "bariol_regular-webfont.ttf"; sourceTree = "<group>"; };
 		50A810C218FE77A3004FDF52 /* FilterSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterSectionHeader.h; sourceTree = "<group>"; };
 		50A810C318FE77A3004FDF52 /* FilterSectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterSectionHeader.m; sourceTree = "<group>"; };
@@ -239,6 +236,7 @@
 		5034D0DB18FBD04B0023A02C /* FoorseeSearchTest */ = {
 			isa = PBXGroup;
 			children = (
+				5058764019409D4E008CF20E /* Categories */,
 				50A4F32C192F343C002D23C2 /* Resource */,
 				504FE47E1925082200CCE7DD /* Config files */,
 				50A1FDEF191BB06500C2232A /* Images */,
@@ -252,27 +250,17 @@
 				5034D0DC18FBD04B0023A02C /* Supporting Files */,
 				508A21FC18FBE0B1006BBFEE /* FoorseeHTTPClient.h */,
 				508A21FD18FBE0B1006BBFEE /* FoorseeHTTPClient.m */,
-				50A8A6F518FD16EF008D2FF8 /* UIImage+ImageWithColor.h */,
-				50A8A6F618FD16EF008D2FF8 /* UIImage+ImageWithColor.m */,
 				50DD9FFC18FD5BF200D75E84 /* ArrayDataSource.h */,
 				50DD9FFD18FD5BF200D75E84 /* ArrayDataSource.m */,
-				50A810C718FE7ECD004FDF52 /* UIColor+ColorFromHex.h */,
 				5089C47D190FC5D900A5BA9A /* RootViewController.h */,
 				5089C47E190FC5D900A5BA9A /* RootViewController.m */,
 				5089C47F190FC5D900A5BA9A /* RootViewController.xib */,
-				50A810C818FE7ECD004FDF52 /* UIColor+ColorFromHex.m */,
 				5089C482190FCBC500A5BA9A /* ContentViewControllerDelegate.h */,
 				509D0A2A1918CD8F00173552 /* SnappyFlowLayout.h */,
 				509D0A2B1918CD8F00173552 /* SnappyFlowLayout.m */,
-				50A1FDEC191B8A7200C2232A /* ImageViewWithGradient.h */,
-				50A1FDED191B8A7200C2232A /* ImageViewWithGradient.m */,
 				50EBB2F5192201B100BC013A /* MainViewController.h */,
 				50EBB2F6192201B100BC013A /* MainViewController.m */,
 				50EBB2F7192201B100BC013A /* MainViewController.xib */,
-				50118BBB192658E700614C3C /* ImageViewWithBorder.h */,
-				50118BBC192658E700614C3C /* ImageViewWithBorder.m */,
-				508DAD9E1938796D0083B04B /* UIView+Screenshot.h */,
-				508DAD9F1938796D0083B04B /* UIView+Screenshot.m */,
 			);
 			path = FoorseeSearchTest;
 			sourceTree = "<group>";
@@ -312,6 +300,35 @@
 				504FE47D1925081900CCE7DD /* ConfigurationFile.h */,
 			);
 			name = "Config files";
+			sourceTree = "<group>";
+		};
+		5058763919409659008CF20E /* Profile View Classes */ = {
+			isa = PBXGroup;
+			children = (
+				5011DC2F19092E05007CA515 /* MediaProfileViewController.h */,
+				5011DC3019092E05007CA515 /* MediaProfileViewController.m */,
+				50DA2718192B44C6003D681E /* PersonProfileViewController.h */,
+				50DA2719192B44C6003D681E /* PersonProfileViewController.m */,
+				5011DC3119092E05007CA515 /* ProfilePageViewController.xib */,
+				50DA271B192B52F1003D681E /* ProfilePageViewController.h */,
+				50DA271C192B52F1003D681E /* ProfilePageViewController.m */,
+			);
+			name = "Profile View Classes";
+			sourceTree = "<group>";
+		};
+		5058764019409D4E008CF20E /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				50118BBB192658E700614C3C /* ImageViewWithBorder.h */,
+				50118BBC192658E700614C3C /* ImageViewWithBorder.m */,
+				50A810C718FE7ECD004FDF52 /* UIColor+ColorFromHex.h */,
+				50A810C818FE7ECD004FDF52 /* UIColor+ColorFromHex.m */,
+				50A8A6F518FD16EF008D2FF8 /* UIImage+ImageWithColor.h */,
+				50A8A6F618FD16EF008D2FF8 /* UIImage+ImageWithColor.m */,
+				5058763A19409797008CF20E /* UIImageView+BackgroundGradient.h */,
+				5058763B19409797008CF20E /* UIImageView+BackgroundGradient.m */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 		50A1FDEF191BB06500C2232A /* Images */ = {
@@ -391,16 +408,10 @@
 		50DA271E192B52FD003D681E /* Profile Pages */ = {
 			isa = PBXGroup;
 			children = (
+				5058763919409659008CF20E /* Profile View Classes */,
 				50B1F47C190A915200DE3FC3 /* Content profile module views */,
 				5011DC271909002D007CA515 /* MediaProfileNavigationController.h */,
 				5011DC281909002D007CA515 /* MediaProfileNavigationController.m */,
-				5011DC2F19092E05007CA515 /* MediaProfileViewController.h */,
-				5011DC3019092E05007CA515 /* MediaProfileViewController.m */,
-				50DA2718192B44C6003D681E /* PersonProfileViewController.h */,
-				50DA2719192B44C6003D681E /* PersonProfileViewController.m */,
-				5011DC3119092E05007CA515 /* ProfilePageViewController.xib */,
-				50DA271B192B52F1003D681E /* ProfilePageViewController.h */,
-				50DA271C192B52F1003D681E /* ProfilePageViewController.m */,
 			);
 			name = "Profile Pages";
 			sourceTree = "<group>";
@@ -549,6 +560,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5058763C19409797008CF20E /* UIImageView+BackgroundGradient.m in Sources */,
 				50CF577C191A1BD0006DF116 /* VideoModuleViewController.m in Sources */,
 				509D0A321918FECE00173552 /* MoviesModuleViewController.m in Sources */,
 				50B63CA41923B0B80092304D /* SupplementaryViewWithImage.m in Sources */,
@@ -574,10 +586,8 @@
 				50CF5780191A2F9D006DF116 /* VideoThumbnailCell.m in Sources */,
 				509D0A35191925E600173552 /* ImagesModuleViewController.m in Sources */,
 				509D0A2C1918CD8F00173552 /* SnappyFlowLayout.m in Sources */,
-				508DADA01938796D0083B04B /* UIView+Screenshot.m in Sources */,
 				501249A4191BCF4C00FC7CB8 /* ActorsModuleViewController.m in Sources */,
 				5011DC3219092E05007CA515 /* MediaProfileViewController.m in Sources */,
-				50A1FDEE191B8A7200C2232A /* ImageViewWithGradient.m in Sources */,
 				508A21FE18FBE0B1006BBFEE /* FoorseeHTTPClient.m in Sources */,
 				5034D0E218FBD04B0023A02C /* main.m in Sources */,
 			);
