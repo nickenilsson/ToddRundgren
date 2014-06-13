@@ -13,11 +13,18 @@
 #import "UIImage+ImageWithColor.h"
 #import "UIImageView+AFNetworking.h"
 #import "SnappyFlowLayout.h"
-#import <JTSImageViewController.h>
+#import "ASMediaFocusManager.h"
+
 
 static NSString * const cellIdentifier = @"cellIdentifier";
 
-@interface ImagesModuleViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface ImagesModuleViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,ASMediasFocusDelegate>
+
+@property (strong, nonatomic) ASMediaFocusManager *mediaFocusManager;
+
+
+@property (nonatomic, assign) BOOL statusBarHidden;
+
 
 @end
 
@@ -49,6 +56,11 @@ static NSString * const cellIdentifier = @"cellIdentifier";
     _collectionViewLayout = [[SnappyFlowLayout alloc] init];
     self.collectionView.collectionViewLayout = _collectionViewLayout;
     
+    self.mediaFocusManager = [[ASMediaFocusManager alloc] init];
+    self.mediaFocusManager.animationDuration = 0.5;
+    self.mediaFocusManager.delegate = (id)self;
+
+
     
     
 }
@@ -72,8 +84,15 @@ static NSString * const cellIdentifier = @"cellIdentifier";
 {
     _dataThumbnails = dataThumbnails;
     [self.collectionView reloadData];
+    
 }
 
+-(void)setDataOriginals:(NSMutableArray *)dataOriginals
+{
+    _dataOriginals = dataOriginals;
+    [self.collectionView reloadData];
+    
+}
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return 1;
@@ -88,10 +107,12 @@ static NSString * const cellIdentifier = @"cellIdentifier";
 {
     ImageCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     
-    NSDictionary *cellData = self.dataThumbnails[indexPath.item];
+    NSDictionary *cellData = self.dataOriginals[indexPath.item];
     NSURL *imageUrl = [NSURL URLWithString:cellData[@"url"]];
     UIImage *placeholderImage = [UIImage imageWithColor:[UIColor blackColor]];
     [cell.imageView setImageWithURL:imageUrl placeholderImage:placeholderImage];
+    cell.imageView.tag = indexPath.item;
+    [self.mediaFocusManager installOnView:cell.imageView];
     
     
     return cell;
@@ -99,26 +120,71 @@ static NSString * const cellIdentifier = @"cellIdentifier";
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *selectedItem = self.dataOriginals[indexPath.item];
-    NSURL *imageUrl = [NSURL URLWithString:selectedItem[@"url"]];
+
     
-    JTSImageInfo *imageInfo = [[JTSImageInfo alloc] init];
-    imageInfo.imageURL = imageUrl;
-    // Setup view controller
-    JTSImageViewController *imageViewer = [[JTSImageViewController alloc]
-                                           initWithImageInfo:imageInfo
-                                           mode:JTSImageViewControllerMode_Image
-                                           backgroundStyle:JTSImageViewControllerBackgroundStyle_ScaledDimmed];
-
-    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-    imageInfo.referenceRect = cell.frame;
-    imageInfo.referenceView = self.collectionView;
-    
-
-    // Present the view controller.
-    [imageViewer showFromViewController:self transition:JTSImageViewControllerTransition_FromOriginalPosition];
-
 }
+
+#pragma mark - ASMediaFocusDelegate
+-(CGRect)mediaFocusManager:(ASMediaFocusManager *)mediaFocusManager finalFrameforView:(UIView *)view
+{
+    return CGRectZero;
+}
+-(UIImage *)mediaFocusManager:(ASMediaFocusManager *)mediaFocusManager imageForView:(UIView *)view
+{
+    return nil;
+}
+
+- (UIImageView *)mediaFocusManager:(ASMediaFocusManager *)mediaFocusManager imageViewForView:(UIView *)view
+{
+    return (UIImageView *)view;
+}
+
+- (CGRect)mediaFocusManager:(ASMediaFocusManager *)mediaFocusManager finalFrameForView:(UIView *)view
+{
+   return [[[UIApplication sharedApplication]delegate] window].rootViewController.view.bounds;
+}
+
+- (UIViewController *)parentViewControllerForMediaFocusManager:(ASMediaFocusManager *)mediaFocusManager
+{
+    return [[[UIApplication sharedApplication]delegate] window].rootViewController;
+}
+
+- (NSURL *)mediaFocusManager:(ASMediaFocusManager *)mediaFocusManager mediaURLForView:(UIView *)view
+{
+    NSDictionary *selectedImage = self.dataOriginals[view.tag];
+    NSURL *imageUrl = [NSURL URLWithString:selectedImage[@"url"]];
+    return imageUrl;
+}
+
+- (NSString *)mediaFocusManager:(ASMediaFocusManager *)mediaFocusManager titleForView:(UIView *)view;
+{
+    return nil;
+}
+
+- (void)mediaFocusManagerWillAppear:(ASMediaFocusManager *)mediaFocusManager
+{
+    self.statusBarHidden = YES;
+    [self setNeedsStatusBarAppearanceUpdate];
+}
+
+- (void)mediaFocusManagerWillDisappear:(ASMediaFocusManager *)mediaFocusManager
+{
+    self.statusBarHidden = NO;
+    [self setNeedsStatusBarAppearanceUpdate];
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return self.prefersStatusBarHidden;
+}
+
+
+- (void)mediaFocusManagerDidDisappear:(ASMediaFocusManager *)mediaFocusManager
+{
+    NSLog(@"The view has been dismissed");
+}
+
+
 
 - (void)didReceiveMemoryWarning
 {

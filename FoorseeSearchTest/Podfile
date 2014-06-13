@@ -8,7 +8,6 @@ pod 'JTSImageViewController', '~> 1.1'
 pod "CSStickyHeaderFlowLayout"
 pod 'FXBlurView', '~> 1.6'
 
-
 end
 
 target "FoorseeSearchTestTests" do

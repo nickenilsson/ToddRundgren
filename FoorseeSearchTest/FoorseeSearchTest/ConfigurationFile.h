@@ -20,8 +20,8 @@
 #define COLOR_HEX_PROFILE_PAGE @"1E2124"
 
 //API
-#define FOORSEE_API_URL @"http://54.76.0.223/v1/"
-//#define FOORSEE_API_URL @"http://client_abstraction_api.moc/v1/"
+//#define FOORSEE_API_URL @"http://http://54.72.50.217/v1/"
+#define FOORSEE_API_URL @"http://client_abstraction_api.moc/v1/"
 #define API_KEY @"X62G2eUCuid3cF3Dxod32idudYxg"
 
 #define RADIUS_BORDER_FILTER_CELL 5
@@ -54,5 +54,9 @@
 #define FONT_SIZE_MODULE_TITLE 20
 #define FONT_SIZE_FILTER_SECTION_HEADERS 30
 #define FONT_SIZE_FILTER_CELLS 19
+
+//Time logging
+#define TICK   NSDate *startTime = [NSDate date]
+#define TOCK   NSLog(@"Time: %f", -[startTime timeIntervalSinceNow])
 
 #endif

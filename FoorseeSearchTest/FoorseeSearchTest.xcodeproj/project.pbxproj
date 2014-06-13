@@ -64,6 +64,11 @@
 		50DD9FFE18FD5BF200D75E84 /* ArrayDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 50DD9FFD18FD5BF200D75E84 /* ArrayDataSource.m */; };
 		50EBB2F8192201B100BC013A /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EBB2F6192201B100BC013A /* MainViewController.m */; };
 		50EBB2F9192201B100BC013A /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50EBB2F7192201B100BC013A /* MainViewController.xib */; };
+		50F23F251945F31200B2A85F /* ASImageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F23F1D1945F31200B2A85F /* ASImageScrollView.m */; };
+		50F23F261945F31200B2A85F /* ASMediaFocusController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F23F1F1945F31200B2A85F /* ASMediaFocusController.m */; };
+		50F23F271945F31200B2A85F /* ASMediaFocusController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50F23F201945F31200B2A85F /* ASMediaFocusController.xib */; };
+		50F23F281945F31200B2A85F /* ASMediaFocusManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F23F221945F31200B2A85F /* ASMediaFocusManager.m */; };
+		50F23F291945F31200B2A85F /* ASTransparentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F23F241945F31200B2A85F /* ASTransparentView.m */; };
 		94A387EC9503401CBA2A2D12 /* libPods-FoorseeSearchTest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8ADC56466A4BE5B7995EB9 /* libPods-FoorseeSearchTest.a */; };
 /* End PBXBuildFile section */
 
@@ -168,6 +173,15 @@
 		50EBB2F5192201B100BC013A /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		50EBB2F6192201B100BC013A /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		50EBB2F7192201B100BC013A /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		50F23F1C1945F31200B2A85F /* ASImageScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASImageScrollView.h; sourceTree = "<group>"; };
+		50F23F1D1945F31200B2A85F /* ASImageScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASImageScrollView.m; sourceTree = "<group>"; };
+		50F23F1E1945F31200B2A85F /* ASMediaFocusController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASMediaFocusController.h; sourceTree = "<group>"; };
+		50F23F1F1945F31200B2A85F /* ASMediaFocusController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASMediaFocusController.m; sourceTree = "<group>"; };
+		50F23F201945F31200B2A85F /* ASMediaFocusController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ASMediaFocusController.xib; sourceTree = "<group>"; };
+		50F23F211945F31200B2A85F /* ASMediaFocusManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASMediaFocusManager.h; sourceTree = "<group>"; };
+		50F23F221945F31200B2A85F /* ASMediaFocusManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASMediaFocusManager.m; sourceTree = "<group>"; };
+		50F23F231945F31200B2A85F /* ASTransparentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASTransparentView.h; sourceTree = "<group>"; };
+		50F23F241945F31200B2A85F /* ASTransparentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASTransparentView.m; sourceTree = "<group>"; };
 		693AD386D2DF489FB65C2EDE /* Pods-FoorseeSearchTest.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoorseeSearchTest.xcconfig"; path = "Pods/Pods-FoorseeSearchTest.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -236,6 +250,7 @@
 		5034D0DB18FBD04B0023A02C /* FoorseeSearchTest */ = {
 			isa = PBXGroup;
 			children = (
+				50F23F1B1945F31200B2A85F /* ASMediaFocusManager */,
 				5058764019409D4E008CF20E /* Categories */,
 				50A4F32C192F343C002D23C2 /* Resource */,
 				504FE47E1925082200CCE7DD /* Config files */,
@@ -416,6 +431,22 @@
 			name = "Profile Pages";
 			sourceTree = "<group>";
 		};
+		50F23F1B1945F31200B2A85F /* ASMediaFocusManager */ = {
+			isa = PBXGroup;
+			children = (
+				50F23F1C1945F31200B2A85F /* ASImageScrollView.h */,
+				50F23F1D1945F31200B2A85F /* ASImageScrollView.m */,
+				50F23F1E1945F31200B2A85F /* ASMediaFocusController.h */,
+				50F23F1F1945F31200B2A85F /* ASMediaFocusController.m */,
+				50F23F201945F31200B2A85F /* ASMediaFocusController.xib */,
+				50F23F211945F31200B2A85F /* ASMediaFocusManager.h */,
+				50F23F221945F31200B2A85F /* ASMediaFocusManager.m */,
+				50F23F231945F31200B2A85F /* ASTransparentView.h */,
+				50F23F241945F31200B2A85F /* ASTransparentView.m */,
+			);
+			path = ASMediaFocusManager;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -494,6 +525,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50CF5782191A2FB5006DF116 /* VideoThumbnailCell.xib in Resources */,
+				50F23F271945F31200B2A85F /* ASMediaFocusController.xib in Resources */,
 				50EBB2F9192201B100BC013A /* MainViewController.xib in Resources */,
 				50A4F330192F3747002D23C2 /* bariol_regular-webfont.ttf in Resources */,
 				501338411917DD8D00695E29 /* CollectionModuleViewController.xib in Resources */,
@@ -571,7 +603,10 @@
 				5011DC291909002D007CA515 /* MediaProfileNavigationController.m in Sources */,
 				50A8A6FF18FD238E008D2FF8 /* FilterCell.m in Sources */,
 				5089C480190FC5D900A5BA9A /* RootViewController.m in Sources */,
+				50F23F291945F31200B2A85F /* ASTransparentView.m in Sources */,
+				50F23F261945F31200B2A85F /* ASMediaFocusController.m in Sources */,
 				501338441917DE2E00695E29 /* ProvidersModuleViewController.m in Sources */,
+				50F23F251945F31200B2A85F /* ASImageScrollView.m in Sources */,
 				5034D0E618FBD04B0023A02C /* AppDelegate.m in Sources */,
 				50CF5786191A4722006DF116 /* MediaPlayerViewController.m in Sources */,
 				50DA271A192B44C6003D681E /* PersonProfileViewController.m in Sources */,
@@ -584,6 +619,7 @@
 				5034D0E918FBD04B0023A02C /* FoorseeSearchTest.xcdatamodeld in Sources */,
 				50A8A6F718FD16EF008D2FF8 /* UIImage+ImageWithColor.m in Sources */,
 				50CF5780191A2F9D006DF116 /* VideoThumbnailCell.m in Sources */,
+				50F23F281945F31200B2A85F /* ASMediaFocusManager.m in Sources */,
 				509D0A35191925E600173552 /* ImagesModuleViewController.m in Sources */,
 				509D0A2C1918CD8F00173552 /* SnappyFlowLayout.m in Sources */,
 				501249A4191BCF4C00FC7CB8 /* ActorsModuleViewController.m in Sources */,

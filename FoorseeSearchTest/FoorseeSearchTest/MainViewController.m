@@ -53,37 +53,31 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
 - (IBAction)startPageButtonTapped:(id)sender;
 
 - (IBAction)buttonFiltersTapped:(id)sender;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintBackgroundTop;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintBackgroundTop;
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewBackground;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionViewFilters;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionViewResults;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintFilterSectionWidth;
-@property (weak, nonatomic) UISearchBar *searchBar;
-@property (nonatomic) CGFloat widthOfFilterSection;
 @property (weak, nonatomic) IBOutlet UIButton *buttonFilters;
+
+@property (weak, nonatomic) UISearchBar *searchBar;
+@property (strong, nonatomic) FoorseeHTTPClient *foorseeSessionManager;
+@property (strong, nonatomic) NSMutableArray *itemsDiscoverLayout;
+@property (strong, nonatomic) NSMutableArray *itemsDiscoverThumbnails;
+@property (strong, nonatomic) NSMutableArray *itemsDiscoverBanners;
+@property (strong, nonatomic) NSMutableArray *itemsSearchResults;
+@property (strong, nonatomic) NSMutableArray *itemsFilters;
+@property (strong, nonatomic) CSStickyHeaderFlowLayout *layoutForResultsCollectionView;
+@property (strong, nonatomic) UICollectionViewFlowLayout *layoutForFiltersCollectionView;
+
+@property (nonatomic) CGFloat widthOfFilterSection;
+@property (nonatomic) BOOL isDisplayingDiscoverItems;
+@property (nonatomic) BOOL filterSectionIsOpen;
 
 @end
 
 @implementation MainViewController{
-
-    FoorseeHTTPClient *_foorseeSessionManager;
-    NSMutableArray *_itemsDiscoverLayout;
-    NSMutableArray *_itemsDiscoverThumbnails;
-    NSMutableArray *_itemsDiscoverBanners;
-    NSMutableArray *_itemsSearchResults;
-    NSMutableArray *_itemsFilters;
-
-    BOOL _isDisplayingDiscoverItems;
-    BOOL _filterSectionIsOpen;
-    CSStickyHeaderFlowLayout *_layoutForResultsCollectionView;
-    UICollectionViewFlowLayout *_layoutForFiltersCollectionView;
-    CGFloat _widthOfOpenedFilterSection;
-    UIPanGestureRecognizer *_gestureRecognizerPanButton;
-
-    
-    BOOL _isRotating;
-
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -99,7 +93,7 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
 {
     [super viewDidLoad];
     
-    _filterSectionIsOpen = NO;
+    self.filterSectionIsOpen = NO;
     self.constraintBackgroundTop.constant = - PARALLAX_MARGIN;
     
     self.imageViewBackground.image = [UIImage imageNamed:@"warner.jpg"];
@@ -109,8 +103,8 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
     [self initialSetUpFiltersCollectionView];
     self.constraintFilterSectionWidth.constant = 0;
     
-    _foorseeSessionManager = [FoorseeHTTPClient sharedForeseeHTTPClient];
-    [_foorseeSessionManager GET:@"discover.json" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    self.foorseeSessionManager = [FoorseeHTTPClient sharedForeseeHTTPClient];
+    [self.foorseeSessionManager GET:@"discover.json" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         [self setUpViewToDisplayDiscoverItems:responseObject];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"Failure: %@", [error localizedDescription]);
@@ -135,14 +129,14 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
     [self.collectionViewResults registerNib:[ImageCell nib] forCellWithReuseIdentifier:cellIdentifierImageCell];
     [self.collectionViewResults registerNib:[SearchBarSectionHeader nib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:cellIdentifierSearchBarHeader];
     
-    _layoutForResultsCollectionView = [[CSStickyHeaderFlowLayout alloc] init];
-    _layoutForResultsCollectionView.parallaxHeaderReferenceSize = CGSizeMake(0, PARALLAX_HEADER_REFERENCE_HEIGHT);
-    self.collectionViewResults.collectionViewLayout = _layoutForResultsCollectionView;
+    self.layoutForResultsCollectionView = [[CSStickyHeaderFlowLayout alloc] init];
+    self.layoutForResultsCollectionView.parallaxHeaderReferenceSize = CGSizeMake(0, PARALLAX_HEADER_REFERENCE_HEIGHT);
+    self.collectionViewResults.collectionViewLayout = self.layoutForResultsCollectionView;
     [self.collectionViewResults registerNib:[SupplementaryViewWithImage nib] forSupplementaryViewOfKind:CSStickyHeaderParallaxHeader withReuseIdentifier:cellIdentifierParallaxHeader];
-    _layoutForResultsCollectionView.sectionInset = UIEdgeInsetsMake(30, 5, 5, 5);
-    _layoutForResultsCollectionView.minimumInteritemSpacing = 5;
-    _layoutForResultsCollectionView.minimumLineSpacing = 5;
-    [_layoutForResultsCollectionView invalidateLayout];
+    self.layoutForResultsCollectionView.sectionInset = UIEdgeInsetsMake(30, 5, 5, 5);
+    self.layoutForResultsCollectionView.minimumInteritemSpacing = 5;
+    self.layoutForResultsCollectionView.minimumLineSpacing = 5;
+    [self.layoutForResultsCollectionView invalidateLayout];
 }
 
 -(void) initialSetUpFiltersCollectionView
@@ -153,46 +147,46 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
     [self.collectionViewFilters registerNib:[FilterCell nib] forCellWithReuseIdentifier:cellIdentifierFilterCell];
     [self.collectionViewFilters registerNib:[FilterSectionHeader nib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:cellIdentifierFilterHeader];
     
-    _layoutForFiltersCollectionView = (UICollectionViewFlowLayout *)self.collectionViewFilters.collectionViewLayout;
-    _layoutForFiltersCollectionView.sectionInset = UIEdgeInsetsMake(5, 10, 5, 10);
-    _layoutForFiltersCollectionView.minimumInteritemSpacing = 5;
-    _layoutForFiltersCollectionView.minimumLineSpacing = 5;
+    self.layoutForFiltersCollectionView = (UICollectionViewFlowLayout *)self.collectionViewFilters.collectionViewLayout;
+    self.layoutForFiltersCollectionView.sectionInset = UIEdgeInsetsMake(5, 10, 5, 10);
+    self.layoutForFiltersCollectionView.minimumInteritemSpacing = 5;
+    self.layoutForFiltersCollectionView.minimumLineSpacing = 5;
 
 }
 
 -(void) setUpViewToDisplayDiscoverItems:(id) responseObject
 {
-    _isDisplayingDiscoverItems = YES;
+    self.isDisplayingDiscoverItems = YES;
     [self refineAndSaveDataFromResponse:responseObject];
     [self sortLayoutItems];
     [self.collectionViewResults reloadData];
-    [_layoutForResultsCollectionView invalidateLayout];
+    [self.layoutForResultsCollectionView invalidateLayout];
 }
 
 -(void) refineAndSaveDataFromResponse:(id)responseObject
 {
-    _itemsDiscoverLayout = [NSMutableArray arrayWithCapacity:30];
+    self.itemsDiscoverLayout = [NSMutableArray arrayWithCapacity:30];
     for (id key in responseObject[@"layout"][@"blocks"]) {
         NSDictionary *block = responseObject[@"layout"][@"blocks"][key];
         for (NSDictionary *layoutItem in block[@"children"]) {
-            [_itemsDiscoverLayout addObject:layoutItem];
+            [self.itemsDiscoverLayout addObject:layoutItem];
         }
     }
-    _itemsDiscoverThumbnails = responseObject[@"content"][@"FEATURED_MOVIE"][@"items"];
-    _itemsDiscoverBanners = responseObject[@"content"][@"BANNER"][@"items"];
+    self.itemsDiscoverThumbnails = responseObject[@"content"][@"FEATURED_MOVIE"][@"items"];
+    self.itemsDiscoverBanners = responseObject[@"content"][@"BANNER"][@"items"];
 }
 
 -(void) sortLayoutItems
 {
-    NSMutableArray *sortedArray = [NSMutableArray arrayWithCapacity:_itemsDiscoverLayout.count];
+    NSMutableArray *sortedArray = [NSMutableArray arrayWithCapacity:self.itemsDiscoverLayout.count];
     int currentSmallestListIndex = 0;
     
-    for (int i = 0; i<=_itemsDiscoverLayout.count; i++) {
-        for (NSDictionary *item in _itemsDiscoverLayout) {
+    for (int i = 0; i<= self.itemsDiscoverLayout.count; i++) {
+        for (NSDictionary *item in self.itemsDiscoverLayout) {
             NSNumber *contentListIndex = item[@"contentListIndex"];
             if (contentListIndex.intValue <= currentSmallestListIndex && ![sortedArray containsObject:item]){
                 [sortedArray addObject:item];
-                currentSmallestListIndex = contentListIndex.integerValue+1;
+                currentSmallestListIndex = contentListIndex.integerValue + 1;
             }
         }
     }
@@ -200,7 +194,7 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     if ([collectionView isEqual:self.collectionViewFilters]) {
-        return _itemsFilters.count;
+        return self.itemsFilters.count;
     }else{
         return 1;
     }
@@ -208,14 +202,14 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     if ([collectionView isEqual:self.collectionViewFilters]) {
-        NSArray *terms =_itemsFilters[section][@"terms"];
+        NSArray *terms =self.itemsFilters[section][@"terms"];
         return terms.count;
         
     }else{
-        if (_isDisplayingDiscoverItems) {
-            return _itemsDiscoverLayout.count;
+        if (self.isDisplayingDiscoverItems) {
+            return self.itemsDiscoverLayout.count;
         }else{
-            return _itemsSearchResults.count;
+            return self.itemsSearchResults.count;
         }
     }
 }
@@ -235,9 +229,9 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
 {
     FilterCell *cell = [self.collectionViewFilters dequeueReusableCellWithReuseIdentifier:cellIdentifierFilterCell forIndexPath:indexPath];
     
-    NSDictionary *filter = _itemsFilters[indexPath.section][@"terms"][indexPath.item];
+    NSDictionary *filter = self.itemsFilters[indexPath.section][@"terms"][indexPath.item];
     
-    NSString *colorHex = _itemsFilters[indexPath.section][@"colorCode"];
+    NSString *colorHex = self.itemsFilters[indexPath.section][@"colorCode"];
     UIColor *filterColor = [UIColor colorFromHexString:colorHex];
     cell.backgroundColor = filterColor;
     
@@ -252,15 +246,15 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
 
 -(UICollectionViewCell *) resultCellForItemAtIndexPath:(NSIndexPath *) indexPath
 {
-    if (_isDisplayingDiscoverItems) {
-        NSDictionary *layoutItem = _itemsDiscoverLayout[indexPath.item];
+    if (self.isDisplayingDiscoverItems) {
+        NSDictionary *layoutItem = self.itemsDiscoverLayout[indexPath.item];
         NSNumber *contentListIndex = layoutItem[@"contentListIndex"];
         
         UIImage *placeholderImage = [UIImage imageWithColor:[UIColor blackColor]];
         if ([self typeOfDiscoverItemAtIndexPath:indexPath] == THUMBNAIL) {
             ImageCell *cell = [self.collectionViewResults dequeueReusableCellWithReuseIdentifier:cellIdentifierImageCell forIndexPath:indexPath];
             
-            NSDictionary *thumbnailItem = _itemsDiscoverThumbnails[contentListIndex.integerValue];
+            NSDictionary *thumbnailItem = self.itemsDiscoverThumbnails[contentListIndex.integerValue];
             NSURL *imageUrl = [NSURL URLWithString:thumbnailItem[@"posterThumbnail"][@"url"]];
             [cell.imageView setImageWithURL:imageUrl placeholderImage:placeholderImage];
             
@@ -278,7 +272,7 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
     }
     else{
         ImageCell *cell = [self.collectionViewResults dequeueReusableCellWithReuseIdentifier:cellIdentifierImageCell forIndexPath:indexPath];
-        NSDictionary *movie = _itemsSearchResults[indexPath.item];
+        NSDictionary *movie = self.itemsSearchResults[indexPath.item];
         UIImage *placeHolderImage = [UIImage imageWithColor:[UIColor blackColor]];
         NSURL *imageUrl = [NSURL URLWithString:movie[@"posterThumbnail"][@"url"]];
         [cell.imageView setImageWithURL:imageUrl placeholderImage:placeHolderImage];
@@ -289,7 +283,7 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
 }
 -(discoverItemType) typeOfDiscoverItemAtIndexPath:(NSIndexPath *) indexPath
 {
-    NSDictionary *layoutItem = _itemsDiscoverLayout[indexPath.item];
+    NSDictionary *layoutItem = self.itemsDiscoverLayout[indexPath.item];
     NSString *typeString = layoutItem[@"type"];
     discoverItemType itemType;
     if ([typeString isEqualToString:@"FEATURED_MOVIE"]) {
@@ -321,7 +315,7 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
     }else{
         FilterSectionHeader *sectionHeader = [self.collectionViewFilters dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:cellIdentifierFilterHeader forIndexPath:indexPath];
         
-        NSString *filterSectionName = _itemsFilters[indexPath.section][@"name"];
+        NSString *filterSectionName = self.itemsFilters[indexPath.section][@"name"];
         sectionHeader.label.text = filterSectionName;
         return sectionHeader;
     }
@@ -336,17 +330,17 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
     CGSize itemSize;
 
     if ([collectionView isEqual:self.collectionViewFilters]) {
-        CGFloat availableWidth = self.collectionViewFilters.bounds.size.width - _layoutForFiltersCollectionView.sectionInset.left - _layoutForFiltersCollectionView.sectionInset.right;
+        CGFloat availableWidth = self.collectionViewFilters.bounds.size.width - self.layoutForFiltersCollectionView.sectionInset.left - self.layoutForFiltersCollectionView.sectionInset.right;
         return CGSizeMake(availableWidth, HEIGHT_FILTER_ITEM);
     }
     else{
         
         CGSize sizeOfCollectionView = self.collectionViewResults.bounds.size;
-        CGFloat horizontalInsets = _layoutForResultsCollectionView.sectionInset.left + _layoutForResultsCollectionView.sectionInset.right;
+        CGFloat horizontalInsets = self.layoutForResultsCollectionView.sectionInset.left + self.layoutForResultsCollectionView.sectionInset.right;
         CGFloat availableWidth = sizeOfCollectionView.width - horizontalInsets;
         
-        if (!_isDisplayingDiscoverItems || [self typeOfDiscoverItemAtIndexPath:indexPath] == THUMBNAIL) {
-            CGFloat totalItemSpacing = (([self numberOfThumbnailsToDisplayInWidth] - 1) * _layoutForResultsCollectionView.minimumInteritemSpacing);
+        if (!self.isDisplayingDiscoverItems || [self typeOfDiscoverItemAtIndexPath:indexPath] == THUMBNAIL) {
+            CGFloat totalItemSpacing = (([self numberOfThumbnailsToDisplayInWidth] - 1) * self.layoutForResultsCollectionView.minimumInteritemSpacing);
             CGFloat availableWidthWithSpacing = floor(availableWidth - totalItemSpacing);
             
             CGFloat thumbnailWidth = floor(availableWidthWithSpacing / [self numberOfThumbnailsToDisplayInWidth]);
@@ -355,7 +349,7 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
             itemSize = CGSizeMake(thumbnailWidth, thumbnailHeight);
         }
         else{
-            CGFloat bannerWidth = floor((availableWidth - (([self numberOfBannersToDisplayInWidth] - 1) * _layoutForResultsCollectionView.minimumInteritemSpacing)) /[self numberOfBannersToDisplayInWidth]);
+            CGFloat bannerWidth = floor((availableWidth - (([self numberOfBannersToDisplayInWidth] - 1) * self.layoutForResultsCollectionView.minimumInteritemSpacing)) /[self numberOfBannersToDisplayInWidth]);
             CGFloat bannerHeight = bannerWidth * BANNER_HEIGHT_TO_WIDTH_CONSTANT;
             itemSize = CGSizeMake(bannerWidth, bannerHeight);
         }
@@ -374,7 +368,7 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([collectionView isEqual:self.collectionViewFilters]) {
-        NSMutableDictionary *filter = _itemsFilters[indexPath.section][@"terms"][indexPath.item];
+        NSMutableDictionary *filter = self.itemsFilters[indexPath.section][@"terms"][indexPath.item];
         if (filter[@"isActive"] == [NSNumber numberWithBool:NO]) {
             [filter setObject:[NSNumber numberWithBool:YES] forKey:@"isActive"];
         }else{
@@ -385,18 +379,18 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
     }else if ([collectionView isEqual:self.collectionViewResults]){
        
         NSString *foorseeId;
-        if(_isDisplayingDiscoverItems){
-           NSDictionary *layoutItem = _itemsDiscoverLayout[indexPath.item];
+        if(self.isDisplayingDiscoverItems){
+           NSDictionary *layoutItem = self.itemsDiscoverLayout[indexPath.item];
            NSNumber *contentListIndex = layoutItem[@"contentListIndex"];
             if ([self typeOfDiscoverItemAtIndexPath:indexPath] == THUMBNAIL) {
-                NSDictionary *thumbnailItem = _itemsDiscoverThumbnails[contentListIndex.integerValue];
+                NSDictionary *thumbnailItem = self.itemsDiscoverThumbnails[contentListIndex.integerValue];
                 foorseeId = thumbnailItem[@"id"];
             }else{
-                NSDictionary *bannerItem = _itemsDiscoverBanners[contentListIndex.integerValue];
+                NSDictionary *bannerItem = self.itemsDiscoverBanners[contentListIndex.integerValue];
                 foorseeId = bannerItem[@"target"][@"id"];
             }
         }else{
-            NSDictionary *selectedResultItem = _itemsSearchResults[indexPath.item];
+            NSDictionary *selectedResultItem = self.itemsSearchResults[indexPath.item];
             foorseeId = selectedResultItem[@"id"];
         }
         [self.delegate itemSelectedWithFoorseeIdNumber:foorseeId];
@@ -406,27 +400,42 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     [self updateSearchRequestWithQuery:searchBar.text];
+    [UIView animateWithDuration:0.5 animations:^{
+        self.imageViewBackground.alpha = 0;
+    } completion:^(BOOL finished) {
+        self.imageViewBackground.hidden = YES;
+        self.layoutForResultsCollectionView.parallaxHeaderReferenceSize = CGSizeMake(0, 0);
+        
+        [self.layoutForResultsCollectionView invalidateLayout];
+        [_collectionViewResults scrollRectToVisible:CGRectMake(0, 0, _collectionViewResults.frame.size.width, _collectionViewResults.frame.size.height) animated:NO];
+    }];
+    
 }
 
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
-    [self.collectionViewResults scrollRectToVisible:CGRectMake(0, PARALLAX_HEADER_REFERENCE_HEIGHT+1, self.collectionViewResults.bounds.size.width, self.collectionViewResults.bounds.size.height) animated:YES];
-    
-    
+    if (self.layoutForResultsCollectionView.parallaxHeaderReferenceSize.height == PARALLAX_HEADER_REFERENCE_HEIGHT) {
+        [self.collectionViewResults scrollRectToVisible:CGRectMake(0, PARALLAX_HEADER_REFERENCE_HEIGHT+1, self.collectionViewResults.bounds.size.width, self.collectionViewResults.bounds.size.height) animated:YES];
+    }
 }
 
 - (IBAction)startPageButtonTapped:(id)sender {
     
-    if (self.collectionViewResults.bounds.origin.y > 0) {
-        [self.collectionViewResults scrollRectToVisible:CGRectMake(0, 0, self.collectionViewResults.frame.size.width, self.collectionViewResults.frame.size.height) animated:YES];
-    }
+    self.layoutForResultsCollectionView.parallaxHeaderReferenceSize = CGSizeMake(0, PARALLAX_HEADER_REFERENCE_HEIGHT);
+    [self.layoutForResultsCollectionView invalidateLayout];
     
-    [_foorseeSessionManager GET:@"discover.json" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    
+    self.imageViewBackground.hidden = NO;
+    [UIView animateWithDuration:0.5 animations:^{
+        self.imageViewBackground.alpha = 1;
+    } completion:^(BOOL finished) {
+        
+    }];
+    
+    [self.foorseeSessionManager GET:@"discover.json" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         [self setUpViewToDisplayDiscoverItems:responseObject];
         if (self.searchBar) {
             self.searchBar.text = @"";
-            
-            
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"Failure: %@", [error localizedDescription]);
@@ -436,19 +445,19 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
 
 - (IBAction)buttonFiltersTapped:(id)sender {
     CGFloat newWidth;
-    if (_filterSectionIsOpen) {
+    if (self.filterSectionIsOpen) {
         newWidth = 0;
-        _filterSectionIsOpen = NO;
+        self.filterSectionIsOpen = NO;
     }
     else{
         newWidth = self.widthOfFilterSection;
-        _filterSectionIsOpen = YES;
+        self.filterSectionIsOpen = YES;
     }
     
     [UIView animateWithDuration:DURATION_ANIMATION_FILTERS_OPEN_CLOSE animations:^{
         self.constraintFilterSectionWidth.constant = newWidth;
-        [_layoutForFiltersCollectionView invalidateLayout];
-        [_layoutForResultsCollectionView invalidateLayout];
+        [self.layoutForFiltersCollectionView invalidateLayout];
+        [self.layoutForResultsCollectionView invalidateLayout];
         [self.view layoutIfNeeded];
         
     }];
@@ -456,16 +465,13 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
     
 }
 
-
--(void) updateSearchRequestWithQuery:(NSString *) query
+-(NSString *) stringFromActiveSearchParameters
 {
-    if (!query) {
-        query = @"";
-    }
+
     NSMutableString *tags = [NSMutableString stringWithString:@""];
     
     BOOL activeFiltersExists = NO;
-    for (NSMutableDictionary *filterSection in _itemsFilters) {
+    for (NSMutableDictionary *filterSection in self.itemsFilters) {
         NSString *filterType = filterSection[@"name"];
         [tags appendString:filterType];
         [tags appendString:@":"];
@@ -491,31 +497,44 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
     if (!activeFiltersExists) {
         [tags setString:@""];
     }
+    
+    return tags;
+}
+
+-(void) updateSearchRequestWithQuery:(NSString *) query
+{
+    if (!query) {
+        query = @"";
+    }
+    NSString *tags = [self stringFromActiveSearchParameters];
+    
     NSDictionary *parameters = @{@"q": query, @"tags":tags};
-    [_foorseeSessionManager GET:@"search/default.json" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-        _itemsSearchResults = responseObject[@"result"][@"movies"];
+    [self.foorseeSessionManager GET:@"search/default.json" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        self.itemsSearchResults = responseObject[@"result"][@"movies"];
         
-        _itemsFilters = responseObject[@"availableToQuery"][@"tags"];
+        self.itemsFilters = responseObject[@"availableToQuery"][@"tags"];
         
-        _isDisplayingDiscoverItems = NO;
+        self.isDisplayingDiscoverItems = NO;
         [self.collectionViewFilters reloadData];
         [self.collectionViewResults reloadData];
+        
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"Failure: %@", [error localizedDescription]);
     }];
 }
+
 -(NSInteger) numberOfThumbnailsToDisplayInWidth
 {
     NSInteger thumbnailCount;
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     if (UIInterfaceOrientationIsLandscape(orientation)){
-        if (!_filterSectionIsOpen) {
+        if (!self.filterSectionIsOpen) {
             thumbnailCount = NUMBER_OF_THUMBNAILS_IN_WIDTH_LANDSCAPE;
         }else{
             thumbnailCount = NUMBER_OF_THUMBNAILS_IN_WIDTH_LANDSCAPE - 1;
         }
     }else if (UIInterfaceOrientationIsPortrait(orientation)){
-        if (!_filterSectionIsOpen) {
+        if (!self.filterSectionIsOpen) {
             thumbnailCount = NUMBER_OF_THUMBNAILS_IN_WIDTH_LANDSCAPE - 1;
         }else{
             thumbnailCount = NUMBER_OF_THUMBNAILS_IN_WIDTH_LANDSCAPE - 2;
@@ -528,7 +547,7 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     NSInteger bannerCount;
     
-    if (UIInterfaceOrientationIsLandscape(orientation) && !_filterSectionIsOpen) {
+    if (UIInterfaceOrientationIsLandscape(orientation) && !self.filterSectionIsOpen) {
         bannerCount = 2;
     }else{
         bannerCount = 1;
@@ -554,14 +573,14 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    if (!_filterSectionIsOpen) {
+    if (!self.filterSectionIsOpen) {
         self.collectionViewFilters.hidden = YES;
     }
-    [_layoutForResultsCollectionView invalidateLayout];
+    [self.layoutForResultsCollectionView invalidateLayout];
 }
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    if (_filterSectionIsOpen) {
+    if (self.filterSectionIsOpen) {
         self.constraintFilterSectionWidth.constant = self.widthOfFilterSection;
         
     }else{

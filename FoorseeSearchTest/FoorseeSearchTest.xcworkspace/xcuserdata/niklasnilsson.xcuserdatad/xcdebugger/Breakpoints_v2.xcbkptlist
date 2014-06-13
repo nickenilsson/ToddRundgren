@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FoorseeSearchTest/RootViewController.m"
-            timestampString = "423667537.545335"
+            timestampString = "424344679.938089"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "302"
-            endingLineNumber = "302"
+            startingLineNumber = "304"
+            endingLineNumber = "304"
             landmarkName = "-handleScreenEdgePan:"
             landmarkType = "5">
          </BreakpointContent>
