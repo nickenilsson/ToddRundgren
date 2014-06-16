@@ -275,10 +275,7 @@ static CGFloat const kAnimationDuration = 0.5;
     [parentViewController.view addSubview:focusViewController.view];
     
     // The focus view is generally
-    UIWindow* theWindow = [[UIApplication sharedApplication] keyWindow];
-    UIViewController* rvc = theWindow.rootViewController;
-    
-    focusViewController.view.frame = rvc.view.bounds;
+    focusViewController.view.frame = self.focusViewController.parentViewController.view.bounds;
     mediaView.hidden = YES;
 
     imageView = focusViewController.mainImageView;
