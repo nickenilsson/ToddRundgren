@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "762AF66A8CC24481B4489941"
-               BuildableName = "libPods-FoorseeSearchTest-JTSImageViewController.a"
-               BlueprintName = "Pods-FoorseeSearchTest-JTSImageViewController"
+               BlueprintIdentifier = "8517195277D649058E718744"
+               BuildableName = "libPods-FoorseeSearchTest-AXRatingView.a"
+               BlueprintName = "Pods-FoorseeSearchTest-AXRatingView"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

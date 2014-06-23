@@ -48,6 +48,12 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 2
 #define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 3
 
+// AXRatingView
+#define COCOAPODS_POD_AVAILABLE_AXRatingView
+#define COCOAPODS_VERSION_MAJOR_AXRatingView 0
+#define COCOAPODS_VERSION_MINOR_AXRatingView 9
+#define COCOAPODS_VERSION_PATCH_AXRatingView 7
+
 // CSStickyHeaderFlowLayout
 #define COCOAPODS_POD_AVAILABLE_CSStickyHeaderFlowLayout
 #define COCOAPODS_VERSION_MAJOR_CSStickyHeaderFlowLayout 0
@@ -59,10 +65,4 @@
 #define COCOAPODS_VERSION_MAJOR_FXBlurView 1
 #define COCOAPODS_VERSION_MINOR_FXBlurView 6
 #define COCOAPODS_VERSION_PATCH_FXBlurView 1
-
-// JTSImageViewController
-#define COCOAPODS_POD_AVAILABLE_JTSImageViewController
-#define COCOAPODS_VERSION_MAJOR_JTSImageViewController 1
-#define COCOAPODS_VERSION_MINOR_JTSImageViewController 1
-#define COCOAPODS_VERSION_PATCH_JTSImageViewController 1
 

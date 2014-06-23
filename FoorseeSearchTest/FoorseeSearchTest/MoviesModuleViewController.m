@@ -37,7 +37,6 @@ static NSString * const cellIdentifier = @"cellIdentifier";
 {
     [super viewDidLoad];
     
-    self.labelModuleTitle.text = @"Similar";
     
     [self.collectionView registerNib:[ImageCell nib] forCellWithReuseIdentifier:cellIdentifier];
     self.collectionView.dataSource = self;

@@ -9,17 +9,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-FoorseeSearchTest-AXRatingView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-FoorseeSearchTest-CSStickyHeaderFlowLayout.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>Pods-FoorseeSearchTest-FXBlurView.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-FoorseeSearchTest-JTSImageViewController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -32,27 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>762AF66A8CC24481B4489941</key>
+		<key>19E7FB592408469B86E42B1D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8BE6FFB759454F0F84E1B543</key>
+		<key>8517195277D649058E718744</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9CA886C97369437BBFDB7E77</key>
+		<key>94B9BE17E1084835943A3C7C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A7DC1D5696314A1AA6CF928A</key>
+		<key>A4CA57BA27E34F3BA6EA818F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FB4A191CC60441F78662250C</key>
+		<key>DC9F91BC1B1B43F9857FB2BD</key>
 		<dict>
 			<key>primary</key>
 			<true/>

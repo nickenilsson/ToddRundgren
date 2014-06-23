@@ -11,6 +11,8 @@
 #import "UIColor+ColorFromHex.h"
 
 @interface ProfilePageViewController () <UIScrollViewDelegate>
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintImageRight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintActivityIndicatorCenterX;
 
 @end
 
@@ -33,18 +35,21 @@
 {
     [super viewDidLoad];
     _scrollableContentHeight = SCROLLVIEW_MARGIN_TOP_PROFILE_PAGE;
+    
     [self.activityIndicator startAnimating];
+    self.constraintActivityIndicatorCenterX.constant = MARGIN_TO_COLLECTION_VIEWS_RIGHT/2;
 
     self.imageViewBackground.backgroundColor = [UIColor clearColor];
-
+    self.constraintImageRight.constant = MARGIN_TO_COLLECTION_VIEWS_RIGHT;
+    
     _referenceViewForWidth = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 1)];
     _referenceViewForWidth.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.scrollView addSubview:_referenceViewForWidth];
-    self.view.layer.borderWidth = 1;
-    self.view.layer.borderColor = [[UIColor blackColor]CGColor];
+    self.scrollView.scrollEnabled = NO;
+    
     
     UIImageView *border = [[UIImageView alloc] initWithImage:[UIImage imageWithColor:[UIColor blackColor]]];
-    border.frame = CGRectMake(0, 0, 1, self.view.frame.size.height);
+    border.frame = CGRectMake(0, 0, 2, self.view.frame.size.height);
     border.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:border];
     
@@ -70,6 +75,8 @@
 {
     _data = data;
     [self setUpView];
+    self.scrollView.scrollEnabled = YES;
+
     [self.activityIndicator stopAnimating];
 }
 
@@ -77,13 +84,14 @@
 {
 
 }
+
 -(void) addModuleViewController:(UIViewController *)viewController ToScrollViewWithHeight:(CGFloat) moduleHeight
 {
     [self addChildViewController:viewController];
     [viewController didMoveToParentViewController:self];
     
     [self.scrollView addSubview:viewController.view];
-    viewController.view.frame = CGRectMake(0, _scrollableContentHeight, self.view.frame.size.width, moduleHeight);
+    viewController.view.frame = CGRectMake(0, _scrollableContentHeight, self.view.frame.size.width-MARGIN_TO_COLLECTION_VIEWS_RIGHT, moduleHeight);
     _scrollableContentHeight += moduleHeight;
     viewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     

@@ -13,5 +13,6 @@
 @property (strong, nonatomic) NSURL *urlPoster;
 @property (strong, nonatomic) NSString *titleText;
 @property (strong, nonatomic) NSString *descriptionText;
+@property (strong, nonatomic) NSNumber *rating;
 
 @end

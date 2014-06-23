@@ -9,6 +9,8 @@
                 <outlet property="activityIndicator" destination="7Y0-0I-P6K" id="4nA-iV-UvO"/>
                 <outlet property="backgroundConstraintTop" destination="mM3-VV-Wt4" id="moF-F7-Xbx"/>
                 <outlet property="buttonNavigateBack" destination="OOD-WR-82D" id="VVQ-lk-KBy"/>
+                <outlet property="constraintActivityIndicatorCenterX" destination="sQV-Bc-AtY" id="fNF-VN-Mhw"/>
+                <outlet property="constraintImageRight" destination="zIw-9r-SKZ" id="4oF-9c-Ztz"/>
                 <outlet property="imageViewBackground" destination="xIf-rq-JsJ" id="wzZ-gI-rNR"/>
                 <outlet property="scrollView" destination="ZAB-FZ-PqM" id="AiI-vn-wAY"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="XFL-h4-aY1"/>
@@ -30,15 +32,14 @@
                     <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </scrollView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OOD-WR-82D">
-                    <rect key="frame" x="8" y="8" width="50" height="67"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OOD-WR-82D">
+                    <rect key="frame" x="8" y="8" width="72" height="66"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="67" id="FGy-aR-PAi"/>
-                        <constraint firstAttribute="width" constant="50" id="RqV-46-CQc"/>
+                        <constraint firstAttribute="height" constant="66" id="FGy-aR-PAi"/>
+                        <constraint firstAttribute="width" constant="72" id="RqV-46-CQc"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="46"/>
-                    <state key="normal" title="&lt;">
+                    <state key="normal" image="backbutton (2).png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -67,4 +68,7 @@
             <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
         </view>
     </objects>
+    <resources>
+        <image name="backbutton (2).png" width="104" height="99"/>
+    </resources>
 </document>

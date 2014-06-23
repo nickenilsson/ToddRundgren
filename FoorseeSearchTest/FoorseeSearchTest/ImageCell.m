@@ -40,7 +40,7 @@
 -(void)setHighlighted:(BOOL)highlighted
 {
     if (highlighted) {
-        _selectedOverlay = [[UIImageView alloc] initWithImage:[UIImage imageWithColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.2]]];
+        _selectedOverlay = [[UIImageView alloc] initWithImage:[UIImage imageWithColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.4]]];
         _selectedOverlay.frame = self.contentView.frame;
         [self.contentView addSubview:_selectedOverlay];
     }else{

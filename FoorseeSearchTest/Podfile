@@ -4,9 +4,9 @@ platform :ios, "7.0"
 target "FoorseeSearchTest" do
 
 pod 'AFNetworking', '2.2.3'
-pod 'JTSImageViewController', '~> 1.1'
 pod "CSStickyHeaderFlowLayout"
 pod 'FXBlurView', '~> 1.6'
+pod 'AXRatingView', '~> 0.9.7'
 
 end
 

@@ -8,6 +8,7 @@
             <connections>
                 <outlet property="imageViewPoster" destination="Dfw-bb-ey0" id="4RK-qD-Yg4"/>
                 <outlet property="labelTitle" destination="XFZ-95-Pxi" id="GHU-15-33K"/>
+                <outlet property="placeholderRatingView" destination="6hu-iM-qCJ" id="38D-4A-BPy"/>
                 <outlet property="textViewDescription" destination="Ffv-Cj-eDg" id="EvK-TP-Ley"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -17,6 +18,14 @@
             <rect key="frame" x="0.0" y="0.0" width="774" height="404"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6hu-iM-qCJ">
+                    <rect key="frame" x="258" y="63" width="200" height="50"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="200" id="KEU-zX-swi"/>
+                        <constraint firstAttribute="height" constant="50" id="XlM-TP-xFU"/>
+                    </constraints>
+                </view>
                 <imageView clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dfw-bb-ey0" userLabel="Image View Poster" customClass="ImageViewWithBorder">
                     <rect key="frame" x="20" y="20" width="230" height="320"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -36,7 +45,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ffv-Cj-eDg" userLabel="Text View Description">
-                    <rect key="frame" x="258" y="63" width="496" height="321"/>
+                    <rect key="frame" x="258" y="121" width="496" height="223"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -46,14 +55,16 @@
             </subviews>
             <constraints>
                 <constraint firstItem="Dfw-bb-ey0" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="04Y-UD-5Gt"/>
+                <constraint firstItem="6hu-iM-qCJ" firstAttribute="leading" secondItem="Dfw-bb-ey0" secondAttribute="trailing" constant="8" id="5Am-ls-5Tr"/>
                 <constraint firstItem="XFZ-95-Pxi" firstAttribute="leading" secondItem="Dfw-bb-ey0" secondAttribute="trailing" constant="8" id="BPh-qa-rKi"/>
+                <constraint firstItem="6hu-iM-qCJ" firstAttribute="top" secondItem="XFZ-95-Pxi" secondAttribute="bottom" constant="8" id="EeJ-cl-N1C"/>
+                <constraint firstItem="Ffv-Cj-eDg" firstAttribute="top" secondItem="6hu-iM-qCJ" secondAttribute="bottom" constant="8" id="Lzq-93-oRK"/>
                 <constraint firstItem="Dfw-bb-ey0" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="MhP-Tp-rQC"/>
-                <constraint firstAttribute="bottom" secondItem="Ffv-Cj-eDg" secondAttribute="bottom" constant="20" id="VSV-IM-ygR"/>
+                <constraint firstAttribute="bottom" secondItem="Ffv-Cj-eDg" secondAttribute="bottom" constant="60" id="VSV-IM-ygR"/>
                 <constraint firstAttribute="trailing" secondItem="Ffv-Cj-eDg" secondAttribute="trailing" constant="20" id="eHJ-Dx-mRl"/>
                 <constraint firstItem="Ffv-Cj-eDg" firstAttribute="leading" secondItem="Dfw-bb-ey0" secondAttribute="trailing" constant="8" id="mTe-On-7gn"/>
                 <constraint firstItem="Dfw-bb-ey0" firstAttribute="top" secondItem="XFZ-95-Pxi" secondAttribute="top" id="nIZ-VO-QLv"/>
                 <constraint firstAttribute="trailing" secondItem="XFZ-95-Pxi" secondAttribute="trailing" id="rIa-St-6tq"/>
-                <constraint firstItem="Ffv-Cj-eDg" firstAttribute="top" secondItem="XFZ-95-Pxi" secondAttribute="bottom" constant="8" id="z8a-xJ-9kn"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

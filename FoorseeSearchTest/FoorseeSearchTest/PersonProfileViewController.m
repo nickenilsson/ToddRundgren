@@ -9,7 +9,7 @@
 #import "PersonProfileViewController.h"
 #import "MediaProfileViewController.h"
 #import "UIColor+ColorFromHex.h"
-#import "HeaderModuleViewController.h"
+#import "CrewHeaderModuleViewController.h"
 #import "MoviesModuleViewController.h"
 
 @interface PersonProfileViewController ()
@@ -18,7 +18,7 @@
 
 @implementation PersonProfileViewController {
 
-    HeaderModuleViewController *_headerModuleViewController;
+    CrewHeaderModuleViewController *_headerModuleViewController;
     MoviesModuleViewController *_moviesModuleViewController;
 }
 
@@ -44,20 +44,18 @@
 -(void)setUpView
 {
     if (self.data[@"name"]) {
-        _headerModuleViewController = [[HeaderModuleViewController alloc] init];
+        _headerModuleViewController = [[CrewHeaderModuleViewController alloc] init];
         [self addModuleViewController:_headerModuleViewController ToScrollViewWithHeight:HEIGHT_HEADER_MODULE_PROFILE_PAGE];
-        _headerModuleViewController.titleText = self.data[@"name"];
-        
-        NSURL *posterUrl = [NSURL URLWithString:self.data[@"images"][@"thumbnails"][0][@"url"]];
-        _headerModuleViewController.urlPoster = posterUrl;
-        
+        _headerModuleViewController.data = self.data;
     }
     if (self.data[@"related"][@"movies"]) {
         _moviesModuleViewController = [[MoviesModuleViewController alloc]init];
         [self addModuleViewController:_moviesModuleViewController ToScrollViewWithHeight:HEIGHT_POSTER_THUMBNAILS];
         _moviesModuleViewController.data = self.data[@"related"][@"movies"];
+        _moviesModuleViewController.labelModuleTitle.text = @"Appearances";
     }
 }
+
 - (IBAction)buttonBackTapped:(id)sender
 {
     [self.delegate backButtonTappedInMediaProfileView];

@@ -14,11 +14,12 @@
 
 @interface MediaProfileNavigationController () <MediaProfileDelegate>
 
+@property (strong, nonatomic) NSMutableArray *shownFoorseeIds;
+@property (strong, nonatomic) FoorseeHTTPClient *foorseeSessionManager;
+
 @end
 
 @implementation MediaProfileNavigationController{
-    FoorseeHTTPClient *_foorseeSessionManager;
-    NSString *_foorseeIdOfCurrentlyActiveProfile;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -33,7 +34,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _foorseeSessionManager = [FoorseeHTTPClient sharedForeseeHTTPClient];
+    
+    self.shownFoorseeIds = [NSMutableArray array];
+
+    self.foorseeSessionManager = [FoorseeHTTPClient sharedForeseeHTTPClient];
     self.navigationBarHidden = YES;
     self.view.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE];
     
@@ -62,7 +66,7 @@
 
 - (void) presentMediaProfileForItemWithFoorseeId:(NSString *) foorseeId animated:(BOOL) shouldAnimate
 {
-    if ([_foorseeIdOfCurrentlyActiveProfile isEqualToString:foorseeId]) {
+    if ([foorseeId isEqualToString:[self.shownFoorseeIds lastObject]]) {
         return;
     }
     MediaProfileViewController *newMediaProfileView = [[MediaProfileViewController alloc]init];
@@ -72,9 +76,9 @@
     newMediaProfileView.view.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE];
     
     [self addViewController:newMediaProfileView toControlledStackAnimation:shouldAnimate];
-    [_foorseeSessionManager GET:[NSString stringWithFormat:@"movies/id/%@.json",foorseeId] parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    [self.foorseeSessionManager GET:[NSString stringWithFormat:@"movies/id/%@.json",foorseeId] parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         newMediaProfileView.data = responseObject;
-        _foorseeIdOfCurrentlyActiveProfile = foorseeId;
+        [self.shownFoorseeIds addObject:foorseeId];
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"%@", [error localizedDescription]);
@@ -83,7 +87,7 @@
 
 -(void) presentPersonProfileForItemWithFoorseeId:(NSString *) foorseeId
 {
-    if ([_foorseeIdOfCurrentlyActiveProfile isEqualToString:foorseeId]) {
+    if ([foorseeId isEqualToString:[self.shownFoorseeIds lastObject]]) {
         return;
     }
     PersonProfileViewController *newPersonProfileViewController = [[PersonProfileViewController alloc]init];
@@ -93,9 +97,9 @@
     newPersonProfileViewController.view.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE];
     [self addViewController:newPersonProfileViewController toControlledStackAnimation:YES];
     
-    [_foorseeSessionManager GET:[NSString stringWithFormat:@"cast/id/%@.json",foorseeId] parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    [self.foorseeSessionManager GET:[NSString stringWithFormat:@"cast/id/%@.json",foorseeId] parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         newPersonProfileViewController.data = responseObject;
-        _foorseeIdOfCurrentlyActiveProfile = foorseeId;
+        
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"%@", [error localizedDescription]);
     }];
@@ -114,6 +118,7 @@
 -(void) backButtonTappedInMediaProfileView
 {
     [self popViewControllerAnimated:YES];
+    [self.shownFoorseeIds removeLastObject];
 }
 
 -(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration

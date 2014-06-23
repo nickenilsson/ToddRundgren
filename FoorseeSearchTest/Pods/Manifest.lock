@@ -18,20 +18,20 @@ PODS:
   - AFNetworking/UIKit (2.2.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - AXRatingView (0.9.7)
   - CSStickyHeaderFlowLayout (0.2)
   - FXBlurView (1.6.1)
-  - JTSImageViewController (1.1.1)
 
 DEPENDENCIES:
   - AFNetworking (= 2.2.3)
+  - AXRatingView (~> 0.9.7)
   - CSStickyHeaderFlowLayout
   - FXBlurView (~> 1.6)
-  - JTSImageViewController (~> 1.1)
 
 SPEC CHECKSUMS:
   AFNetworking: 47947303319594706f48a55185ea95a95159ab94
+  AXRatingView: 3e2d0125dbdb0b2f537e4c9b7d7239dd0fa07e33
   CSStickyHeaderFlowLayout: b6530bc5f95d656b6963ddb6dd692c0f61890a98
   FXBlurView: 1d01b96076d65027314d1be024c7506c292392aa
-  JTSImageViewController: e8167cffe5ffdb9203a8931d41ba5a4dd5ac5f5a
 
 COCOAPODS: 0.32.1

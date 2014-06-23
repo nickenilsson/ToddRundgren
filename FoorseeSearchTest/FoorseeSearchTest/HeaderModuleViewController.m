@@ -9,11 +9,14 @@
 #import "HeaderModuleViewController.h"
 #import "UIImageView+AFNetworking.h"
 #import "UIImage+ImageWithColor.h"
+#import <AXRatingView.h>
 
 @interface HeaderModuleViewController ()
+
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewPoster;
 @property (weak, nonatomic) IBOutlet UILabel *labelTitle;
 @property (weak, nonatomic) IBOutlet UITextView *textViewDescription;
+@property (weak, nonatomic) IBOutlet UIView *placeholderRatingView;
 
 @end
 
@@ -55,6 +58,18 @@
     self.labelTitle.hidden = NO;
     _titleText = titleText;
     [self.labelTitle setText:titleText];
+}
+
+-(void) setRating:(NSNumber *)rating
+{
+    _rating = rating;
+    AXRatingView *notEditableRatingView = [[AXRatingView alloc] initWithFrame:self.placeholderRatingView.bounds];
+    [notEditableRatingView sizeToFit];
+    [notEditableRatingView setUserInteractionEnabled:NO];
+    [notEditableRatingView setValue:rating.floatValue]
+    ;
+    self.placeholderRatingView.hidden = NO;
+    [self.placeholderRatingView addSubview:notEditableRatingView];
 }
 
 -(void)setDescriptionText:(NSString *)descriptionText

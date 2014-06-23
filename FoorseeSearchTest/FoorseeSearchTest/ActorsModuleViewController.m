@@ -36,7 +36,6 @@ static NSString * const cellIdentifier = @"cellIdentifier";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.labelModuleTitle.text = @"Cast";
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     [self.collectionView registerNib:[ImageCell nib] forCellWithReuseIdentifier:cellIdentifier];
@@ -84,12 +83,13 @@ static NSString * const cellIdentifier = @"cellIdentifier";
     NSDictionary *cellData = self.data[indexPath.item];
     
     NSURL *imageUrl = [NSURL URLWithString:cellData[@"images"][@"thumbnails"][0][@"url"]];
+    NSLog(@"%@", imageUrl);
     if (imageUrl) {
         UIImage *placeholderImage = [UIImage imageWithColor:[UIColor blackColor]];
         [cell.imageView setImageWithURL:imageUrl placeholderImage:placeholderImage];
     }
     else{
-        cell.backgroundColor = [UIColor grayColor];
+        cell.imageView.image = [UIImage imageWithColor:[UIColor grayColor]];
     }
     
     return cell;

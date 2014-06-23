@@ -19,7 +19,7 @@
 #define HEIGHT_OF_MEDIA_PLAYER 220
 #define PROFILE_VIEW_WIDTH_FRACTION 0.9f
 #define BLUR_VIEW_ALPHA 1.0f
-#define TRANSLATION_BACKGROUND 60
+#define TRANSLATION_BACKGROUND 30
 
 @interface RootViewController () <ContentViewControllerDelegate, UIGestureRecognizerDelegate, MediaPlayerDelegate>
 
@@ -31,11 +31,16 @@
 @property (strong, nonatomic) MediaPlayerViewController *mediaPlayerViewController;
 @property (strong, nonatomic) UIPanGestureRecognizer *panGestureRecognizer;
 @property (strong, nonatomic) UIScreenEdgePanGestureRecognizer *screenEdgePanRecognizer;
+@property (nonatomic) CGFloat constraintConstantProfilePageOpened;
+@property (nonatomic) CGFloat constraintConstantProfilePageClosed;
 @property (nonatomic) CGFloat lastTranslation;
 @property (nonatomic) FXBlurView *blurView;
 
+@property (strong, nonatomic) UIButton *arrowButton;
+
 
 @property (nonatomic) BOOL isMovingMediaProfile;
+@property (nonatomic) BOOL isProfilePageOpen;
 @property (nonatomic) BOOL blurNeedsUpdateBeforeAnimation;
 
 @end
@@ -76,6 +81,7 @@
     self.screenEdgePanRecognizer.edges = UIRectEdgeRight;
     self.screenEdgePanRecognizer.delegate = self;
     [self.view addGestureRecognizer:self.screenEdgePanRecognizer];
+    
     
     [self addBlurOverlay];
     self.blurView.hidden = YES;
@@ -134,10 +140,10 @@
 
 -(void) itemSelectedWithFoorseeIdNumber:(NSString *) idNumber
 {
-    [self openMediaProfileNavigationControllerWithItemWithIdNumber:idNumber animationOptions:UIViewAnimationOptionCurveEaseInOut];
+    [self openMediaProfileNavigationControllerWithItemWithIdNumber:idNumber];
 }
 
--(void) openMediaProfileNavigationControllerWithItemWithIdNumber:(NSString *) idNumber animationOptions:(UIViewAnimationOptions) animationOptions
+-(void) openMediaProfileNavigationControllerWithItemWithIdNumber:(NSString *) idNumber
 {
     if (self.mediaProfileNavigationController == nil) {
         
@@ -147,10 +153,11 @@
         [self.view addSubview:self.mediaProfileNavigationController.view];
         [self setConstraintsForMediaProfileNavigationController];
         [self.view layoutIfNeeded];
+        [self addArrowButton];
+        [self.arrowButton setImage:[UIImage imageNamed:@"arrow_profile_close.png"] forState:UIControlStateNormal ];
+        
     }
-    
-    self.isMovingMediaProfile = YES;
-    
+
     if (self.blurNeedsUpdateBeforeAnimation) {
         [self.blurView updateAsynchronously:YES completion:nil];
         self.blurNeedsUpdateBeforeAnimation = NO;
@@ -159,29 +166,61 @@
 
     
     self.mediaProfileNavigationController.view.hidden = NO;
+    
     if (self.mediaPlayerViewController != nil) {
         [self.view insertSubview:self.mediaProfileNavigationController.view belowSubview:self.mediaPlayerViewController.view];
     }
 
     [self.view layoutIfNeeded];
     
-    
-    [UIView animateWithDuration:DURATION_PROFILE_PAGE_OPEN_CLOSE delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        self.constraintMediaProfileLeading.constant = -self.mediaProfileNavigationController.view.frame.size.width;
+    [self.arrowButton setImage:[UIImage imageNamed:@"arrow_profile_close.png"] forState:UIControlStateNormal ];
+    [UIView animateWithDuration:DURATION_PROFILE_PAGE_OPEN_CLOSE delay:0 usingSpringWithDamping:0.75 initialSpringVelocity:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        self.constraintMediaProfileLeading.constant = self.constraintConstantProfilePageOpened;
         self.blurView.alpha = BLUR_VIEW_ALPHA;
         self.activeViewController.view.transform = CGAffineTransformMakeTranslation(-TRANSLATION_BACKGROUND, 0);
         [self.view layoutIfNeeded];
         [self.view addGestureRecognizer:self.tapGestureRecognizer];
+        if (idNumber != nil) {
+            [self.mediaProfileNavigationController presentMediaProfileForItemWithFoorseeId:idNumber animated:NO];
+        }
         
-        self.panGestureRecognizer.delegate = self;
     } completion:^(BOOL finished) {
         if (finished) {
-            if (idNumber != nil) {
-                [self.mediaProfileNavigationController presentMediaProfileForItemWithFoorseeId:idNumber animated:NO];
-            }
+            self.isProfilePageOpen = YES;
+            
         }
     }];
-
+    
+}
+-(void) addArrowButton
+{
+    self.arrowButton = [[UIButton alloc] init];
+    [self.arrowButton addTarget:self action:@selector(arrowButtonTouchDown:) forControlEvents:UIControlEventTouchDown];
+    [self.arrowButton addTarget:self action:@selector(arrowButtonTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [self.arrowButton setImage:[UIImage imageNamed:@"arrow_profile_open (1).png"] forState:UIControlStateNormal];
+    [self.view addSubview:self.arrowButton];
+    self.arrowButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-(90)-[button(%d)]",ARROW_BUTTON_HEIGHT] options:0 metrics:nil views:@{@"button": self.arrowButton}]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:[button(%d)]-(-2)-[mediaProfileView]",ARROW_BUTTON_WIDTH] options:0 metrics:nil views:@{@"button": self.arrowButton, @"mediaProfileView":self.mediaProfileNavigationController.view}]];
+    [self.view layoutIfNeeded];
+    
+}
+-(void) arrowButtonTouchDown:(UIButton *) sender
+{
+    self.mediaProfileNavigationController.view.hidden = NO;
+    self.blurView.hidden = NO;
+    self.isMovingMediaProfile = YES;
+}
+ 
+-(void) arrowButtonTouchUpInside:(UIButton *) sender
+{
+    if (self.isProfilePageOpen) {
+        
+        [self closeAndHideMediaProfileNavigationController];
+    }else{
+        
+        [self openMediaProfileNavigationControllerWithItemWithIdNumber:nil];
+    }
 }
 -(void) setConstraintsForMediaProfileNavigationController
 {
@@ -196,18 +235,10 @@
     [self.view addConstraint:self.constraintMediaProfileLeading];
 }
 
--(void) tapHappened:(UITapGestureRecognizer *) sender
-{
-    CGPoint touchLocation = [sender locationInView:self.view];
-    if (!CGRectContainsPoint(self.mediaProfileNavigationController.view.frame, touchLocation)) {
-        [self closeAndHideMediaProfileNavigationController];
-        
-    }
-}
-
 -(void) closeAndHideMediaProfileNavigationController
 {
-    [UIView animateWithDuration:DURATION_PROFILE_PAGE_OPEN_CLOSE delay:0 options:UIViewAnimationOptionOverrideInheritedCurve animations:^{
+    [self.arrowButton setImage:[UIImage imageNamed:@"arrow_profile_open (1).png"] forState:UIControlStateNormal ];
+    [UIView animateWithDuration:DURATION_PROFILE_PAGE_OPEN_CLOSE delay:0 usingSpringWithDamping:0.75 initialSpringVelocity:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
         self.constraintMediaProfileLeading.constant = 0;
         self.blurView.alpha = 0.0;
         self.activeViewController.view.transform = CGAffineTransformIdentity;
@@ -218,8 +249,9 @@
         self.blurView.hidden = YES;
         self.blurNeedsUpdateBeforeAnimation = YES;
         self.isMovingMediaProfile = NO;
+        self.isProfilePageOpen = NO;
+        
     }];
-    
 }
 
 -(void) addBlurOverlay
@@ -237,98 +269,122 @@
     }
 }
 
+
+
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     CGPoint touchLocation = [gestureRecognizer locationInView:self.view];
-    if ( [gestureRecognizer isEqual:self.tapGestureRecognizer] && CGRectContainsPoint(self.mediaProfileNavigationController.view.frame, touchLocation)) {
+    if ([gestureRecognizer isEqual:self.tapGestureRecognizer] && CGRectContainsPoint(self.mediaProfileNavigationController.view.frame, touchLocation)) {
         return NO;
     }
     else{
         return YES;
     }
 }
-
+-(void) tapHappened:(UITapGestureRecognizer *) sender
+{
+    [self closeAndHideMediaProfileNavigationController];
+}
 -(void) handlePan:(UIPanGestureRecognizer *) panGestureRecognizer
 {
-    if (self.mediaProfileNavigationController.view.hidden) {
+    if (self.mediaProfileNavigationController.view.hidden || self.mediaProfileNavigationController == nil) {
         return;
     }
-    
     CGPoint touchLocation = [panGestureRecognizer locationInView:self.view];
-
-    if (!CGRectContainsPoint(self.mediaProfileNavigationController.view.frame, touchLocation) && self.isMovingMediaProfile == NO) {
-        [panGestureRecognizer setTranslation:CGPointZero inView:self.view];
-        return;
-    }else if (self.isMovingMediaProfile == NO){
-        self.isMovingMediaProfile = YES;
-    }
-
-    CGFloat horizontalTranslation = [panGestureRecognizer translationInView:self.view].x;
-    self.constraintMediaProfileLeading.constant += horizontalTranslation;
-    CGFloat translationConstant = TRANSLATION_BACKGROUND/self.mediaProfileNavigationController.view.frame.size.width;
-    CGFloat translation = translationConstant * horizontalTranslation;
-    CGFloat alphaConstant = BLUR_VIEW_ALPHA / self.mediaProfileNavigationController.view.frame.size.width;
     
-    CGFloat alpha = ABS(self.constraintMediaProfileLeading.constant * alphaConstant);
-    
-    if (self.constraintMediaProfileLeading.constant > 0)
-    {
-        self.constraintMediaProfileLeading.constant = 0;
-        translation = 0;
-        alpha = 0;
-    }else if (self.constraintMediaProfileLeading.constant < -self.mediaProfileNavigationController.view.frame.size.width){
-        self.constraintMediaProfileLeading.constant = -self.mediaProfileNavigationController.view.frame.size.width;
-        translation = 0;
-        alpha = BLUR_VIEW_ALPHA;
-        self.isMovingMediaProfile = NO;
-    }
-    
-    self.blurView.alpha = alpha;
-    self.activeViewController.view.transform = CGAffineTransformTranslate(self.activeViewController.view.transform, translation, 0);
-    
-    if ([panGestureRecognizer state] == UIGestureRecognizerStateEnded) {
-        if (self.lastTranslation > 0) {
-            [self closeAndHideMediaProfileNavigationController];
-        }else{
-            [self openMediaProfileNavigationControllerWithItemWithIdNumber:nil animationOptions:UIViewAnimationOptionCurveLinear];
+    if ([panGestureRecognizer state] == UIGestureRecognizerStateBegan) {
+        if (CGRectContainsPoint(self.mediaProfileNavigationController.view.frame, touchLocation)) {
+            self.isMovingMediaProfile = YES;
         }
+    }
+    if ([panGestureRecognizer state] == UIGestureRecognizerStateChanged) {
+        
+        if (!CGRectContainsPoint(self.mediaProfileNavigationController.view.frame, touchLocation) && self.isMovingMediaProfile == NO) {
+            [panGestureRecognizer setTranslation:CGPointZero inView:self.view];
+            return;
+        }else if (self.isMovingMediaProfile == NO){
+            self.isMovingMediaProfile = YES;
+        }
+        CGFloat horizontalTranslation = [panGestureRecognizer translationInView:self.view].x;
+        
+        CGFloat translationConstant = TRANSLATION_BACKGROUND/(self.mediaProfileNavigationController.view.frame.size.width);
+        CGFloat translation = translationConstant * horizontalTranslation;
+        CGFloat alphaConstant = BLUR_VIEW_ALPHA / (self.mediaProfileNavigationController.view.frame.size.width-MARGIN_TO_COLLECTION_VIEWS_RIGHT);
+        
+        CGFloat alpha = ABS(self.constraintMediaProfileLeading.constant * alphaConstant);
+        
+        if (self.constraintMediaProfileLeading.constant > 0)
+        {
+            horizontalTranslation = 0;
+            translation = 0;
+            alpha = 0;
+        }else if (self.constraintMediaProfileLeading.constant + horizontalTranslation < self.constraintConstantProfilePageOpened){
+            if (horizontalTranslation < 0) {
+                horizontalTranslation /= 5;
+            }else{
+                self.isMovingMediaProfile = NO;
+            }
+            if (ABS(self.constraintMediaProfileLeading.constant-self.constraintConstantProfilePageOpened + horizontalTranslation) > MARGIN_TO_COLLECTION_VIEWS_RIGHT) {
+                horizontalTranslation = 0;
+            }
+            translation = 0;
+            alpha = BLUR_VIEW_ALPHA;
+        }
+        
+        self.constraintMediaProfileLeading.constant += horizontalTranslation;
+        self.blurView.alpha = alpha;
+        self.activeViewController.view.transform = CGAffineTransformTranslate(self.activeViewController.view.transform, translation, 0);
+        self.lastTranslation = horizontalTranslation;
+    }
+    else if ([panGestureRecognizer state] == UIGestureRecognizerStateEnded || [panGestureRecognizer state] == UIGestureRecognizerStateFailed) {
+        CGFloat velocityX =[panGestureRecognizer velocityInView:self.view].x;
+        NSLog(@"%f", velocityX);
+        if (velocityX > 600) {
+            [self closeAndHideMediaProfileNavigationController];
+        }else if (velocityX < -200){
+            [self openMediaProfileNavigationControllerWithItemWithIdNumber:nil];
+        }
+        else if (self.mediaProfileNavigationController.view.frame.origin.x > CGRectGetMaxX(self.view.frame)/2) {
+            [self closeAndHideMediaProfileNavigationController];
+        }
+        else{
+            [self openMediaProfileNavigationControllerWithItemWithIdNumber:nil];
+        }
+        
         self.isMovingMediaProfile = NO;
         
     }
-    self.lastTranslation = horizontalTranslation;
+    
     [panGestureRecognizer setTranslation:CGPointZero inView:self.view];
 }
 
 -(void) handleScreenEdgePan:(UIScreenEdgePanGestureRecognizer *) sender
 {
-    if (self.mediaProfileNavigationController != nil && !self.isMovingMediaProfile) {
-        
-        self.mediaProfileNavigationController.view.hidden = NO;
-
-        if (self.blurView.hidden) {
-            self.blurView.hidden = NO;
-        }
-        self.isMovingMediaProfile = YES;
-        
-        if (self.blurNeedsUpdateBeforeAnimation) {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                [self.blurView updateAsynchronously:YES completion:^{
-                    self.blurNeedsUpdateBeforeAnimation = NO;
-                }];
-            });
+    if ([sender state] == UIGestureRecognizerStateBegan) {
+        if (self.mediaProfileNavigationController != nil) {
             
+            self.mediaProfileNavigationController.view.hidden = NO;
+            self.blurView.hidden = NO;
+            
+            self.isMovingMediaProfile = YES;
+            
+            if (self.blurNeedsUpdateBeforeAnimation) {
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    [self.blurView updateAsynchronously:YES completion:^{
+                        self.blurNeedsUpdateBeforeAnimation = NO;
+                    }];
+                });
+            }
         }
-    
     }
-
-
 }
 
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
-    if (([gestureRecognizer isEqual:self.screenEdgePanRecognizer] && [otherGestureRecognizer isEqual:self.panGestureRecognizer]) || ([gestureRecognizer isEqual:self.panGestureRecognizer] && [otherGestureRecognizer isEqual:self.screenEdgePanRecognizer])) {
+    if ([gestureRecognizer isEqual:self.panGestureRecognizer] && [otherGestureRecognizer isEqual:self.screenEdgePanRecognizer]) {
         return YES;
     }
+    
     return NO;
 }
 
@@ -340,7 +396,7 @@
                                     userInfo:nil];
     
     if (self.mediaProfileNavigationController != nil && self.mediaProfileNavigationController.view.hidden == NO) {
-        self.constraintMediaProfileLeading.constant = -self.mediaProfileNavigationController.view.frame.size.width;
+        self.constraintMediaProfileLeading.constant = self.constraintConstantProfilePageOpened;
         
     }
     if (self.blurView) {
@@ -357,5 +413,9 @@
 
 }
 
+-(CGFloat)constraintConstantProfilePageOpened
+{
+    return -self.mediaProfileNavigationController.view.frame.size.width + MARGIN_TO_COLLECTION_VIEWS_RIGHT;
+}
 
 @end

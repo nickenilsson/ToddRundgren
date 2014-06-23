@@ -301,14 +301,31 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
     if ([collectionView isEqual:self.collectionViewResults]) {
         if (kind == UICollectionElementKindSectionHeader){
             SearchBarSectionHeader *header =[self.collectionViewResults dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:cellIdentifierSearchBarHeader forIndexPath:indexPath];
-            
+
             header.searchBar.delegate = self;
+            header.searchBar.barTintColor = [UIColor whiteColor];
+            header.searchBar.backgroundColor = [UIColor whiteColor];
+            header.searchBar.layer.borderWidth = 2;
+            header.searchBar.layer.borderColor = [[UIColor blackColor]CGColor];
+            header.searchBar.layer.cornerRadius = 10;
+            
+//            header.searchBar.layer.shadowColor = [[UIColor blackColor] CGColor];
+//            header.searchBar.layer.shadowOffset = CGSizeMake(1, -1);
+//            header.searchBar.layer.shadowOpacity = 0.6;
+//            header.searchBar.layer.shadowRadius = 1;
+//            header.searchBar.layer.shadowPath = [[UIBezierPath bezierPathWithRoundedRect:header.searchBar.bounds cornerRadius:10] CGPath];
+
+            
+            header.searchBar.backgroundImage = [UIImage imageWithColor:[UIColor clearColor]];
+            header.searchBar.layer.shouldRasterize = YES;
+            
             self.searchBar = header.searchBar;
 
             return header;
         }else{
             SupplementaryViewWithImage *header = [self.collectionViewResults dequeueReusableSupplementaryViewOfKind:CSStickyHeaderParallaxHeader withReuseIdentifier:cellIdentifierParallaxHeader forIndexPath:indexPath];
             header.imageView.image = [UIImage imageNamed:@"warner.jpg"];
+
             return header;
         }
        
@@ -400,15 +417,6 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     [self updateSearchRequestWithQuery:searchBar.text];
-    [UIView animateWithDuration:0.5 animations:^{
-        self.imageViewBackground.alpha = 0;
-    } completion:^(BOOL finished) {
-        self.imageViewBackground.hidden = YES;
-        self.layoutForResultsCollectionView.parallaxHeaderReferenceSize = CGSizeMake(0, 0);
-        
-        [self.layoutForResultsCollectionView invalidateLayout];
-        [_collectionViewResults scrollRectToVisible:CGRectMake(0, 0, _collectionViewResults.frame.size.width, _collectionViewResults.frame.size.height) animated:NO];
-    }];
     
 }
 
@@ -420,17 +428,6 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
 }
 
 - (IBAction)startPageButtonTapped:(id)sender {
-    
-    self.layoutForResultsCollectionView.parallaxHeaderReferenceSize = CGSizeMake(0, PARALLAX_HEADER_REFERENCE_HEIGHT);
-    [self.layoutForResultsCollectionView invalidateLayout];
-    
-    
-    self.imageViewBackground.hidden = NO;
-    [UIView animateWithDuration:0.5 animations:^{
-        self.imageViewBackground.alpha = 1;
-    } completion:^(BOOL finished) {
-        
-    }];
     
     [self.foorseeSessionManager GET:@"discover.json" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         [self setUpViewToDisplayDiscoverItems:responseObject];
@@ -447,10 +444,12 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
     CGFloat newWidth;
     if (self.filterSectionIsOpen) {
         newWidth = 0;
+        [self.buttonFilters setImage:[UIImage imageNamed:@"arrow (2).png"] forState:UIControlStateNormal];
         self.filterSectionIsOpen = NO;
     }
     else{
         newWidth = self.widthOfFilterSection;
+        [self.buttonFilters setImage:[UIImage imageNamed:@"arrow (3).png"] forState:UIControlStateNormal];
         self.filterSectionIsOpen = YES;
     }
     
@@ -461,6 +460,7 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
         [self.view layoutIfNeeded];
         
     }];
+    
     
     
 }
@@ -519,6 +519,12 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
         [self.collectionViewResults reloadData];
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection problems"
+                                                        message:[NSString stringWithFormat:@"%@", [error localizedDescription]]
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
         NSLog(@"Failure: %@", [error localizedDescription]);
     }];
 }
@@ -562,7 +568,7 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
     if ([scrollView isEqual:self.collectionViewResults]) {
         CGFloat verticalScrollDistance = scrollView.bounds.origin.y;
         self.constraintBackgroundTop.constant = -PARALLAX_MARGIN -(PARALLAX_SPEED_FRACTION * verticalScrollDistance);
-        CGFloat newAlpha = 1 - (0.0025 * verticalScrollDistance);
+        CGFloat newAlpha = 1 - (0.0030 * verticalScrollDistance);
         if (newAlpha < 0) {
             newAlpha = 0;
         }
@@ -576,6 +582,7 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
     if (!self.filterSectionIsOpen) {
         self.collectionViewFilters.hidden = YES;
     }
+    
     [self.layoutForResultsCollectionView invalidateLayout];
 }
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
@@ -588,7 +595,6 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
     }
     
 }
-
 
 - (void)didReceiveMemoryWarning
 {

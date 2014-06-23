@@ -39,6 +39,7 @@
 {
     self.layer.borderColor = [[UIColor colorFromHexString:COLOR_BORDER_IMAGES]CGColor];
     self.layer.borderWidth = WIDTH_BORDER_IMAGES;
+    self.layer.shouldRasterize = YES;
 }
 
 /*

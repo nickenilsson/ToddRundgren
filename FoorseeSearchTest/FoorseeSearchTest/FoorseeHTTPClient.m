@@ -8,9 +8,7 @@
 
 #import "FoorseeHTTPClient.h"
 
-@implementation FoorseeHTTPClient{
-    NSMutableDictionary *_currentSearchParameters;
-}
+@implementation FoorseeHTTPClient
 
 + (FoorseeHTTPClient *)sharedForeseeHTTPClient
 {
