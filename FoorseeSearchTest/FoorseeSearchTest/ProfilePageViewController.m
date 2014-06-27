@@ -9,10 +9,11 @@
 #import "ProfilePageViewController.h"
 #import "UIImage+ImageWithColor.h"
 #import "UIColor+ColorFromHex.h"
+#import <RTSpinKitView.h>
 
 @interface ProfilePageViewController () <UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintImageRight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintActivityIndicatorCenterX;
+@property (strong, nonatomic) RTSpinKitView *activityIndicator;
 
 @end
 
@@ -36,8 +37,8 @@
     [super viewDidLoad];
     _scrollableContentHeight = SCROLLVIEW_MARGIN_TOP_PROFILE_PAGE;
     
+    [self setUpActivityIndicator];
     [self.activityIndicator startAnimating];
-    self.constraintActivityIndicatorCenterX.constant = MARGIN_TO_COLLECTION_VIEWS_RIGHT/2;
 
     self.imageViewBackground.backgroundColor = [UIColor clearColor];
     self.constraintImageRight.constant = MARGIN_TO_COLLECTION_VIEWS_RIGHT;
@@ -58,13 +59,31 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewWillRotate) name:@"viewWillRotate" object:nil];
 
 }
+-(void) setUpActivityIndicator
+{
+    self.activityIndicator = [[RTSpinKitView alloc] initWithStyle:RTSpinKitViewStyleWave color:[UIColor colorFromHexString:COLOR_ACTIVITY_INDICATOR alpha:ALPHA_ACTIVITY_INDICATOR]];
+    [self.view addSubview:self.activityIndicator];
+    
+    self.activityIndicator.center = CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height/2);
+    [self.activityIndicator setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.activityIndicator attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1 constant:-MARGIN_TO_COLLECTION_VIEWS_RIGHT/2]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.activityIndicator attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [self.view layoutIfNeeded];
 
--(void)viewDidAppear:(BOOL)animated
+
+}
+
+-(void)viewWillAppear:(BOOL)animated
 {
     UINavigationController *parentNavigationController = (UINavigationController *)self.navigationController;
     if (parentNavigationController.viewControllers.count == 1) {
         self.buttonNavigateBack.hidden = YES;
     }
+
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
     [self updateScrollViewContentSize];
 }
 -(void) viewWillRotate

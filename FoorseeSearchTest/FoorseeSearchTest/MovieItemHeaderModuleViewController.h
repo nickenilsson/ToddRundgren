@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HeaderModuleViewController : UIViewController
+@interface MovieItemHeaderModuleViewController : UIViewController
 
+
+@property (strong, nonatomic) id data;
 @property (strong, nonatomic) NSURL *urlPoster;
 @property (strong, nonatomic) NSString *titleText;
 @property (strong, nonatomic) NSString *descriptionText;

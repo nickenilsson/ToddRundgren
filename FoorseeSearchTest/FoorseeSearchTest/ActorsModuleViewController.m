@@ -82,15 +82,18 @@ static NSString * const cellIdentifier = @"cellIdentifier";
     ImageCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     NSDictionary *cellData = self.data[indexPath.item];
     
-    NSURL *imageUrl = [NSURL URLWithString:cellData[@"images"][@"thumbnails"][0][@"url"]];
-    NSLog(@"%@", imageUrl);
+    NSURL *imageUrl = [NSURL URLWithString:cellData[@"portraitThumbnail"][@"url"]];
     if (imageUrl) {
         UIImage *placeholderImage = [UIImage imageWithColor:[UIColor blackColor]];
         [cell.imageView setImageWithURL:imageUrl placeholderImage:placeholderImage];
     }
     else{
-        cell.imageView.image = [UIImage imageWithColor:[UIColor grayColor]];
+        cell.imageView.image = [UIImage imageNamed:@"default_portrait.png"];
     }
+    cell.textView.hidden = NO;
+    cell.textView.textAlignment = NSTextAlignmentCenter;
+    cell.textView.font = [UIFont fontWithName:FONT_MAIN size:FONT_SIZE_DESCRIPTION_TEXT];
+    cell.textView.text = cellData[@"name"];
     
     return cell;
 }
@@ -112,15 +115,5 @@ static NSString * const cellIdentifier = @"cellIdentifier";
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

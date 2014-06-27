@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HeaderModuleViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MovieItemHeaderModuleViewController">
             <connections>
                 <outlet property="imageViewPoster" destination="Dfw-bb-ey0" id="4RK-qD-Yg4"/>
                 <outlet property="labelTitle" destination="XFZ-95-Pxi" id="GHU-15-33K"/>
@@ -34,7 +34,7 @@
                         <constraint firstAttribute="width" constant="230" id="Xlg-ot-15v"/>
                     </constraints>
                 </imageView>
-                <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XFZ-95-Pxi" userLabel="Label Title">
+                <label hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XFZ-95-Pxi" userLabel="Label Title">
                     <rect key="frame" x="258" y="20" width="516" height="35"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <constraints>

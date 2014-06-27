@@ -39,7 +39,8 @@
 }
 -(void) setUpCell
 {
-    self.layer.cornerRadius = RADIUS_BORDER_FILTER_CELL;
+//    self.layer.cornerRadius = RADIUS_BORDER_FILTER_CELL;
+//    self.layer.shouldRasterize = YES;
     self.label.font = [UIFont fontWithName:FONT_MAIN size:FONT_SIZE_FILTER_CELLS];
     
 }

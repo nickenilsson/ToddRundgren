@@ -66,3 +66,15 @@
 #define COCOAPODS_VERSION_MINOR_FXBlurView 6
 #define COCOAPODS_VERSION_PATCH_FXBlurView 1
 
+// SpinKit
+#define COCOAPODS_POD_AVAILABLE_SpinKit
+#define COCOAPODS_VERSION_MAJOR_SpinKit 1
+#define COCOAPODS_VERSION_MINOR_SpinKit 0
+#define COCOAPODS_VERSION_PATCH_SpinKit 1
+
+// XCDYouTubeVideoPlayerViewController
+#define COCOAPODS_POD_AVAILABLE_XCDYouTubeVideoPlayerViewController
+#define COCOAPODS_VERSION_MAJOR_XCDYouTubeVideoPlayerViewController 1
+#define COCOAPODS_VERSION_MINOR_XCDYouTubeVideoPlayerViewController 1
+#define COCOAPODS_VERSION_PATCH_XCDYouTubeVideoPlayerViewController 2
+

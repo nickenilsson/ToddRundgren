@@ -17,18 +17,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="236" height="221"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </imageView>
+                    <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C8G-dM-STv">
+                        <rect key="frame" x="0.0" y="171" width="236" height="50"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" red="0.15960427989130432" green="0.15960427989130432" blue="0.15960427989130432" alpha="0.66000000000000003" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="zX4-2Z-cpT"/>
+                        </constraints>
+                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="C8G-dM-STv" secondAttribute="trailing" id="5nd-fC-9fX"/>
                 <constraint firstItem="Qpm-I5-j3s" firstAttribute="leading" secondItem="0YI-NA-gQK" secondAttribute="leading" id="A4u-Q7-von"/>
                 <constraint firstAttribute="trailing" secondItem="Qpm-I5-j3s" secondAttribute="trailing" id="KJj-Fh-I2T"/>
+                <constraint firstItem="C8G-dM-STv" firstAttribute="leading" secondItem="0YI-NA-gQK" secondAttribute="leading" id="S7z-px-Dnv"/>
+                <constraint firstAttribute="bottom" secondItem="C8G-dM-STv" secondAttribute="bottom" id="fMZ-Pv-UWM"/>
                 <constraint firstItem="Qpm-I5-j3s" firstAttribute="top" secondItem="0YI-NA-gQK" secondAttribute="top" id="rUY-NF-HtI"/>
                 <constraint firstAttribute="bottom" secondItem="Qpm-I5-j3s" secondAttribute="bottom" id="vqT-wu-OTs"/>
             </constraints>
             <size key="customSize" width="236" height="221"/>
             <connections>
                 <outlet property="imageView" destination="Qpm-I5-j3s" id="6eG-yy-Lqc"/>
+                <outlet property="textView" destination="C8G-dM-STv" id="BPh-mX-MfM"/>
             </connections>
         </collectionViewCell>
     </objects>

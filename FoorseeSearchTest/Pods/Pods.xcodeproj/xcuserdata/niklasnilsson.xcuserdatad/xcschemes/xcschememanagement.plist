@@ -24,6 +24,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-FoorseeSearchTest-SpinKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-FoorseeSearchTest-XCDYouTubeVideoPlayerViewController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-FoorseeSearchTest.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,27 +42,37 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>19E7FB592408469B86E42B1D</key>
+		<key>093949BF4C0740AAB7C5DB18</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8517195277D649058E718744</key>
+		<key>1B1B6FAFA52743CEBF53B658</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>94B9BE17E1084835943A3C7C</key>
+		<key>B027391D0D574C8A89FF4C09</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A4CA57BA27E34F3BA6EA818F</key>
+		<key>CCD05E9CC09241ABBA65407C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DC9F91BC1B1B43F9857FB2BD</key>
+		<key>DCF13F60FD28429BA73CADA1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EBBECA7D367F4D9FBD3BD1FB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EFCB31B3F0244EF9A24A28C0</key>
 		<dict>
 			<key>primary</key>
 			<true/>

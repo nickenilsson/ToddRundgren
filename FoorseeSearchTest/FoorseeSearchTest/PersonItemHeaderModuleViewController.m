@@ -10,21 +10,21 @@
 #define HEIGHT_LABEL_DOD 20
 
 
-#import "CrewHeaderModuleViewController.h"
+#import "PersonItemHeaderModuleViewController.h"
 #import "UIImage+ImageWithColor.h"
 #import "UIImageView+AFNetworking.h"
 #import "UIColor+ColorFromHex.h"
 
 
 
-@interface CrewHeaderModuleViewController ()
+@interface PersonItemHeaderModuleViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewPoster;
 @property (weak, nonatomic) IBOutlet UILabel *labelArtistName;
 @property (strong, nonatomic) UIView *previousView;
 
 @end
 
-@implementation CrewHeaderModuleViewController
+@implementation PersonItemHeaderModuleViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -51,13 +51,15 @@
 -(void) setUpView
 {
     NSLog(@"%@", self.data[@"urlFriendlyName"]);
-    if (self.data[@"images"][@"thumbnails"][0][@"url"]) {
-        NSURL *imageUrl = [NSURL URLWithString:self.data[@"images"][@"thumbnails"][0][@"url"]];
+    if (self.data[@"portraitThumbnail"][@"url"]) {
+        NSURL *imageUrl = [NSURL URLWithString:self.data[@"portraitThumbnail"][@"url"]];
         [self.imageViewPoster setImageWithURL:imageUrl placeholderImage:[UIImage imageWithColor:[UIColor blackColor]]];
+    }else{
+        [self.imageViewPoster setImage:[UIImage imageNamed:@"default_portrait.png"]];
     }
     if (self.data[@"name"]) {
         self.labelArtistName.font = [UIFont fontWithName:FONT_MAIN size:FONT_SIZE_TITLE_IN_PROFILE_PAGE];
-        self.labelArtistName.textColor = [UIColor colorFromHexString:COLOR_HEX_TEXT_MAIN];
+        self.labelArtistName.textColor = [UIColor colorFromHexString:COLOR_HEX_TEXT_MAIN alpha:1.0];
         self.labelArtistName.text = self.data[@"name"];
     }
     
@@ -72,7 +74,7 @@
             [self addDateOfDeath];
         }
     }
-    if ([self.data[@"biography"] isKindOfClass:[NSString class]]) {
+    if ([self.data[@"biography"] isKindOfClass:[NSString class]] && ![self.data[@"biography"] isEqualToString:@""]) {
         
         [self addBiography];
     }
@@ -83,7 +85,7 @@
 {
     UILabel *label = [[UILabel alloc] init];
     label.font = [UIFont fontWithName:FONT_MAIN size:FONT_SIZE_BIRTH_DEATH_INFO];
-    label.textColor = [UIColor colorFromHexString:COLOR_HEX_TEXT_MAIN];
+    label.textColor = [UIColor colorFromHexString:COLOR_HEX_TEXT_MAIN alpha:1.0];
 
     [self.view addSubview:label];
     
@@ -111,7 +113,7 @@
 {
     UILabel *label = [[UILabel alloc] init];
     label.font = [UIFont fontWithName:FONT_MAIN size:FONT_SIZE_BIRTH_DEATH_INFO];
-    label.textColor = [UIColor colorFromHexString:COLOR_HEX_TEXT_MAIN];
+    label.textColor = [UIColor colorFromHexString:COLOR_HEX_TEXT_MAIN alpha:1.0];
     
     [self.view addSubview:label];
     
@@ -144,10 +146,15 @@
 
     [self.view addSubview:textView];
     textView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[previousView]-[textView]-(20)-|" options:0 metrics:nil views:@{@"previousView": self.previousView, @"textView": textView}]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:textView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.previousView attribute:NSLayoutAttributeBottom multiplier:1 constant:8]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:textView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.imageViewPoster attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+    
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[imageViewPoster]-[textView]-|" options:0 metrics:nil views:@{@"imageViewPoster": self.imageViewPoster, @"textView": textView}]];
+    
     textView.text = self.data[@"biography"];
-    textView.textColor = [UIColor colorFromHexString:COLOR_HEX_TEXT_MAIN];
+    textView.textColor = [UIColor colorFromHexString:COLOR_HEX_TEXT_MAIN alpha:1.0];
+    textView.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_DESCRIPTION_TEXT_BACKGROUND alpha: ALPHA_DESCRIPTION_BACKGROUND];
+
     
 }
 

@@ -9,8 +9,11 @@
 #import "PersonProfileViewController.h"
 #import "MediaProfileViewController.h"
 #import "UIColor+ColorFromHex.h"
-#import "CrewHeaderModuleViewController.h"
+#import "PersonItemHeaderModuleViewController.h"
 #import "MoviesModuleViewController.h"
+#import "UIImageView+BackgroundGradient.h"
+#import "UIImageView+AFNetworking.h"
+#import "UIImage+ImageWithColor.h"
 
 @interface PersonProfileViewController ()
 
@@ -18,7 +21,7 @@
 
 @implementation PersonProfileViewController {
 
-    CrewHeaderModuleViewController *_headerModuleViewController;
+    PersonItemHeaderModuleViewController *_headerModuleViewController;
     MoviesModuleViewController *_moviesModuleViewController;
 }
 
@@ -34,24 +37,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-}
--(void)didMoveToParentViewController:(UIViewController *)parent
-{
-        
 }
 
 -(void)setUpView
 {
+    
     if (self.data[@"name"]) {
-        _headerModuleViewController = [[CrewHeaderModuleViewController alloc] init];
+        _headerModuleViewController = [[PersonItemHeaderModuleViewController alloc] init];
         [self addModuleViewController:_headerModuleViewController ToScrollViewWithHeight:HEIGHT_HEADER_MODULE_PROFILE_PAGE];
         _headerModuleViewController.data = self.data;
     }
-    if (self.data[@"related"][@"movies"]) {
+    if (self.data[@"related"][@"movies"][@"isAvailable"] == [NSNumber numberWithBool:YES]) {
         _moviesModuleViewController = [[MoviesModuleViewController alloc]init];
         [self addModuleViewController:_moviesModuleViewController ToScrollViewWithHeight:HEIGHT_POSTER_THUMBNAILS];
-        _moviesModuleViewController.data = self.data[@"related"][@"movies"];
+        _moviesModuleViewController.data = self.data[@"related"][@"movies"][@"items"];
         _moviesModuleViewController.labelModuleTitle.text = @"Appearances";
     }
 }

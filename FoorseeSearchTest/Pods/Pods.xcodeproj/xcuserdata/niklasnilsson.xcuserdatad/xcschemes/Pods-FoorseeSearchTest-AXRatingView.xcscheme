@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8517195277D649058E718744"
+               BlueprintIdentifier = "1B1B6FAFA52743CEBF53B658"
                BuildableName = "libPods-FoorseeSearchTest-AXRatingView.a"
                BlueprintName = "Pods-FoorseeSearchTest-AXRatingView"
                ReferencedContainer = "container:Pods.xcodeproj">

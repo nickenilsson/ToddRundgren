@@ -95,9 +95,9 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
     
     self.filterSectionIsOpen = NO;
     self.constraintBackgroundTop.constant = - PARALLAX_MARGIN;
+
     
-    self.imageViewBackground.image = [UIImage imageNamed:@"warner.jpg"];
-    [self.imageViewBackground addGradientWithColor:[UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE]];
+    [self.imageViewBackground addGradientWithColor:[UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE alpha:1.0]];
     
     [self initialSetUpResultsCollectionView];
     [self initialSetUpFiltersCollectionView];
@@ -123,7 +123,7 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
 }
 -(void) initialSetUpResultsCollectionView
 {
-    self.view.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_RESULT_SECTION];
+    self.view.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_RESULT_SECTION alpha:1.0];
     self.collectionViewResults.dataSource = self;
     self.collectionViewResults.delegate = self;
     [self.collectionViewResults registerNib:[ImageCell nib] forCellWithReuseIdentifier:cellIdentifierImageCell];
@@ -141,7 +141,7 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
 
 -(void) initialSetUpFiltersCollectionView
 {
-    self.collectionViewFilters.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_FILTER_SECTION];
+    self.collectionViewFilters.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_FILTER_SECTION alpha:1.0];
     self.collectionViewFilters.dataSource = self;
     self.collectionViewFilters.delegate = self;
     [self.collectionViewFilters registerNib:[FilterCell nib] forCellWithReuseIdentifier:cellIdentifierFilterCell];
@@ -158,6 +158,9 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
 {
     self.isDisplayingDiscoverItems = YES;
     [self refineAndSaveDataFromResponse:responseObject];
+    NSString *imageUrlString = responseObject[@"layout"][@"backgroundImage"][@"url"];
+    UIImage *placeHolderImage = [UIImage imageWithColor:[UIColor blackColor]];
+    [self.imageViewBackground setImageWithURL:[NSURL URLWithString:imageUrlString] placeholderImage:placeHolderImage];
     [self sortLayoutItems];
     [self.collectionViewResults reloadData];
     [self.layoutForResultsCollectionView invalidateLayout];
@@ -172,7 +175,12 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
             [self.itemsDiscoverLayout addObject:layoutItem];
         }
     }
-    self.itemsDiscoverThumbnails = responseObject[@"content"][@"FEATURED_MOVIE"][@"items"];
+    if (responseObject[@"content"][@"FEATURED_MOVIE"] != nil) {
+        self.itemsDiscoverThumbnails = responseObject[@"content"][@"FEATURED_MOVIE"][@"items"];
+    }else{
+        self.itemsDiscoverThumbnails = responseObject[@"content"][@"SEARCH_MOVIE"][@"items"];
+    }
+    
     self.itemsDiscoverBanners = responseObject[@"content"][@"BANNER"][@"items"];
 }
 
@@ -232,7 +240,7 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
     NSDictionary *filter = self.itemsFilters[indexPath.section][@"terms"][indexPath.item];
     
     NSString *colorHex = self.itemsFilters[indexPath.section][@"colorCode"];
-    UIColor *filterColor = [UIColor colorFromHexString:colorHex];
+    UIColor *filterColor = [UIColor colorFromHexString:colorHex alpha:1.0];
     cell.backgroundColor = filterColor;
     
     if (filter[@"isActive"] == [NSNumber numberWithBool:YES]) {
@@ -286,7 +294,7 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
     NSDictionary *layoutItem = self.itemsDiscoverLayout[indexPath.item];
     NSString *typeString = layoutItem[@"type"];
     discoverItemType itemType;
-    if ([typeString isEqualToString:@"FEATURED_MOVIE"]) {
+    if ([typeString isEqualToString:@"FEATURED_MOVIE"] || [typeString isEqualToString:@"SEARCH_MOVIE"]) {
         itemType = THUMBNAIL;
     }
     else if ([typeString isEqualToString:@"BANNER"]){
@@ -308,13 +316,6 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
             header.searchBar.layer.borderWidth = 2;
             header.searchBar.layer.borderColor = [[UIColor blackColor]CGColor];
             header.searchBar.layer.cornerRadius = 10;
-            
-//            header.searchBar.layer.shadowColor = [[UIColor blackColor] CGColor];
-//            header.searchBar.layer.shadowOffset = CGSizeMake(1, -1);
-//            header.searchBar.layer.shadowOpacity = 0.6;
-//            header.searchBar.layer.shadowRadius = 1;
-//            header.searchBar.layer.shadowPath = [[UIBezierPath bezierPathWithRoundedRect:header.searchBar.bounds cornerRadius:10] CGPath];
-
             
             header.searchBar.backgroundImage = [UIImage imageWithColor:[UIColor clearColor]];
             header.searchBar.layer.shouldRasterize = YES;
@@ -458,16 +459,12 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
         [self.layoutForFiltersCollectionView invalidateLayout];
         [self.layoutForResultsCollectionView invalidateLayout];
         [self.view layoutIfNeeded];
-        
+
     }];
-    
-    
-    
 }
 
 -(NSString *) stringFromActiveSearchParameters
 {
-
     NSMutableString *tags = [NSMutableString stringWithString:@""];
     
     BOOL activeFiltersExists = NO;
@@ -585,6 +582,7 @@ static NSString * const cellIdentifierParallaxHeader = @"cellIdentifierParallaxH
     
     [self.layoutForResultsCollectionView invalidateLayout];
 }
+
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     if (self.filterSectionIsOpen) {

@@ -12,6 +12,7 @@
 #import "MediaPlayerViewController.h"
 #import "MainViewController.h"
 #import "UIColor+ColorFromHex.h"
+#import <XCDYouTubeVideoPlayerViewController.h>
 
 
 
@@ -21,7 +22,7 @@
 #define BLUR_VIEW_ALPHA 1.0f
 #define TRANSLATION_BACKGROUND 30
 
-@interface RootViewController () <ContentViewControllerDelegate, UIGestureRecognizerDelegate, MediaPlayerDelegate>
+@interface RootViewController () <ContentViewControllerDelegate, UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *contentViewPlaceholder;
 @property (strong, nonatomic) UIViewController *activeViewController;
@@ -35,6 +36,7 @@
 @property (nonatomic) CGFloat constraintConstantProfilePageClosed;
 @property (nonatomic) CGFloat lastTranslation;
 @property (nonatomic) FXBlurView *blurView;
+@property (strong, nonatomic) UIView *placeholderForMoviePlayer;
 
 @property (strong, nonatomic) UIButton *arrowButton;
 
@@ -42,6 +44,8 @@
 @property (nonatomic) BOOL isMovingMediaProfile;
 @property (nonatomic) BOOL isProfilePageOpen;
 @property (nonatomic) BOOL blurNeedsUpdateBeforeAnimation;
+
+@property (nonatomic) BOOL videoIsActive;
 
 @end
 
@@ -62,7 +66,7 @@
 {
     [super viewDidLoad];
 
-    self.view.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE];
+    self.view.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE alpha:1.0];
     
     MainViewController *searchViewController = [[MainViewController alloc]init];
     [self addContentViewController:searchViewController];
@@ -92,34 +96,28 @@
 
 -(void) videoSelected:(NSNotification *) notification
 {
-    if (self.mediaPlayerViewController == nil) {
-        [self addMediaPlayerViewController];
-    }
-    
+
     NSDictionary *userinfo = [notification userInfo];
-    NSString *youtubeVideoId = userinfo[@"youtubeVideoId"];
-    [self.mediaPlayerViewController playVideoWithId:youtubeVideoId];
+    
+    XCDYouTubeVideoPlayerViewController *videoPlayerViewController = [[XCDYouTubeVideoPlayerViewController alloc] initWithVideoIdentifier: userinfo[@"youtubeVideoId"]];
+    
+    [self presentMoviePlayerViewControllerAnimated:videoPlayerViewController];
+    self.videoIsActive = YES;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayerPlaybackDidFinish:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
     
 }
--(void) addMediaPlayerViewController
+
+- (void) moviePlayerPlaybackDidFinish:(NSNotification *)notification
 {
-    self.mediaPlayerViewController = [[MediaPlayerViewController alloc] init];
-    
-    [self addChildViewController:self.mediaPlayerViewController];
-    [self.mediaPlayerViewController didMoveToParentViewController:self];
-    [self.view addSubview:self.mediaPlayerViewController.view];
-    self.mediaPlayerViewController.delegate = self;
-    
-    self.mediaPlayerViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|[mediaPlayer(==%d)]", WIDTH_OF_MEDIA_PLAYER] options:0 metrics:nil views:@{@"mediaPlayer": self.mediaPlayerViewController.view}]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:[mediaPlayer(==%d)]|", HEIGHT_OF_MEDIA_PLAYER] options:0 metrics:nil views:@{@"mediaPlayer": self.mediaPlayerViewController.view}]];
-    [self.view layoutIfNeeded];
-}
--(void) closeMediaPlayer
-{
-    [self.mediaPlayerViewController removeFromParentViewController];
-    [self.mediaPlayerViewController.view removeFromSuperview];
-    self.mediaPlayerViewController = nil;
+    self.videoIsActive = NO;
+    NSError *error = notification.userInfo[XCDMoviePlayerPlaybackDidFinishErrorUserInfoKey];
+	if (error)
+	{
+		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:error.localizedDescription delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
+		[alertView show];
+	}
+
 }
 - (void)didReceiveMemoryWarning
 {
@@ -155,7 +153,6 @@
         [self.view layoutIfNeeded];
         [self addArrowButton];
         [self.arrowButton setImage:[UIImage imageNamed:@"arrow_profile_close.png"] forState:UIControlStateNormal ];
-        
     }
 
     if (self.blurNeedsUpdateBeforeAnimation) {
@@ -187,7 +184,6 @@
     } completion:^(BOOL finished) {
         if (finished) {
             self.isProfilePageOpen = YES;
-            
         }
     }];
     
@@ -260,7 +256,7 @@
         self.blurView = [[FXBlurView alloc] init];
         [self.blurView setDynamic:NO];
         
-        self.blurView.tintColor = [UIColor colorFromHexString:COLOR_HEX_RESULT_SECTION];
+        self.blurView.tintColor = [UIColor colorFromHexString:COLOR_HEX_RESULT_SECTION alpha:1.0];
         self.blurView.alpha = 0;
         self.blurView.frame = self.activeViewController.view.frame;
         self.blurView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -338,7 +334,6 @@
     }
     else if ([panGestureRecognizer state] == UIGestureRecognizerStateEnded || [panGestureRecognizer state] == UIGestureRecognizerStateFailed) {
         CGFloat velocityX =[panGestureRecognizer velocityInView:self.view].x;
-        NSLog(@"%f", velocityX);
         if (velocityX > 600) {
             [self closeAndHideMediaProfileNavigationController];
         }else if (velocityX < -200){
@@ -406,11 +401,20 @@
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
+    
 }
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
 
+}
+-(BOOL)shouldAutorotate
+{
+    if (self.videoIsActive) {
+        return NO;
+    }else{
+        return YES;
+    }
 }
 
 -(CGFloat)constraintConstantProfilePageOpened

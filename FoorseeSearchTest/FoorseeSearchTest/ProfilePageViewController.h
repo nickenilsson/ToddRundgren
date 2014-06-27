@@ -32,6 +32,5 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewBackground;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *backgroundConstraintTop;
 @property (weak, nonatomic) IBOutlet UIButton *buttonNavigateBack;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end

@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Niklas Nilsson. All rights reserved.
 //
 
-#define ITEM_WIDTH_TO_HEIGHT_RELATION 2.0f
+#define ITEM_WIDTH_TO_HEIGHT_RELATION 1.77f
 
 #import "ImagesModuleViewController.h"
 #import "ImageCell.h"

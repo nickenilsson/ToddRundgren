@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A4CA57BA27E34F3BA6EA818F"
+               BlueprintIdentifier = "CCD05E9CC09241ABBA65407C"
                BuildableName = "libPods-FoorseeSearchTest-CSStickyHeaderFlowLayout.a"
                BlueprintName = "Pods-FoorseeSearchTest-CSStickyHeaderFlowLayout"
                ReferencedContainer = "container:Pods.xcodeproj">

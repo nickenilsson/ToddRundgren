@@ -21,17 +21,23 @@ PODS:
   - AXRatingView (0.9.7)
   - CSStickyHeaderFlowLayout (0.2)
   - FXBlurView (1.6.1)
+  - SpinKit (1.0.1)
+  - XCDYouTubeVideoPlayerViewController (1.1.2)
 
 DEPENDENCIES:
   - AFNetworking (= 2.2.3)
   - AXRatingView (~> 0.9.7)
   - CSStickyHeaderFlowLayout
   - FXBlurView (~> 1.6)
+  - SpinKit (~> 1.0.1)
+  - XCDYouTubeVideoPlayerViewController (~> 1.1.2)
 
 SPEC CHECKSUMS:
   AFNetworking: 47947303319594706f48a55185ea95a95159ab94
   AXRatingView: 3e2d0125dbdb0b2f537e4c9b7d7239dd0fa07e33
   CSStickyHeaderFlowLayout: b6530bc5f95d656b6963ddb6dd692c0f61890a98
   FXBlurView: 1d01b96076d65027314d1be024c7506c292392aa
+  SpinKit: 563a00196a87d789b16e3592265f0dfa9c3fb9db
+  XCDYouTubeVideoPlayerViewController: d01e888e59ac7d27fff7ddd37053f4007a2ab650
 
 COCOAPODS: 0.32.1

@@ -1,0 +1,5 @@
+#import <Foundation/Foundation.h>
+@interface PodsDummy_Pods_FoorseeSearchTest_XCDYouTubeVideoPlayerViewController : NSObject
+@end
+@implementation PodsDummy_Pods_FoorseeSearchTest_XCDYouTubeVideoPlayerViewController
+@end

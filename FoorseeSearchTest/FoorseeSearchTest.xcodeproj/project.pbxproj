@@ -32,6 +32,7 @@
 		5034D0FF18FBD04B0023A02C /* FoorseeSearchTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5034D0FE18FBD04B0023A02C /* FoorseeSearchTestTests.m */; };
 		50539FF71924A6E400B5AE4C /* warner.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 50539FF61924A6E400B5AE4C /* warner.jpg */; };
 		5058763C19409797008CF20E /* UIImageView+BackgroundGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5058763B19409797008CF20E /* UIImageView+BackgroundGradient.m */; };
+		507AF1D119581DBB00EB458D /* default_portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 507AF1D019581DBB00EB458D /* default_portrait.png */; };
 		5089C480190FC5D900A5BA9A /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5089C47E190FC5D900A5BA9A /* RootViewController.m */; };
 		5089C481190FC5D900A5BA9A /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5089C47F190FC5D900A5BA9A /* RootViewController.xib */; };
 		5089F41F195078FF0034F0C3 /* arrow (2).png in Resources */ = {isa = PBXBuildFile; fileRef = 5089F41E195078FF0034F0C3 /* arrow (2).png */; };
@@ -52,12 +53,12 @@
 		50A8A6F718FD16EF008D2FF8 /* UIImage+ImageWithColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A8A6F618FD16EF008D2FF8 /* UIImage+ImageWithColor.m */; };
 		50A8A6FF18FD238E008D2FF8 /* FilterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A8A6FE18FD238E008D2FF8 /* FilterCell.m */; };
 		50A8A70118FD23A8008D2FF8 /* FilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50A8A70018FD23A8008D2FF8 /* FilterCell.xib */; };
-		50AB01351952D4B20050C4E5 /* CrewHeaderModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50AB01331952D4B20050C4E5 /* CrewHeaderModuleViewController.m */; };
-		50AB01361952D4B20050C4E5 /* CrewHeaderModuleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50AB01341952D4B20050C4E5 /* CrewHeaderModuleViewController.xib */; };
+		50AB01351952D4B20050C4E5 /* PersonItemHeaderModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50AB01331952D4B20050C4E5 /* PersonItemHeaderModuleViewController.m */; };
+		50AB01361952D4B20050C4E5 /* PersonItemHeaderModuleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50AB01341952D4B20050C4E5 /* PersonItemHeaderModuleViewController.xib */; };
 		50B63CA41923B0B80092304D /* SupplementaryViewWithImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B63CA31923B0B80092304D /* SupplementaryViewWithImage.m */; };
 		50B63CA61923B0CC0092304D /* SupplementaryViewWithImage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50B63CA51923B0CC0092304D /* SupplementaryViewWithImage.xib */; };
-		50BBCDB2190F98D20007941A /* HeaderModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BBCDB0190F98D20007941A /* HeaderModuleViewController.m */; };
-		50BBCDB3190F98D20007941A /* HeaderModuleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50BBCDB1190F98D20007941A /* HeaderModuleViewController.xib */; };
+		50BBCDB2190F98D20007941A /* MovieItemHeaderModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BBCDB0190F98D20007941A /* MovieItemHeaderModuleViewController.m */; };
+		50BBCDB3190F98D20007941A /* MovieItemHeaderModuleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50BBCDB1190F98D20007941A /* MovieItemHeaderModuleViewController.xib */; };
 		50CCC8FB1951759B00239970 /* arrow_profile_open (1).png in Resources */ = {isa = PBXBuildFile; fileRef = 50CCC8FA1951759B00239970 /* arrow_profile_open (1).png */; };
 		50CCC8FD19517BED00239970 /* arrow_profile_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 50CCC8FC19517BED00239970 /* arrow_profile_close.png */; };
 		50CCC8FF195189DC00239970 /* searchbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 50CCC8FE195189DC00239970 /* searchbar.png */; };
@@ -135,6 +136,7 @@
 		50539FF61924A6E400B5AE4C /* warner.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = warner.jpg; sourceTree = "<group>"; };
 		5058763A19409797008CF20E /* UIImageView+BackgroundGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+BackgroundGradient.h"; sourceTree = "<group>"; };
 		5058763B19409797008CF20E /* UIImageView+BackgroundGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+BackgroundGradient.m"; sourceTree = "<group>"; };
+		507AF1D019581DBB00EB458D /* default_portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_portrait.png; sourceTree = "<group>"; };
 		5089C47D190FC5D900A5BA9A /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		5089C47E190FC5D900A5BA9A /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		5089C47F190FC5D900A5BA9A /* RootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootViewController.xib; sourceTree = "<group>"; };
@@ -167,15 +169,15 @@
 		50A8A6FD18FD238E008D2FF8 /* FilterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterCell.h; sourceTree = "<group>"; };
 		50A8A6FE18FD238E008D2FF8 /* FilterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterCell.m; sourceTree = "<group>"; };
 		50A8A70018FD23A8008D2FF8 /* FilterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterCell.xib; sourceTree = "<group>"; };
-		50AB01321952D4B20050C4E5 /* CrewHeaderModuleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrewHeaderModuleViewController.h; sourceTree = "<group>"; };
-		50AB01331952D4B20050C4E5 /* CrewHeaderModuleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CrewHeaderModuleViewController.m; sourceTree = "<group>"; };
-		50AB01341952D4B20050C4E5 /* CrewHeaderModuleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CrewHeaderModuleViewController.xib; sourceTree = "<group>"; };
+		50AB01321952D4B20050C4E5 /* PersonItemHeaderModuleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonItemHeaderModuleViewController.h; sourceTree = "<group>"; };
+		50AB01331952D4B20050C4E5 /* PersonItemHeaderModuleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonItemHeaderModuleViewController.m; sourceTree = "<group>"; };
+		50AB01341952D4B20050C4E5 /* PersonItemHeaderModuleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonItemHeaderModuleViewController.xib; sourceTree = "<group>"; };
 		50B63CA21923B0B80092304D /* SupplementaryViewWithImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupplementaryViewWithImage.h; sourceTree = "<group>"; };
 		50B63CA31923B0B80092304D /* SupplementaryViewWithImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SupplementaryViewWithImage.m; sourceTree = "<group>"; };
 		50B63CA51923B0CC0092304D /* SupplementaryViewWithImage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SupplementaryViewWithImage.xib; sourceTree = "<group>"; };
-		50BBCDAF190F98D20007941A /* HeaderModuleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderModuleViewController.h; sourceTree = "<group>"; };
-		50BBCDB0190F98D20007941A /* HeaderModuleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderModuleViewController.m; sourceTree = "<group>"; };
-		50BBCDB1190F98D20007941A /* HeaderModuleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderModuleViewController.xib; sourceTree = "<group>"; };
+		50BBCDAF190F98D20007941A /* MovieItemHeaderModuleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieItemHeaderModuleViewController.h; sourceTree = "<group>"; };
+		50BBCDB0190F98D20007941A /* MovieItemHeaderModuleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieItemHeaderModuleViewController.m; sourceTree = "<group>"; };
+		50BBCDB1190F98D20007941A /* MovieItemHeaderModuleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MovieItemHeaderModuleViewController.xib; sourceTree = "<group>"; };
 		50CCC8FA1951759B00239970 /* arrow_profile_open (1).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_profile_open (1).png"; sourceTree = "<group>"; };
 		50CCC8FC19517BED00239970 /* arrow_profile_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_profile_close.png; sourceTree = "<group>"; };
 		50CCC8FE195189DC00239970 /* searchbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchbar.png; sourceTree = "<group>"; };
@@ -380,6 +382,7 @@
 		50A1FDEF191BB06500C2232A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				507AF1D019581DBB00EB458D /* default_portrait.png */,
 				50CCC90E1951988400239970 /* backbutton (2).png */,
 				50CCC90C1951980800239970 /* backbutton (1).png */,
 				50CCC90A1951976400239970 /* backbutton.png */,
@@ -409,12 +412,12 @@
 		50B1F47C190A915200DE3FC3 /* Content profile module views */ = {
 			isa = PBXGroup;
 			children = (
-				50BBCDAF190F98D20007941A /* HeaderModuleViewController.h */,
-				50BBCDB0190F98D20007941A /* HeaderModuleViewController.m */,
-				50BBCDB1190F98D20007941A /* HeaderModuleViewController.xib */,
-				50AB01321952D4B20050C4E5 /* CrewHeaderModuleViewController.h */,
-				50AB01331952D4B20050C4E5 /* CrewHeaderModuleViewController.m */,
-				50AB01341952D4B20050C4E5 /* CrewHeaderModuleViewController.xib */,
+				50BBCDAF190F98D20007941A /* MovieItemHeaderModuleViewController.h */,
+				50BBCDB0190F98D20007941A /* MovieItemHeaderModuleViewController.m */,
+				50BBCDB1190F98D20007941A /* MovieItemHeaderModuleViewController.xib */,
+				50AB01321952D4B20050C4E5 /* PersonItemHeaderModuleViewController.h */,
+				50AB01331952D4B20050C4E5 /* PersonItemHeaderModuleViewController.m */,
+				50AB01341952D4B20050C4E5 /* PersonItemHeaderModuleViewController.xib */,
 				5013383D1917DD8D00695E29 /* CollectionModuleViewController.h */,
 				5013383E1917DD8D00695E29 /* CollectionModuleViewController.m */,
 				5013383F1917DD8D00695E29 /* CollectionModuleViewController.xib */,
@@ -571,6 +574,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				507AF1D119581DBB00EB458D /* default_portrait.png in Resources */,
 				50CF5782191A2FB5006DF116 /* VideoThumbnailCell.xib in Resources */,
 				50F23F271945F31200B2A85F /* ASMediaFocusController.xib in Resources */,
 				50CCC90B1951976400239970 /* backbutton.png in Resources */,
@@ -593,12 +597,12 @@
 				50CCC90D1951980800239970 /* backbutton (1).png in Resources */,
 				50CCC90519518EF200239970 /* searchbar (3).png in Resources */,
 				508C0B501920E48B00829B79 /* SearchBarSectionHeader.xib in Resources */,
-				50AB01361952D4B20050C4E5 /* CrewHeaderModuleViewController.xib in Resources */,
+				50AB01361952D4B20050C4E5 /* PersonItemHeaderModuleViewController.xib in Resources */,
 				5089F41F195078FF0034F0C3 /* arrow (2).png in Resources */,
 				50CCC90F1951988400239970 /* backbutton (2).png in Resources */,
 				50A810C618FE77B4004FDF52 /* FilterSectionHeader.xib in Resources */,
 				5034D0EB18FBD04B0023A02C /* Images.xcassets in Resources */,
-				50BBCDB3190F98D20007941A /* HeaderModuleViewController.xib in Resources */,
+				50BBCDB3190F98D20007941A /* MovieItemHeaderModuleViewController.xib in Resources */,
 				50B63CA61923B0CC0092304D /* SupplementaryViewWithImage.xib in Resources */,
 				50A8A70118FD23A8008D2FF8 /* FilterCell.xib in Resources */,
 				50CCC8FB1951759B00239970 /* arrow_profile_open (1).png in Resources */,
@@ -671,7 +675,7 @@
 				5034D0E618FBD04B0023A02C /* AppDelegate.m in Sources */,
 				50CF5786191A4722006DF116 /* MediaPlayerViewController.m in Sources */,
 				50DA271A192B44C6003D681E /* PersonProfileViewController.m in Sources */,
-				50BBCDB2190F98D20007941A /* HeaderModuleViewController.m in Sources */,
+				50BBCDB2190F98D20007941A /* MovieItemHeaderModuleViewController.m in Sources */,
 				508A21C218FBDD1C006BBFEE /* ImageCell.m in Sources */,
 				50EBB2F8192201B100BC013A /* MainViewController.m in Sources */,
 				501338401917DD8D00695E29 /* CollectionModuleViewController.m in Sources */,
@@ -680,7 +684,7 @@
 				5034D0E918FBD04B0023A02C /* FoorseeSearchTest.xcdatamodeld in Sources */,
 				50A8A6F718FD16EF008D2FF8 /* UIImage+ImageWithColor.m in Sources */,
 				50CF5780191A2F9D006DF116 /* VideoThumbnailCell.m in Sources */,
-				50AB01351952D4B20050C4E5 /* CrewHeaderModuleViewController.m in Sources */,
+				50AB01351952D4B20050C4E5 /* PersonItemHeaderModuleViewController.m in Sources */,
 				50F23F281945F31200B2A85F /* ASMediaFocusManager.m in Sources */,
 				509D0A35191925E600173552 /* ImagesModuleViewController.m in Sources */,
 				509D0A2C1918CD8F00173552 /* SnappyFlowLayout.m in Sources */,

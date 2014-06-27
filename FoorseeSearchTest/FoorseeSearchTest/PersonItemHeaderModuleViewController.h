@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CrewHeaderModuleViewController : UIViewController
+@interface PersonItemHeaderModuleViewController : UIViewController
 
 @property (strong, nonatomic) id data;
 

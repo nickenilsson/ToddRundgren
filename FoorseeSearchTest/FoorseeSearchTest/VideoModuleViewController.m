@@ -12,7 +12,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "SnappyFlowLayout.h"
 
-#define WIDTH_TO_HEIGHT_RELATION 2.0f
+#define WIDTH_TO_HEIGHT_RELATION 1.77f
 
 static NSString * const cellIdentifier = @"cellIdentifier";
 

@@ -17,6 +17,7 @@
 @property (strong, nonatomic) NSMutableArray *shownFoorseeIds;
 @property (strong, nonatomic) FoorseeHTTPClient *foorseeSessionManager;
 
+
 @end
 
 @implementation MediaProfileNavigationController{
@@ -39,7 +40,7 @@
 
     self.foorseeSessionManager = [FoorseeHTTPClient sharedForeseeHTTPClient];
     self.navigationBarHidden = YES;
-    self.view.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE];
+    self.view.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE alpha:1.0];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(foorseeItemSelected:) name:@"foorseeItemSelected" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(foorseePersonSelected:) name:@"foorseePersonSelected" object:nil];
@@ -51,6 +52,7 @@
     NSString *foorseeId = notificationInfo[@"foorseeId"];
     [self presentMediaProfileForItemWithFoorseeId:foorseeId animated:YES];
 }
+
 -(void) foorseePersonSelected: (NSNotification *) notification
 {
     NSDictionary *notificationInfo = [notification userInfo];
@@ -58,6 +60,7 @@
     
     [self presentPersonProfileForItemWithFoorseeId:foorseeId];
 }
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -73,7 +76,7 @@
     newMediaProfileView.view.frame = self.view.frame;
     newMediaProfileView.delegate = self;
     newMediaProfileView.view.autoresizingMask = self.view.autoresizingMask;
-    newMediaProfileView.view.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE];
+    newMediaProfileView.view.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE alpha:1.0];
     
     [self addViewController:newMediaProfileView toControlledStackAnimation:shouldAnimate];
     [self.foorseeSessionManager GET:[NSString stringWithFormat:@"movies/id/%@.json",foorseeId] parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
@@ -94,11 +97,12 @@
     newPersonProfileViewController.view.frame = self.view.frame;
     newPersonProfileViewController.delegate = self;
     newPersonProfileViewController.view.autoresizingMask = self.view.autoresizingMask;
-    newPersonProfileViewController.view.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE];
+    newPersonProfileViewController.view.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE alpha:1.0];
     [self addViewController:newPersonProfileViewController toControlledStackAnimation:YES];
     
     [self.foorseeSessionManager GET:[NSString stringWithFormat:@"cast/id/%@.json",foorseeId] parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         newPersonProfileViewController.data = responseObject;
+        [self.shownFoorseeIds addObject:foorseeId];
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"%@", [error localizedDescription]);

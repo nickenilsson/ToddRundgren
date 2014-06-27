@@ -7,7 +7,7 @@
 //
 
 #import "MediaProfileViewController.h"
-#import "HeaderModuleViewController.h"
+#import "MovieItemHeaderModuleViewController.h"
 #import "ProvidersModuleViewController.h"
 #import "ActorsModuleViewController.h"
 #import "MoviesModuleViewController.h"
@@ -26,7 +26,7 @@
 
 @implementation MediaProfileViewController{
 
-    HeaderModuleViewController *_headerModuleViewController;
+    MovieItemHeaderModuleViewController *_headerModuleViewController;
     ProvidersModuleViewController *_providersModuleViewController;
     ActorsModuleViewController *_actorsModuleViewController;
     MoviesModuleViewController *_similarContentModuleViewController;
@@ -50,7 +50,7 @@
 
 -(void)didMoveToParentViewController:(UIViewController *)parent
 {
-    self.view.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE];
+    self.view.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE alpha:1.0];
     self.imageViewBackground.backgroundColor = [UIColor clearColor];
    
 }
@@ -60,7 +60,7 @@
     [super viewDidLoad];
     
     self.scrollView.delegate = self;
-    self.view.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE];
+    self.view.backgroundColor = [UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE alpha:1.0];
     
 }
 
@@ -70,22 +70,26 @@
     NSURL *backdropUrl = [NSURL URLWithString:self.data[@"backdropOriginal"][@"url"]];
     UIImage *placeholderImage = [UIImage imageWithColor:[UIColor clearColor]];
     [self.imageViewBackground setImageWithURL:backdropUrl placeholderImage:placeholderImage];
-    [self.imageViewBackground addGradientWithColor:[UIColor colorFromHexString:COLOR_HEX_RESULT_SECTION]];
-    
-    if (self.data[@"title"]) {
-        _headerModuleViewController = [[HeaderModuleViewController alloc] init];
-        [self addModuleViewController:_headerModuleViewController ToScrollViewWithHeight:HEIGHT_HEADER_MODULE_PROFILE_PAGE];
-        _headerModuleViewController.titleText = self.data[@"title"];
-        _headerModuleViewController.descriptionText = self.data[@"plot"];
-        
-        NSURL *posterUrl = [NSURL URLWithString:self.data[@"posterThumbnail"][@"url"]];
-        _headerModuleViewController.urlPoster = posterUrl;
-        if (self.data[@"rating"]) {
-            _headerModuleViewController.rating = self.data[@"rating"][@"score"];
-            
-        }
-        
-    }
+    [self.imageViewBackground addGradientWithColor:[UIColor colorFromHexString:COLOR_HEX_PROFILE_PAGE alpha:1.0]];
+//    
+//    if (self.data[@"title"]) {
+//        _headerModuleViewController = [[MovieItemHeaderModuleViewController alloc] init];
+//        [self addModuleViewController:_headerModuleViewController ToScrollViewWithHeight:HEIGHT_HEADER_MODULE_PROFILE_PAGE];
+//        _headerModuleViewController.titleText = self.data[@"title"];
+//        _headerModuleViewController.descriptionText = self.data[@"plot"];
+//        
+//        NSURL *posterUrl = [NSURL URLWithString:self.data[@"posterThumbnail"][@"url"]];
+//        _headerModuleViewController.urlPoster = posterUrl;
+//        if (self.data[@"rating"]) {
+//            _headerModuleViewController.rating = self.data[@"rating"][@"score"];
+//            
+//        }
+//        
+//    }
+    _headerModuleViewController = [[MovieItemHeaderModuleViewController alloc] init];
+    [self addModuleViewController:_headerModuleViewController ToScrollViewWithHeight:HEIGHT_HEADER_MODULE_PROFILE_PAGE];
+    _headerModuleViewController.data = self.data;
+
     if (self.data[@"products"]) {
         _providersModuleViewController = [[ProvidersModuleViewController alloc] init];
         [self addModuleViewController:_providersModuleViewController ToScrollViewWithHeight:HEIGHT_PROVIDERS_MODULE_PROFILE_PAGE];
@@ -109,15 +113,14 @@
         _videosModuleViewController = [[VideoModuleViewController alloc]init];
         [self addModuleViewController:_videosModuleViewController ToScrollViewWithHeight:HEIGHT_VIDEOS_MODULE_PROFILE_PAGE];
         _videosModuleViewController.data = self.data[@"related"][@"webVideos"][@"youtube"][@"items"];
-        
     }
-    if (self.data[@"backdrops"][@"thumbnails"]) {
-        _imagesModuleViewController = [[ImagesModuleViewController alloc]init];
-        [self addModuleViewController:_imagesModuleViewController ToScrollViewWithHeight:HEIGHT_IMAGES_MODULE_PROFILE_PAGE];
-        _imagesModuleViewController.dataThumbnails = self.data[@"meta"][@"backdrops"][@"thumbnails"];
-        _imagesModuleViewController.dataOriginals = self.data[@"meta"][@"backdrops"][@"originals"];
-
-    }
+    
+//    if (self.data[@"backdrops"][@"thumbnails"]) {
+//        _imagesModuleViewController = [[ImagesModuleViewController alloc]init];
+//        [self addModuleViewController:_imagesModuleViewController ToScrollViewWithHeight:HEIGHT_IMAGES_MODULE_PROFILE_PAGE];
+//        _imagesModuleViewController.dataThumbnails = self.data[@"meta"][@"backdrops"][@"thumbnails"];
+//        _imagesModuleViewController.dataOriginals = self.data[@"meta"][@"backdrops"][@"originals"];
+//    }
     
 }
 

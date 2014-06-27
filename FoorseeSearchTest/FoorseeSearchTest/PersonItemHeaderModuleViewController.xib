@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CrewHeaderModuleViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PersonItemHeaderModuleViewController">
             <connections>
                 <outlet property="imageViewPoster" destination="Lt1-xn-bOS" id="KN9-oI-M7H"/>
                 <outlet property="labelArtistName" destination="Pli-96-4Ij" id="ZeQ-Vk-aP6"/>
